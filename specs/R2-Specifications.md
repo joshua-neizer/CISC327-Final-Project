@@ -103,7 +103,7 @@
 
 #### 8) Test Case R2.8  - User name has to be longer than 2 characters and less than 20 characters.
 ##### Mocking: 
-- Template Mock
+- Mock backend.get_user to return to test_user instance
 ##### Actions:
 - open /register
 - enter name in `#name`
