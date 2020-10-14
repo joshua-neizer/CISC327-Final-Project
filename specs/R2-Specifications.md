@@ -1,45 +1,5 @@
 # R2 Specifications
 ## R2 /register [GET]
-
-Test Data:
-```
-test_user = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-    password2='Password123!'
-)
-```
-```
-test_user_bad_email = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-    password2='Password123!'
-)
-
-test_user_bad_password = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-    password2='Password123!'
-)
-
-test_user_bad_password2 = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-    password2='Password123!'
-)
-
-test_user_bad_diff_password = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-    password2='Password123!'
-)
-```
-
 ### 1) Test Case R2.1  - If the user has logged in, redirect back to the user profile page /
 #### Actions:
 - open /login
@@ -83,8 +43,6 @@ test_user = User(
     password2='Password123!'
 )
 ```
-<br />
-
 #### Actions:
 **Positive**
 - open /register
@@ -129,8 +87,6 @@ test_user_bad_password2 = User(
     password2=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 )
 ```
-<br />
-
 #### Actions:
 **Positive**
 - open /register
