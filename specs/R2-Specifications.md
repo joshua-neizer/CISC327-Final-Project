@@ -1,7 +1,6 @@
-# R2 Specifications
-## R2 /register [GET]
-### 1) Test Case R2.1  - If the user has logged in, redirect back to the user profile page /
-#### Actions:
+# R2 /register [GET] Specifications
+## 1) Test Case R2.1  - If the user has logged in, redirect back to the user profile page /
+### Actions:
 - open /login
 - enter test_user's email into element `#email`
 - enter test_user's password into element `#password`
@@ -11,18 +10,18 @@
 
 <br />
 
-### 2) Test Case R2.2  - otherwise, show the user registration page
-#### Actions:
+## 2) Test Case R2.2  - otherwise, show the user registration page
+### Actions:
 - open /register
 - validate that current page contains `#register` element
 - if fields exist, do nothing
 
 <br />
 
-### 3) Test Case R2.3  - 	the registration page shows a registration form requesting: email, user name, password, password2
-##### Mocking: 
+## 3) Test Case R2.3  - 	the registration page shows a registration form requesting: email, user name, password, password2
+### Mocking: 
 - Mock backend.get_user to return to test_user instance
-##### Actions:
+### Actions:
 - open /register
 - validate that current page contains the following elements
     - `#email`
@@ -31,10 +30,11 @@
     - `#password2`
 
 <br />
+<br />
 
-## R2 /register [POST]
-### 4) Test Case R2.4  - The registration form can be submitted as a [POST] request to the current URL (/register)
-#### Test Data:
+# R2 /register [POST] Specifications
+## 4) Test Case R2.4  - The registration form can be submitted as a [POST] request to the current URL (/register)
+### Test Data:
 ```
 test_user = User(
     email='test_frontend@test.com',
@@ -43,7 +43,7 @@ test_user = User(
     password2='Password123!'
 )
 ```
-#### Actions:
+### Actions:
 **Positive**
 - open /register
 - fill out input elements:
@@ -65,8 +65,8 @@ test_user = User(
 
 <br />
 
-### 5) Test Case R2.5  - Email, password, password2 all have to satisfy the same required as defined in R1
-#### Test Data:
+## 5) Test Case R2.5  - Email, password, password2 all have to satisfy the same required as defined in R1
+### Test Data:
 ```
 test_user = User(
     email='test_frontend@test.com',
@@ -87,7 +87,7 @@ test_user_bad_password2 = User(
     password2=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 )
 ```
-#### Actions:
+### Actions:
 **Positive**
 - open /register
 - fill out input elements:
@@ -141,8 +141,8 @@ test_user_bad_password2 = User(
 
 <br />
 
-### 6) Test Case R2.6  - Password and password2 have to be exactly the same
-#### Test Data:
+## 6) Test Case R2.6  - Password and password2 have to be exactly the same
+### Test Data:
 ```
 test_user = User(
     email='test_frontend@test.com',
@@ -155,7 +155,7 @@ test_user_bad_password2 = User(
     password2='Password123! '
 )
 ```
-#### Actions:
+### Actions:
 **Positive**
 - open /register
 - fill out input elements:
@@ -183,8 +183,8 @@ test_user_bad_password2 = User(
 <br />
 
 
-### 7) Test Case R2.7  - User name has to be non-empty, alphanumeric-only, and space allowed only if it is not the first or the last character.
-#### Test Data:
+## 7) Test Case R2.7  - User name has to be non-empty, alphanumeric-only, and space allowed only if it is not the first or the last character.
+### Test Data:
 ```
 test_user = User(
     email='test_frontend@test.com',
@@ -197,7 +197,7 @@ test_user_bad_name= User(
     name=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
 )
 ```
-#### Actions:
+### Actions:
 **Positive**
 - open /register
 - fill out input elements:
@@ -226,8 +226,8 @@ test_user_bad_name= User(
 <br />
 
 
-### 8) Test Case R2.8  - User name has to be longer than 2 characters and less than 20 characters.
-#### Test Data:
+## 8) Test Case R2.8  - User name has to be longer than 2 characters and less than 20 characters.
+### Test Data:
 ```
 test_user = User(
     email='test_frontend@test.com',
@@ -240,7 +240,7 @@ test_user_bad_name= User(
     name=['te', 'test_frontend1234567890']
 )
 ```
-#### Actions:
+### Actions:
 **Positive**
 - open /register
 - fill out input elements:
@@ -269,8 +269,8 @@ test_user_bad_name= User(
 <br />
 
 
-### 9) Test Case R2.9  - For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute)'
-##### Actions:
+## 9) Test Case R2.9  - For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute)'
+### Actions:
 - open /register
 - click element `input[type="submit"]`
 - validate that current page element `#registration-fail` has style `visibility: visible`
@@ -282,10 +282,10 @@ test_user_bad_name= User(
 
 <br />
 
-### 10) Test Case R2.10  - If the email already exists, show message 'this email has been ALREADY used'
-#### Mocking: 
+## 10) Test Case R2.10  - If the email already exists, show message 'this email has been ALREADY used'
+### Mocking: 
 - Mock backend.get_user to return a test_user instance
-#### Actions:
+### Actions:
 - open /register
 - fill out input elements:
     - `#email` with the email from test_user instance
@@ -301,8 +301,8 @@ test_user_bad_name= User(
 <br />
 
 
-### 11) Test Case R2.11  - If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page
-#### Test Data:
+## 11) Test Case R2.11  - If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page
+### Test Data:
 ```
 test_user = User(
     email='test_frontend@test.com',
@@ -311,7 +311,7 @@ test_user = User(
     password2='Password123!'
 )
 ```
-#### Actions:
+### Actions:
 - open /logout
 - open /register
 - fill out input elements:
