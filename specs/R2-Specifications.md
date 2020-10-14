@@ -19,7 +19,7 @@
 
 <br />
 
-#### 3) Test Case R2.3  - 	the registration page shows a registration form requesting: email, user name, password, password2
+### 3) Test Case R2.3  - 	the registration page shows a registration form requesting: email, user name, password, password2
 ##### Mocking: 
 - Mock backend.get_user to return to test_user instance
 ##### Actions:
@@ -269,7 +269,7 @@ test_user_bad_name= User(
 <br />
 
 
-#### 9) Test Case R2.9  - For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute)'
+### 9) Test Case R2.9  - For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute)'
 ##### Actions:
 - open /register
 - click element `input[type="submit"]`
@@ -278,7 +278,7 @@ test_user_bad_name= User(
 - validate that current page element `#registration-success` has style `visibility: hidden`
 - open /login
 - validate that current page has element `message` has style `visibility: visible`
-- validate that current page element `message` has innerHTML *"email, name, password, password2 format s incorrect"*
+- validate that current page element `message` has innerHTML *"email, name, password, password2 format is incorrect"*
 
 <br />
 
