@@ -33,18 +33,18 @@
 |   |   |   |   
 |   |   |   | 
 |   |   |   |  
-|   | R4.1.1  | Buy ticket name is alphanumeric - positive  |   
-|   | R4.1.2  | Buy ticket name is alphanumeric - negative - invalid character |
-|   | R4.1.3  | Buy ticket name is alphanumeric - negative - space before  |  
-|   | R4.1.4  | Buy ticket name is alphanumeric - negative - space after |   
-|   | R4.2.1  | Buy ticket name length is acceptable - positive | 
-|   | R4.2.2  | Buy ticket name length is acceptable - negative - ticket name too long |  
-|   | R4.3.1  | Buy ticket quantity is acceptable - positive  |   
-|   | R4.3.2  | Buy ticket quantity is acceptable - negative - quantity too small  | 
-|   | R4.3.3  | Buy ticket quantity is acceptable - negative - ticket quantity too great |  
-|   | R4.4.1  | Buy ticket price is acceptable - positive  |   
-|   | R4.4.2  | Buy ticket price is acceptable - negative - ticket price too small  | 
-|   | R4.4.3  | Buy ticket price is acceptable - negative - ticket quantity too great  |  
+| The name of the sold ticket has to be alphanumeric-only | R4.1.1  | Check if the selling actions succeed with an alphanumeric ticket name |   
+| The name of the sold ticket has to be alphanumeric-only | R4.1.2  | Check if the selling actions fail when the ticket name has a special character in it |
+| The name of the sold ticket cannot contain a space before  | R4.1.3  | Check if the selling actions fail when the ticket name begins with a space  |  
+| The name of the sold ticket cannot contain a space after  | R4.1.4  | Check if the selling actions fail when the ticket name ends with a space |   
+| The length of the sold ticket name has to be less than 60 characters | R4.2.1  | Check if selling actions suceed with a ticket name less than 60 characters | 
+| The length of the sold ticket name has to be less than 60 characters | R4.2.2  | Check if selling actions fail with a ticket name greater than 60 characters |  
+| The quantity of a sold ticket must be greater than 1 and less than 100 | R4.3.1  | Check if selling actions succeed with ticket quantity greater than 0 and less than 100 |   
+| The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.2  |  Check if selling actions fail with ticket quantity less than 1  | 
+| The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.3  | Check if selling actions fail with ticket quantity greater than 100 |  
+| The price of a sold ticket must be greater than 10 and less than 100  | R4.4.1  | Check if selling actions suceed with ticket price within range  |   
+| The price of a sold ticket must be greater than 10 and less than 100  | R4.4.2  |  Check if selling actions fail with ticket price less than 10  | 
+| The price of a sold ticket must be greater than 10 and less than 100 | R4.4.3  | Check if selling actions fail with ticket price greater than 100  |  
 |   | R4.5.1  |  |   
 |   | R4.5.2  |   | 
 |   | R4.5.3  |   |  
