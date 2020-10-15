@@ -70,26 +70,26 @@
 |   | R5.6.2  |   | 
 |   | R5.7.1  |   |   
 |   | R5.7.2  |   |
-|   | R6.1.1  |   |   
-|   | R6.1.2  |   | 
-|   | R6.1.3  |   |   
-|   | R6.1.4  |   | 
-|   | R6.1.5  |   | 
-|   | R6.2.1  |   |   
-|   | R6.2.2  |   |
-|   | R6.3.1  |   | 
-|   | R6.3.2  |   |   
-|   | R6.3.3  |   |
-|   | R6.4.1  |   | 
-|   | R6.4.2  |   |   
-|   | R6.4.3  |   |
-|   | R6.4.4  |   |
-|   | R6.5.1  |   |
-|   | R6.5.2  |   |
-|   | R6.6.1  |   |
-|   | R7.1.1  |   |
-|   | R7.1.1  |   |
-|   | R8  |   |
+| The name of the ticket has to be alphanumeric-only  | R6.1.1  |   |   
+| The name of the ticket has to be alphanumeric-only  | R6.1.2  |   | 
+| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.3  |   |   
+| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.4  |   | 
+| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.5  |   | 
+| The name of the ticket is no longer than 60 characters  | R6.2.1  |   |   
+| The name of the ticket is no longer than 60 characters  | R6.2.2  |   |
+| The quantity of the tickets has to be more than 0, and less than or equal to 100  | R6.3.1  |   | 
+| The quantity of the tickets has to be more than 0  | R6.3.2  |   |   
+| The quantity of the tickets has to be less than or equal to 100  | R6.3.3  |   |
+| The ticket name exists in the database  | R6.4.1  |   | 
+| The ticket name exists in the database  | R6.4.2  |   |   
+| The ticket quantity is more than the quantity requested to buy  | R6.4.3  |   |
+| he ticket quantity is more than the quantity requested to buy  | R6.4.4  |   |
+| The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)  | R6.5.1  |   |
+| The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)  | R6.5.2  |   |
+| For any errors, redirect back to / and show an error message  | R6.6.1  |   |
+| If the user has logged out, invalidate the current session and redirect to the login page.  | R7.1.1  |   |
+| After logging out, the user shouldn't be able to access restricted page  | R7.1.1  |   |
+| For any other requests except the ones specified in R1-7, return a 404 error  | R8  |   |
 
 
 
