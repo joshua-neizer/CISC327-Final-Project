@@ -98,5 +98,15 @@ In summary, a branch, `specifications`, was created to store all the test cases 
 
 # What was our understanding of how the chosen testing framework to test the front end? When and how will it be running directly on GitHub?
 
+Selenium is the testing framework designated for the front end.
+The testing scripts will be run through the use
+of GitHub's continuous integration (CI) features.
+These tests will be run on each pull request,
+such that the team will immediately know 
+if regressive changes are introduced.
+It should be noted that this testing framework
+is used strictly for integration testing,
+and does not have direct access to backend data.
+
 # How will we organize different test case code files? 
 We will make a folder for each requirement in the `/specs` folder. We will also structure our process the same way we organized the test case documentation.
