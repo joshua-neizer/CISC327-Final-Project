@@ -13,17 +13,23 @@
 |   | R1.9  |   | 
 |   | R1.10  |   |  
 |   | R1.11  |   |
-|   | R2.1  |   | 
-|   | R2.2  |   |  
-|   | R2.3  |   |   
-|   | R2.4  |   | 
-|   | R2.5  |   |  
-|   | R2.6  |   |   
-|   | R2.7  |   | 
-|   | R2.8  |   |  
-|   | R2.9  |   |   
-|   | R2.10  |   | 
-|   | R2.11  |   |  
+| 	If the user has logged in, redirect back to the user profile page /  | R2.1  | Checks if the user has logged in, and validates that user gets redirected to the user profile page /  | 
+| otherwise, show the user registration page  | R2.2  | validates that the registration page is shown  |  
+| the registration page shows a registration form requesting: email, user name, password, password2  | R2.3  | Checks that registration page has elements for email, user name, password and password2  |   
+|  The registration form can be submitted as a POST request to the current URL (/register) | R2.4  | Validates the registration form can be submitted and redirects user to /register   | 
+| 	Email, password, password2 all have to satisfy the same required as defined in R1  | R2.5.1  | Validates that if the correct email, password and password2, that the form can submits without errors  |  
+| 	Email, password, password2 all have to satisfy the same required as defined in R1  | R2.5.2  |  Validates that when an incorrect email is entered in the form, it will not submit and an corresponding error message is displayed |
+| 	Email, password, password2 all have to satisfy the same required as defined in R1  | R2.5.3  | Validates that when an incorrect password is entered in the form, it will not submit and an corresponding error message is displayed  |
+| 	Email, password, password2 all have to satisfy the same required as defined in R1  | R2.5.4  | Validates that when an incorrect password2 is entered in the form, it will not submit and an corresponding error message is displayed  |
+| 	Password and password2 have to be exactly the same  | R2.6.1  | Validates that if a password and password2 are the exact the same, the registration form submits successfully  |
+| 	Password and password2 have to be exactly the same  | R2.6.2  | Validates that if a password and password2 are not the exact the same, the registration form will not submit and an corresponding error message is displayed |      
+| User name has to be non-empty, alphanumeric-only, and space allowed only if it is not the first or the last character.  | R2.7.1  | Validates that if the correct user name is entered in the form, the registration form submits successfully   | 
+| User name has to be non-empty, alphanumeric-only, and space allowed only if it is not the first or the last character.  | R2.7.2  | Validates that if a user name that is not either non-empty, alphanumeric-only, or has a space as the first or last character, the registration form will not submit and an corresponding error message is displayed  | 
+| 	User name has to be longer than 2 characters and less than 20 characters.  | R2.8.1  | Validates that if the user name entered is great than 2 but less than 20 characters, the registration form submits successfully  | 
+| 	User name has to be longer than 2 characters and less than 20 characters.  | R2.8.2 |  Validates that if a user name is either less than 3 characters or greater than 19 characters is entered, the registration form will not submit and an corresponding error message is displayed |   
+| For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute)  | R2.9  | Validates that if there is any formatting errors, it redirects back to /login and shows the message '{} format is incorrect.'.format(the_corresponding_attribute)  |   
+| If the email already exists, show message 'this email has been ALREADY used'  | R2.10  | Validates that if the email already exists, show message 'this email has been ALREADY used'  | 
+| 	If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page  | R2.11  | Validates if no error regarding the inputs following the rules above, a new user is created, the balance is set to 5000, and it goes back to the /login page  |
 |   |   |   |   
 |   |   |   | 
 |   |   |   |  
