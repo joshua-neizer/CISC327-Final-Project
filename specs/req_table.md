@@ -66,10 +66,10 @@
 | The date of a updated ticket must be given in the format YYYYMMDD  | R5.5.1  | Check if updating actions suceed with ticket date in YYYYMMD format |   
 | The date of a updated ticket must be given in the format YYYYMMDD  | R5.5.2  | Check if updating actions fail with ticket date in alternative format | 
 | The date of a updated ticket must be given in the format YYYYMMDD | R5.5.3  | Check if updating actions fail with ticket date in YYYYDDMM format  |  
-|   | R5.6.1  |   |
-|   | R5.6.2  |   | 
-|   | R5.7.1  |   |   
-|   | R5.7.2  |   |
+| The ticket of the given name must exist | R5.6.1  | Check if updating actions suceed with existing ticket |
+| The ticket of the given name must exist | R5.6.2  | Check if updating actions fail with nonexistent ticket | 
+| For any errors, redirect back to `/` and show an error message | R5.7.1  | Check if updating actions suceed during a valid ticket update |   
+| For any errors, redirect back to `/` and show an error message | R5.7.2  | Check if updating actions fail during an invalid ticket update |
 | The name of the ticket has to be alphanumeric-only  | R6.1.1  | Check if the buying actions succeed with an alphanumeric ticket name |   
 | The name of the ticket has to be alphanumeric-only  | R6.1.2  | Check if the buying actions fail when the ticket name has a special character in it  | 
 | Space in the ticket name is only allowed if it is not the first or last character  | R6.1.3  | Check if the buying action succeeds when the ticket name has a space not as the first or last character  |   
