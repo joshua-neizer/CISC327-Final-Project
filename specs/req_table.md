@@ -33,24 +33,24 @@
 |   |   |   |   
 |   |   |   | 
 |   |   |   |  
-| The name of the sold ticket has to be alphanumeric-only | R4.1.1  | Check if the selling actions succeed with an alphanumeric ticket name |   
-| The name of the sold ticket has to be alphanumeric-only | R4.1.2  | Check if the selling actions fail when the ticket name has a special character in it |
-| The name of the sold ticket cannot contain a space before  | R4.1.3  | Check if the selling actions fail when the ticket name begins with a space  |  
-| The name of the sold ticket cannot contain a space after  | R4.1.4  | Check if the selling actions fail when the ticket name ends with a space |   
+| The name of the sold ticket has to be alphanumeric-only | R4.1.1 | Check if the selling actions succeed with an alphanumeric ticket name |   
+| The name of the sold ticket has to be alphanumeric-only | R4.1.2 | Check if the selling actions fail when the ticket name has a special character in it |
+| The name of the sold ticket cannot contain a space before  | R4.1.3 | Check if the selling actions fail when the ticket name begins with a space  |  
+| The name of the sold ticket cannot contain a space after  | R4.1.4 | Check if the selling actions fail when the ticket name ends with a space |   
 | The length of the sold ticket name has to be less than 60 characters | R4.2.1  | Check if selling actions suceed with a ticket name less than 60 characters | 
 | The length of the sold ticket name has to be less than 60 characters | R4.2.2  | Check if selling actions fail with a ticket name greater than 60 characters |  
 | The quantity of a sold ticket must be greater than 1 and less than 100 | R4.3.1  | Check if selling actions succeed with ticket quantity greater than 0 and less than 100 |   
-| The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.2  |  Check if selling actions fail with ticket quantity less than 1  | 
+| The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.2  | Check if selling actions fail with ticket quantity less than 1  | 
 | The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.3  | Check if selling actions fail with ticket quantity greater than 100 |  
 | The price of a sold ticket must be greater than 10 and less than 100  | R4.4.1  | Check if selling actions suceed with ticket price within range  |   
-| The price of a sold ticket must be greater than 10 and less than 100  | R4.4.2  |  Check if selling actions fail with ticket price less than 10  | 
+| The price of a sold ticket must be greater than 10 and less than 100  | R4.4.2  | Check if selling actions fail with ticket price less than 10  | 
 | The price of a sold ticket must be greater than 10 and less than 100 | R4.4.3  | Check if selling actions fail with ticket price greater than 100  |  
-|   | R4.5.1  |  |   
-|   | R4.5.2  |   | 
-|   | R4.5.3  |   |  
-|   | R4.6.1  |   |   
-|   | R4.6.2  |   | 
-|   | R4.7  |   |  
+| The date of a sold ticket must be given in the format YYYYMMDD  | R4.5.1  | Check if selling actions suceed with ticket date in YYYYMMD format |   
+| The date of a sold ticket must be given in the format YYYYMMDD  | R4.5.2  | Check if selling actions fail with ticket date in alternative format | 
+| The date of a sold ticket must be given in the format YYYYMMDD | R4.5.3  | Check if selling actions fail with ticket date in YYYYDDMM format  |  
+| For any errors, redirect back to `/` and show an error message | R4.6.1  | Check if selling actions succeed when valid ticket is sold  |   
+| For any errors, redirect back to `/` and show an error message  | R4.6.2  | Check if selling actions fail and are redirected when an invalid ticket is sold | 
+| The added new ticket information will be on the user profile page | R4.7  | Check if ticket is present on profile page after selling valid ticket  |  
 |   | R5.1.1  |   |   
 |   | R5.1.2  |   | 
 |   | R5.1.3  |   |  
