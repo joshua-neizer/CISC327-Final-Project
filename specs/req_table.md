@@ -33,43 +33,43 @@
 |   |   |   |   
 |   |   |   | 
 |   |   |   |  
-|   | R4.1.1  | Buy ticket name is alphanumeric - positive  |   
-|   | R4.1.2  | Buy ticket name is alphanumeric - negative - invalid character |
-|   | R4.1.3  | Buy ticket name is alphanumeric - negative - space before  |  
-|   | R4.1.4  | Buy ticket name is alphanumeric - negative - space after |   
-|   | R4.2.1  | Buy ticket name length is acceptable - positive | 
-|   | R4.2.2  | Buy ticket name length is acceptable - negative - ticket name too long |  
-|   | R4.3.1  | Buy ticket quantity is acceptable - positive  |   
-|   | R4.3.2  | Buy ticket quantity is acceptable - negative - quantity too small  | 
-|   | R4.3.3  | Buy ticket quantity is acceptable - negative - ticket quantity too great |  
-|   | R4.4.1  | Buy ticket price is acceptable - positive  |   
-|   | R4.4.2  | Buy ticket price is acceptable - negative - ticket price too small  | 
-|   | R4.4.3  | Buy ticket price is acceptable - negative - ticket quantity too great  |  
-|   | R4.5.1  |  |   
-|   | R4.5.2  |   | 
-|   | R4.5.3  |   |  
-|   | R4.6.1  |   |   
-|   | R4.6.2  |   | 
-|   | R4.7  |   |  
-|   | R5.1.1  |   |   
-|   | R5.1.2  |   | 
-|   | R5.1.3  |   |  
-|   | R5.1.4  |   |   
-|   | R5.2.1  |   | 
-|   | R5.2.2  |   |  
-|   | R5.3.1  |   |   
-|   | R5.3.2  |   | 
-|   | R5.3.3  |   |  
-|   | R5.4.1  |   |   
-|   | R5.4.2  |   | 
-|   | R5.4.3  |   |   
-|   | R5.5.1  |   | 
-|   | R5.5.2  |   | 
-|   | R5.5.3  |   |   
-|   | R5.6.1  |   |
-|   | R5.6.2  |   | 
-|   | R5.7.1  |   |   
-|   | R5.7.2  |   |
+| The name of the sold ticket has to be alphanumeric-only | R4.1.1 | Check if the selling actions succeed with an alphanumeric ticket name |   
+| The name of the sold ticket has to be alphanumeric-only | R4.1.2 | Check if the selling actions fail when the ticket name has a special character in it |
+| The name of the sold ticket cannot contain a space before  | R4.1.3 | Check if the selling actions fail when the ticket name begins with a space  |  
+| The name of the sold ticket cannot contain a space after  | R4.1.4 | Check if the selling actions fail when the ticket name ends with a space |   
+| The length of the sold ticket name has to be less than 60 characters | R4.2.1  | Check if selling actions suceed with a ticket name less than 60 characters | 
+| The length of the sold ticket name has to be less than 60 characters | R4.2.2  | Check if selling actions fail with a ticket name greater than 60 characters |  
+| The quantity of a sold ticket must be greater than 1 and less than 100 | R4.3.1  | Check if selling actions succeed with ticket quantity greater than 0 and less than 100 |   
+| The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.2  | Check if selling actions fail with ticket quantity less than 1  | 
+| The quantity of a sold ticket must be greater than 1 and less than 100  | R4.3.3  | Check if selling actions fail with ticket quantity greater than 100 |  
+| The price of a sold ticket must be greater than 10 and less than 100  | R4.4.1  | Check if selling actions suceed with ticket price within range  |   
+| The price of a sold ticket must be greater than 10 and less than 100  | R4.4.2  | Check if selling actions fail with ticket price less than 10  | 
+| The price of a sold ticket must be greater than 10 and less than 100 | R4.4.3  | Check if selling actions fail with ticket price greater than 100  |  
+| The date of a sold ticket must be given in the format YYYYMMDD  | R4.5.1  | Check if selling actions suceed with ticket date in YYYYMMD format |   
+| The date of a sold ticket must be given in the format YYYYMMDD  | R4.5.2  | Check if selling actions fail with ticket date in alternative format | 
+| The date of a sold ticket must be given in the format YYYYMMDD | R4.5.3  | Check if selling actions fail with ticket date in YYYYDDMM format  |  
+| For any errors, redirect back to `/` and show an error message | R4.6.1  | Check if selling actions succeed when valid ticket is sold  |   
+| For any errors, redirect back to `/` and show an error message  | R4.6.2  | Check if selling actions fail and are redirected when an invalid ticket is sold | 
+| The added new ticket information will be on the user profile page | R4.7  | Check if ticket is present on profile page after selling valid ticket  |  
+| The name of the updated ticket has to be alphanumeric-only | R5.1.1 | Check if the updating actions succeed with an alphanumeric ticket name |   
+| The name of the updated ticket has to be alphanumeric-only | R5.1.2 | Check if the updating actions fail when the ticket name has a special character in it |
+| The name of the updated ticket cannot contain a space before  | R5.1.3 | Check if the updating actions fail when the ticket name begins with a space  |  
+| The name of the updated ticket cannot contain a space after  | R5.1.4 | Check if the updating actions fail when the ticket name ends with a space |   
+| The length of the updated ticket name has to be less than 60 characters | R5.2.1  | Check if updating actions suceed with a ticket name less than 60 characters | 
+| The length of the updated ticket name has to be less than 60 characters | R5.2.2  | Check if updating actions fail with a ticket name greater than 60 characters |  
+| The quantity of a updated ticket must be greater than 1 and less than 100 | R5.3.1  | Check if updating actions succeed with ticket quantity greater than 0 and less than 100 |   
+| The quantity of a updated ticket must be greater than 1 and less than 100  | R5.3.2  | Check if updating actions fail with ticket quantity less than 1  | 
+| The quantity of a updated ticket must be greater than 1 and less than 100  | R5.3.3  | Check if updating actions fail with ticket quantity greater than 100 |  
+| The price of a updated ticket must be greater than 10 and less than 100  | R5.4.1  | Check if updating actions suceed with ticket price within range  |   
+| The price of a updated ticket must be greater than 10 and less than 100  | R5.4.2  | Check if updating actions fail with ticket price less than 10  | 
+| The price of a updated ticket must be greater than 10 and less than 100 | R5.4.3  | Check if updating actions fail with ticket price greater than 100  |  
+| The date of a updated ticket must be given in the format YYYYMMDD  | R5.5.1  | Check if updating actions suceed with ticket date in YYYYMMD format |   
+| The date of a updated ticket must be given in the format YYYYMMDD  | R5.5.2  | Check if updating actions fail with ticket date in alternative format | 
+| The date of a updated ticket must be given in the format YYYYMMDD | R5.5.3  | Check if updating actions fail with ticket date in YYYYDDMM format  |  
+| The ticket of the given name must exist | R5.6.1  | Check if updating actions suceed with existing ticket |
+| The ticket of the given name must exist | R5.6.2  | Check if updating actions fail with nonexistent ticket | 
+| For any errors, redirect back to `/` and show an error message | R5.7.1  | Check if updating actions suceed during a valid ticket update |   
+| For any errors, redirect back to `/` and show an error message | R5.7.2  | Check if updating actions fail during an invalid ticket update |
 | The name of the ticket has to be alphanumeric-only  | R6.1.1  | Check if the buying actions succeed with an alphanumeric ticket name |   
 | The name of the ticket has to be alphanumeric-only  | R6.1.2  | Check if the buying actions fail when the ticket name has a special character in it  | 
 | Space in the ticket name is only allowed if it is not the first or last character  | R6.1.3  | Check if the buying action succeeds when the ticket name has a space not as the first or last character  |   
