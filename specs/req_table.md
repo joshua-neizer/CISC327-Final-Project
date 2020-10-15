@@ -77,19 +77,19 @@
 | Space in the ticket name is only allowed if it is not the first or last character  | R6.1.5  | Check if the buying action fails when the ticket name has a space as the last character  | 
 | The name of the ticket is no longer than 60 characters  | R6.2.1  | Check if the buying action is successful if the ticket name is 60 characters long |   
 | The name of the ticket is no longer than 60 characters  | R6.2.2  | Check if the buying action is successful if the ticket name is more than 60 characters long  |
-| The quantity of the tickets has to be more than 0, and less than or equal to 100  | R6.3.1  |   | 
-| The quantity of the tickets has to be more than 0  | R6.3.2  |   |   
-| The quantity of the tickets has to be less than or equal to 100  | R6.3.3  |   |
-| The ticket name exists in the database  | R6.4.1  |   | 
-| The ticket name exists in the database  | R6.4.2  |   |   
-| The ticket quantity is more than the quantity requested to buy  | R6.4.3  |   |
-| he ticket quantity is more than the quantity requested to buy  | R6.4.4  |   |
-| The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)  | R6.5.1  |   |
-| The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)  | R6.5.2  |   |
-| For any errors, redirect back to / and show an error message  | R6.6.1  |   |
-| If the user has logged out, invalidate the current session and redirect to the login page.  | R7.1.1  |   |
-| After logging out, the user shouldn't be able to access restricted page  | R7.1.1  |   |
-| For any other requests except the ones specified in R1-7, return a 404 error  | R8  |   |
+| The quantity of the tickets has to be more than 0, and less than or equal to 100  | R6.3.1  | Check if buying action succeeds if ticket quantity is 3, which is greater than 0 but less than 101  | 
+| The quantity of the tickets has to be more than 0  | R6.3.2  | Check if buying action fails if ticket quantity is 0   |   
+| The quantity of the tickets has to be less than or equal to 100  | R6.3.3  | Check if buying action fails if ticket quantity is greater than 100  |
+| The ticket name exists in the database  | R6.4.1  | Check if buying action succeeds if ticket name exists in database | 
+| The ticket name exists in the database  | R6.4.2  | Check if buying action fails if ticket name does not exist in database  |   
+| The ticket quantity is more than the quantity requested to buy  | R6.4.3  | Check if buying action succeeds if ticket quantity is more than requested to buy  |
+| The ticket quantity is more than the quantity requested to buy  | R6.4.4  | Check if buying action fails if ticket quantity is less than requested to buy  |
+| The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)  | R6.5.1  | Check if buying action succeeds when the user has more balance than the ticket price * quantity + service fee (35%) + tax (5%) |
+| The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)  | R6.5.2  | Check if buying action fails when the user has less balance than the ticket price * quantity + service fee (35%) + tax (5%)  |
+| For any errors, redirect back to / and show an error message  | R6.6.1  | Check if an error occurs, it redirects to `/` and shows an error message  |
+| If the user has logged out, invalidate the current session and redirect to the login page.  | R7.1.1  | Check if the user has logged out, they're redirected to the login page and current session is invalidated  |
+| After logging out, the user shouldn't be able to access restricted page  | R7.1.2  | Check if after logging out, the user cannot access restricted pages  |
+| For any other requests except the ones specified in R1-7, return a 404 error  | R8  | Check if an unspecified request returns a 404 error  |
 
 
 
