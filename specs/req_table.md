@@ -33,15 +33,18 @@
 | For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute)  | R2.9  | Validates that if there is any formatting errors, it redirects back to /login and shows the message '{} format is incorrect.'.format(the_corresponding_attribute)  |   
 | If the email already exists, show message 'this email has been ALREADY used'  | R2.10  | Validates that if the email already exists, show message 'this email has been ALREADY used'  | 
 | 	If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page  | R2.11  | Validates if no error regarding the inputs following the rules above, a new user is created, the balance is set to 5000, and it goes back to the /login page  |
-|   |   |   |   
-|   |   |   | 
-|   |   |   |  
-|   |   |   |   
-|   |   |   | 
-|   |   |   |  
-|   |   |   |   
-|   |   |   | 
-|   |   |   |  
+| If the user is not logged in, redirect to login page  | R3.1  | Validates that if there is no user currently logged in, the login page is shown  |   
+| This page shows a header 'Hi {}'.format(user.name)  | R3.2  | Checks that the home page displays a header 'Hi {}.format(user.name)'  | 
+| This page shows user balance  | R3.3  | Checks that the profile page has an element which displays the user's balance  |  
+| This page shows a logout link, pointing to /logout - Positive  | R3.4.1  | Validates that the profile page has a clickable button that redirects to the /logout page with no errors  |   
+| This page shows a logout link, pointing to /logout - Negative  | R3.4.2  | Validates that the profile page has a clickable button that doesn't redirect to the correct /logout page and an error is shown  | 
+| This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price for tickets that are not expired  | R3.5  | Checks that the current page shows all available tickets and the information related to them  |  
+| This page contains a form that a user can submit new tickets for sell. Fields: name, quantity, price, expiration date  | R3.6  | Validates that the profile page has a fillable form to submit new tickets to sell  |   
+| This page contains a form that a user can buy new tickets. Fields: name, quantity  | R3.7  | Validates that the profile page has a fillable form to buy tickets currently for sale  | 
+| This page contains a form that a user can update existing tickets. Fields: name, quantity, price, expiration date  | R3.8  | Validates that the profile page has a fillable form to update information for pre-existing tickets  | 
+| The ticket-selling form can be posted to /sell  | R3.9  | Checks that submitting the form correctly adds the ticket to the database as visibile from /sell  |
+| The ticket-buying form can be posted to /buy  | R3.10  | Checks that submitting the form correctly purchases the ticket from the database and sends a request to /buy  | 
+| The ticket-selling form can be posted to /update  | R3.11  | Checks that submitting the form correctly updates the ticket in the database and sends a request to /update  |
 | The name of the sold ticket has to be alphanumeric-only | R4.1.1 | Check if the selling actions succeed with an alphanumeric ticket name |   
 | The name of the sold ticket has to be alphanumeric-only | R4.1.2 | Check if the selling actions fail when the ticket name has a special character in it |
 | The name of the sold ticket cannot contain a space before  | R4.1.3 | Check if the selling actions fail when the ticket name begins with a space  |  
