@@ -51,21 +51,21 @@
 | For any errors, redirect back to `/` and show an error message | R4.6.1  | Check if selling actions succeed when valid ticket is sold  |   
 | For any errors, redirect back to `/` and show an error message  | R4.6.2  | Check if selling actions fail and are redirected when an invalid ticket is sold | 
 | The added new ticket information will be on the user profile page | R4.7  | Check if ticket is present on profile page after selling valid ticket  |  
-|   | R5.1.1  |   |   
-|   | R5.1.2  |   | 
-|   | R5.1.3  |   |  
-|   | R5.1.4  |   |   
-|   | R5.2.1  |   | 
-|   | R5.2.2  |   |  
-|   | R5.3.1  |   |   
-|   | R5.3.2  |   | 
-|   | R5.3.3  |   |  
-|   | R5.4.1  |   |   
-|   | R5.4.2  |   | 
-|   | R5.4.3  |   |   
-|   | R5.5.1  |   | 
-|   | R5.5.2  |   | 
-|   | R5.5.3  |   |   
+| The name of the updated ticket has to be alphanumeric-only | R5.1.1 | Check if the updating actions succeed with an alphanumeric ticket name |   
+| The name of the updated ticket has to be alphanumeric-only | R5.1.2 | Check if the updating actions fail when the ticket name has a special character in it |
+| The name of the updated ticket cannot contain a space before  | R5.1.3 | Check if the updating actions fail when the ticket name begins with a space  |  
+| The name of the updated ticket cannot contain a space after  | R5.1.4 | Check if the updating actions fail when the ticket name ends with a space |   
+| The length of the updated ticket name has to be less than 60 characters | R5.2.1  | Check if updating actions suceed with a ticket name less than 60 characters | 
+| The length of the updated ticket name has to be less than 60 characters | R5.2.2  | Check if updating actions fail with a ticket name greater than 60 characters |  
+| The quantity of a updated ticket must be greater than 1 and less than 100 | R5.3.1  | Check if updating actions succeed with ticket quantity greater than 0 and less than 100 |   
+| The quantity of a updated ticket must be greater than 1 and less than 100  | R5.3.2  | Check if updating actions fail with ticket quantity less than 1  | 
+| The quantity of a updated ticket must be greater than 1 and less than 100  | R5.3.3  | Check if updating actions fail with ticket quantity greater than 100 |  
+| The price of a updated ticket must be greater than 10 and less than 100  | R5.4.1  | Check if updating actions suceed with ticket price within range  |   
+| The price of a updated ticket must be greater than 10 and less than 100  | R5.4.2  | Check if updating actions fail with ticket price less than 10  | 
+| The price of a updated ticket must be greater than 10 and less than 100 | R5.4.3  | Check if updating actions fail with ticket price greater than 100  |  
+| The date of a updated ticket must be given in the format YYYYMMDD  | R5.5.1  | Check if updating actions suceed with ticket date in YYYYMMD format |   
+| The date of a updated ticket must be given in the format YYYYMMDD  | R5.5.2  | Check if updating actions fail with ticket date in alternative format | 
+| The date of a updated ticket must be given in the format YYYYMMDD | R5.5.3  | Check if updating actions fail with ticket date in YYYYDDMM format  |  
 |   | R5.6.1  |   |
 |   | R5.6.2  |   | 
 |   | R5.7.1  |   |   
