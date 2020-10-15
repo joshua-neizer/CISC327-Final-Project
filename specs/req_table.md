@@ -2,17 +2,20 @@
 
 |  Specification | Test Case ID   |  Purpose  |
 |---|---|---|
-|   | R1.1|   |  
-|   |  R1.2|  |   
-|   | R1.3  |   |   
-|   |  R1.4 |   |  
-|   | R1.5   |   |   
-|   | R1.6  |   | 
-|   | R1.7   |   |  
-|   | R1.8  |   |   
-|   | R1.9  |   | 
-|   | R1.10  |   |  
-|   | R1.11  |   |
+|  If the user hasn't logged in, show the login page | R1.1| Validates that if there is no user currently logged in, the login page is shown  |  
+| The login page has a message that by default says 'please login'  |  R1.2| Checks that the login page shows a welcome message 'please login' |  
+| If the user has logged in, redirect to the user profile page  | R1.3  |  Validates that is a user is logged into the system, they are redirected to the profile page |   
+| The login page provides a login form which requests two fields: email and passwords - Positive  | R1.4.1| Validates that the login page correctly shows an email and password field if no errors occur  |
+| The login page provides a login form which requests two fields: email and passwords - Negative	| R1.4.2| Validates that when the login form is not loaded correctly with an email and password field, the page is reloaded	|  
+|  The login form can be submitted as a POST request to the current URL /login | R1.5   | Checks that the login form can be submitted as a POST request to the same URL  |   
+| Email and password both cannot be empty  | R1.6  | Checks that when a user attempts to login, the email and password fields cannot be empty  | 
+|  Email has to follow addr-spec defined in RFC 5322 - Positive | R1.7.1  |  Validates that the entered email follows RFC 5322 specifications | 
+|Email has to follow addr-spec defined in RFC 5322 - Negative	| R1.7.2  |	Validates that if the email entered does not follow RFC 5322 specifications, an appropriate error message is shown to the user|
+| Password has to meet the required complexity - Positive  | R1.8.1  |  Validates that the entered password meets the required complexity |   
+| Password has to meet the required complexity - Negative  | R1.8.2  | Validates that if the password entered does not meet the required complexity, an appropriate error message is shown to the user  | 
+| For any formatting errors, render the login page and show the message 'email/password format is incorrect'  | R1.9  |  Checks that if there are any formatting errors to the email and password, the login page is reloaded and the user is shown an error message | 
+| If email/password are correct, redirect to /  | R1.10  | Checks that if the email and password is correct, the user is redirected to the home page with no errors  |  
+| Otherwise, redirect to /login and show message 'email/password combination incorrect'  | R1.11  | If there are any errors outside of the above, the user is redirected to the /login page with the appropriate error message  |
 | 	If the user has logged in, redirect back to the user profile page /  | R2.1  | Checks if the user has logged in, and validates that user gets redirected to the user profile page /  | 
 | otherwise, show the user registration page  | R2.2  | validates that the registration page is shown  |  
 | the registration page shows a registration form requesting: email, user name, password, password2  | R2.3  | Checks that registration page has elements for email, user name, password and password2  |   
