@@ -70,13 +70,13 @@
 |   | R5.6.2  |   | 
 |   | R5.7.1  |   |   
 |   | R5.7.2  |   |
-| The name of the ticket has to be alphanumeric-only  | R6.1.1  |   |   
-| The name of the ticket has to be alphanumeric-only  | R6.1.2  |   | 
-| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.3  |   |   
-| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.4  |   | 
-| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.5  |   | 
-| The name of the ticket is no longer than 60 characters  | R6.2.1  |   |   
-| The name of the ticket is no longer than 60 characters  | R6.2.2  |   |
+| The name of the ticket has to be alphanumeric-only  | R6.1.1  | Check if the buying actions succeed with an alphanumeric ticket name |   
+| The name of the ticket has to be alphanumeric-only  | R6.1.2  | Check if the buying actions fail when the ticket name has a special character in it  | 
+| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.3  | Check if the buying action succeeds when the ticket name has a space not as the first or last character  |   
+| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.4  | Check if the buying action fails when the ticket name has a space as the first character  | 
+| Space in the ticket name is only allowed if it is not the first or last character  | R6.1.5  | Check if the buying action fails when the ticket name has a space as the last character  | 
+| The name of the ticket is no longer than 60 characters  | R6.2.1  | Check if the buying action is successful if the ticket name is 60 characters long |   
+| The name of the ticket is no longer than 60 characters  | R6.2.2  | Check if the buying action is successful if the ticket name is more than 60 characters long  |
 | The quantity of the tickets has to be more than 0, and less than or equal to 100  | R6.3.1  |   | 
 | The quantity of the tickets has to be more than 0  | R6.3.2  |   |   
 | The quantity of the tickets has to be less than or equal to 100  | R6.3.3  |   |
