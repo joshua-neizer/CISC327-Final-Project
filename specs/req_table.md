@@ -33,19 +33,19 @@
 |   |   |   |   
 |   |   |   | 
 |   |   |   |  
-|   | R4.1.1  |   |   
-|   | R4.1.2  |   | 
-|   | R4.1.3  |   |  
-|   | R4.1.4  |   |   
-|   | R4.2.1  |   | 
-|   | R4.2.2  |   |  
-|   | R4.3.1  |   |   
-|   | R4.3.2  |   | 
-|   | R4.3.3  |   |  
-|   | R4.4.1  |   |   
-|   | R4.4.2  |   | 
-|   | R4.4.3  |   |  
-|   | R4.5.1  |   |   
+|   | R4.1.1  | Buy ticket name is alphanumeric - positive  |   
+|   | R4.1.2  | Buy ticket name is alphanumeric - negative - invalid character |
+|   | R4.1.3  | Buy ticket name is alphanumeric - negative - space before  |  
+|   | R4.1.4  | Buy ticket name is alphanumeric - negative - space after |   
+|   | R4.2.1  | Buy ticket name length is acceptable - positive | 
+|   | R4.2.2  | Buy ticket name length is acceptable - negative - ticket name too long |  
+|   | R4.3.1  | Buy ticket quantity is acceptable - positive  |   
+|   | R4.3.2  | Buy ticket quantity is acceptable - negative - quantity too small  | 
+|   | R4.3.3  | Buy ticket quantity is acceptable - negative - ticket quantity too great |  
+|   | R4.4.1  | Buy ticket price is acceptable - positive  |   
+|   | R4.4.2  | Buy ticket price is acceptable - negative - ticket price too small  | 
+|   | R4.4.3  | Buy ticket price is acceptable - negative - ticket quantity too great  |  
+|   | R4.5.1  |  |   
 |   | R4.5.2  |   | 
 |   | R4.5.3  |   |  
 |   | R4.6.1  |   |   
