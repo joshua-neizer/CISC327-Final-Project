@@ -1,5 +1,6 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
+from qa327.password import is_password_complex
 import qa327.backend as bn
 
 """
@@ -31,8 +32,8 @@ def register_post():
     elif len(email) < 1:
         error_message = "Email format error"
 
-    elif len(password) < 1:
-        error_message = "Password not strong enough"
+    elif not is_password_complex(password):
+        error_message = "Password not strong enough. Uppercase, lowercase, and special characters, and len 6 required"
     else:
         user = bn.get_user(email)
         if user:
