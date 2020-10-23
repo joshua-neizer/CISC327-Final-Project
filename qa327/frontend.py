@@ -47,6 +47,10 @@ def register_post():
 
 @app.route('/login', methods=['GET'])
 def login_get():
+    if session['logged_in']:
+        # success! go back to the home page
+        # code 303 is to force a 'GET' request
+        return redirect('/', code=303)
     return render_template('login.html', message='Please Login')
 
 
