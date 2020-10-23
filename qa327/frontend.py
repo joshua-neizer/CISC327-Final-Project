@@ -49,7 +49,7 @@ def register_post():
 
 @app.route('/login', methods=['GET'])
 def login_get():
-    return render_template('login.html', message='Please login')
+    return render_template('login.html', message='Please Login')
 
 
 @app.route('/login', methods=['POST'])
