@@ -23,29 +23,26 @@ def register_post():
     name = request.form.get('name')
     password = request.form.get('password')
     password2 = request.form.get('password2')
-    error_message = None
 
+    def error_page(msg):
+        return render_template('register.html', message=msg)
 
     if password != password2:
-        error_message = "The passwords do not match"
+        return error_page("The passwords do not match")
 
-    elif len(email) < 1:
-        error_message = "Email format error"
+    if len(email) < 1:
+        return error_page("Email format error")
 
-    elif not is_password_complex(password):
-        error_message = "Password not strong enough. Uppercase, lowercase, and special characters, and len 6 required"
-    else:
-        user = bn.get_user(email)
-        if user:
-            error_message = "User exists"
-        elif not bn.register_user(email, name, password, password2):
-            error_message = "Failed to store user info."
-    # if there is any error messages when registering new user
-    # at the backend, go back to the register page.
-    if error_message:
-        return render_template('register.html', message=error_message)
-    else:
-        return redirect('/login')
+    if not is_password_complex(password):
+        return error_page("Password not strong enough. Uppercase, lowercase, and special characters, and len 6 required")
+    
+    user = bn.get_user(email)
+    if user:
+        return error_page("User exists")
+    if not bn.register_user(email, name, password, password2):
+        return error_page("Failed to store user info.")
+
+    return redirect('/login')
 
 
 @app.route('/login', methods=['GET'])
