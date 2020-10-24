@@ -60,8 +60,8 @@ def valid_rfc_5322(address):
 
 def is_valid_username(username):
     return (
-        # username is non empty
-        len(username)>0 and
+        # r2.8 requirement
+        2 < len(username) < 20
         # does not start or end with space
         username[0]!=' ' and
         username[-1]!=' ' and
