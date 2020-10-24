@@ -1,23 +1,23 @@
 import pytest
 from qa327.login_format import (
-    is_password_complex,is_valid_username,
-    valid_rfc_5322
+    is_valid_password,is_valid_username,
+    is_valid_email
 )
 
-def test_is_password_complex():
-    assert is_password_complex('Password!')
-    assert not is_password_complex('password!')
-    assert not is_password_complex('PASSWORD!')
-    assert not is_password_complex('Password')
+def test_is_valid_password():
+    assert is_valid_password('Password!')
+    assert not is_valid_password('password!')
+    assert not is_valid_password('PASSWORD!')
+    assert not is_valid_password('Password')
 
 def test_rfc_5322():
-    assert valid_rfc_5322('john.smith@gmail.com')
-    assert not valid_rfc_5322('john.smith.@gmail.com')
-    assert not valid_rfc_5322('john..smith.@gmail.com')
-    assert valid_rfc_5322('john.smith@g-mail.com')
-    assert not valid_rfc_5322('john.smith@-gmail.com')
-    assert not valid_rfc_5322('john.smith@gmail-.com')
-    assert not valid_rfc_5322('nonsense')
+    assert is_valid_email('john.smith@gmail.com')
+    assert not is_valid_email('john.smith.@gmail.com')
+    assert not is_valid_email('john..smith.@gmail.com')
+    assert is_valid_email('john.smith@g-mail.com')
+    assert not is_valid_email('john.smith@-gmail.com')
+    assert not is_valid_email('john.smith@gmail-.com')
+    assert not is_valid_email('nonsense')
 
 def test_is_valid_username():
     assert is_valid_username('johnsmith123')

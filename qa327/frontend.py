@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
-from qa327.login_format import is_password_complex
+from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
 import qa327.backend as bn
 
 """
@@ -35,8 +35,12 @@ def register_post():
     if len(email) < 1:
         return error_page("Email format error")
 
-    if not is_password_complex(password):
-        return error_page("Password not strong enough. Uppercase, lowercase, and special characters, and len 6 required")
+    if not is_valid_password(password):
+        return error_page("Invalid password. Uppercase, lowercase, and special characters required. Minimum length is 6.")
+    if not is_valid_username(name):
+        return error_page("Invalid username.")
+    if not is_valid_email(email):
+        return error_page("Invalid email.")
     
     user = bn.get_user(email)
     if user:

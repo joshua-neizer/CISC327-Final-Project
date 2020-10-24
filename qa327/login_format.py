@@ -1,6 +1,6 @@
 import re
 
-def is_password_complex(password):
+def is_valid_password(password):
     return (
         # min length
         len(password)>=6 and
@@ -49,7 +49,8 @@ def valid_rfc_domain(domain):
         )
     )
 
-def valid_rfc_5322(address):
+# obeys rfc 5322
+def is_valid_email(address):
     if address.count('@')!=1:
         return False
     local_part, domain = address.split('@')
@@ -61,7 +62,7 @@ def valid_rfc_5322(address):
 def is_valid_username(username):
     return (
         # r2.8 requirement
-        2 < len(username) < 20
+        2 < len(username) < 20 and
         # does not start or end with space
         username[0]!=' ' and
         username[-1]!=' ' and
