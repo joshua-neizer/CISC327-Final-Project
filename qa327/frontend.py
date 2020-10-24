@@ -83,6 +83,10 @@ def login_post():
     else:
         return render_template('login.html', message='email/password combination incorrect')
 
+@app.route('/buy',methods=['POST'])
+def buy_post():
+    return 'TODO implement buying'
+
 
 @app.route('/logout')
 def logout():
