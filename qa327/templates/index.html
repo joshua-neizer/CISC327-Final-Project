@@ -20,5 +20,20 @@
 {% endfor %}
 </div>
 
+<h2>Sell Tickets</h2>
+<form method="post">
+    <div class="form-group">
+      <label for="ticket-name">Ticket Name</label>
+      <input class="form-control" name="ticket-name" id="sell-ticket-name" required>
+      <label for="ticket-quantity">Ticket Quantity</label>
+      <input class="form-control" name="ticket-quantity" id="sell-ticket-quantity" required>
+      <label for="ticket-quantity">Ticket Price</label>
+      <input class="form-control" name="ticket-price" id="sell-ticket-price" required>
+      <label for="ticket-quantity">Expiration Date</label>
+      <input class="form-control" name="ticket-expiration-date" id="sell-ticket-expiration-date" required>
+      <input class="btn btn-lg btn-primary" type="submit" id="btn-submit" value="Sell">
+    </div>
+  </form>
+
 <a href='/logout'>logout</a>
 {% endblock %}
