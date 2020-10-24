@@ -60,8 +60,11 @@ def valid_rfc_5322(address):
 
 def is_valid_username(username):
     return (
+        # username is non empty
         len(username)>0 and
+        # does not start or end with space
         username[0]!=' ' and
         username[-1]!=' ' and
+        # is alphanumeric (plus space)
         bool(re.match(r'^[\w\d ]+$',username))  
     )
