@@ -53,8 +53,15 @@ def valid_rfc_5322(address):
     if address.count('@')!=1:
         return False
     local_part, domain = address.split('@')
-    print(local_part,domain)
     return (
         valid_rfc_local_part(local_part) and
         valid_rfc_domain(domain)
+    )
+
+def is_valid_username(username):
+    return (
+        len(username)>0 and
+        username[0]!=' ' and
+        username[-1]!=' ' and
+        bool(re.match(r'^[\w\d ]+$',username))  
     )
