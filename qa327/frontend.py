@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
-from qa327.password import is_password_complex
+from qa327.login_format import is_password_complex
 import qa327.backend as bn
 
 """
