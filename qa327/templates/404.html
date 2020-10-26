@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Page not found{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h2 id="error404">Sorry, this page could not be found</h2>
+
+<p>
+    Return to the homepage <a href='/'>here</a>
+</p>
+{% endblock %}

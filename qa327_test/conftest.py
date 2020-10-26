@@ -27,7 +27,7 @@ class ServerThread(threading.Thread):
         self.srv.shutdown()
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="module", autouse=False)
 def server():
     on_win = os.name == 'nt'
     with tempfile.TemporaryDirectory() as tmp_folder:

@@ -1,5 +1,6 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
+from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
 import qa327.backend as bn
 
 """
@@ -12,6 +13,8 @@ The html templates are stored in the 'templates' folder.
 
 @app.route('/register', methods=['GET'])
 def register_get():
+    if 'logged_in' in session:
+        return redirect('/', code=303)
     # templates are stored in the templates folder
     return render_template('register.html', message='')
 
@@ -22,34 +25,39 @@ def register_post():
     name = request.form.get('name')
     password = request.form.get('password')
     password2 = request.form.get('password2')
-    error_message = None
 
+    def error_page(msg):
+        return render_template('register.html', message=msg)
 
     if password != password2:
-        error_message = "The passwords do not match"
+        return error_page("The passwords do not match")
 
-    elif len(email) < 1:
-        error_message = "Email format error"
+    if len(email) < 1:
+        return error_page("Email format error")
 
-    elif len(password) < 1:
-        error_message = "Password not strong enough"
-    else:
-        user = bn.get_user(email)
-        if user:
-            error_message = "User exists"
-        elif not bn.register_user(email, name, password, password2):
-            error_message = "Failed to store user info."
-    # if there is any error messages when registering new user
-    # at the backend, go back to the register page.
-    if error_message:
-        return render_template('register.html', message=error_message)
-    else:
-        return redirect('/login')
+    if not is_valid_password(password):
+        return error_page("Invalid password. Uppercase, lowercase, and special characters required. Minimum length is 6.")
+    if not is_valid_username(name):
+        return error_page("Invalid username.")
+    if not is_valid_email(email):
+        return error_page("Invalid email.")
+    
+    user = bn.get_user(email)
+    if user:
+        return error_page("User exists")
+    if not bn.register_user(email, name, password, password2):
+        return error_page("Failed to store user info.")
+
+    return redirect('/login')
 
 
 @app.route('/login', methods=['GET'])
 def login_get():
-    return render_template('login.html', message='Please login')
+    if 'logged_in' in session:
+        # success! go back to the home page
+        # code 303 is to force a 'GET' request
+        return redirect('/', code=303)
+    return render_template('login.html', message='Please Login')
 
 
 @app.route('/login', methods=['POST'])
@@ -73,7 +81,11 @@ def login_post():
         # code 303 is to force a 'GET' request
         return redirect('/', code=303)
     else:
-        return render_template('login.html', message='login failed')
+        return render_template('login.html', message='email/password combination incorrect')
+
+@app.route('/buy',methods=['POST'])
+def buy_post():
+    return 'TODO implement buying'
 
 
 @app.route('/logout')
@@ -127,3 +139,7 @@ def profile(user):
     # front-end portals
     tickets = bn.get_all_tickets()
     return render_template('index.html', user=user, tickets=tickets)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'),404
