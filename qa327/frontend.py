@@ -1,18 +1,18 @@
+"""This file defines the front-end part of the service.
+
+It elaborates how the services should handle different
+http requests from the client (browser) through templating.
+The html templates are stored in the 'templates' folder.
+"""
+
 from flask import render_template, request, session, redirect
 from qa327 import app
 from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
 import qa327.backend as bn
 
-"""
-This file defines the front-end part of the service.
-It elaborates how the services should handle different
-http requests from the client (browser) through templating.
-The html templates are stored in the 'templates' folder. 
-"""
-
-
 @app.route('/register', methods=['GET'])
 def register_get():
+    """if a user is logged in redirect to the home page otherwise redirect to register"""
     if 'logged_in' in session:
         return redirect('/', code=303)
     # templates are stored in the templates folder
@@ -21,6 +21,7 @@ def register_get():
 
 @app.route('/register', methods=['POST'])
 def register_post():
+    """take in register form information and validate all stuff in form follows requirements"""
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
@@ -41,7 +42,7 @@ def register_post():
         return error_page("Invalid username.")
     if not is_valid_email(email):
         return error_page("Invalid email.")
-    
+
     user = bn.get_user(email)
     if user:
         return error_page("User exists")
@@ -53,6 +54,7 @@ def register_post():
 
 @app.route('/login', methods=['GET'])
 def login_get():
+    """if there is a user logged in, redirect to home page, otherwise redirect to login"""
     if 'logged_in' in session:
         # success! go back to the home page
         # code 303 is to force a 'GET' request
@@ -62,15 +64,16 @@ def login_get():
 
 @app.route('/login', methods=['POST'])
 def login_post():
+    """take in all login form information and validate using login_user then redirect to home"""
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
     if user:
         session['logged_in'] = user.email
         """
-        Session is an object that contains sharing information 
-        between browser and the end server. Typically it is encrypted 
-        and stored in the browser cookies. They will be past 
+        Session is an object that contains sharing information
+        between browser and the end server. Typically it is encrypted
+        and stored in the browser cookies. They will be past
         along between every request the browser made to this services.
 
         Here we store the user object into the session, so we can tell
@@ -83,23 +86,24 @@ def login_post():
     else:
         return render_template('login.html', message='email/password combination incorrect')
 
-@app.route('/buy',methods=['POST'])
+@app.route('/buy', methods=['POST'])
 def buy_post():
+    """TODO"""
     return 'TODO implement buying'
 
 
 @app.route('/logout')
 def logout():
+    """remove logged in user and redirect to home page"""
     if 'logged_in' in session:
         session.pop('logged_in', None)
     return redirect('/')
 
 
 def authenticate(inner_function):
-    """
-    :param inner_function: any python function that accepts a user object
+    """:param inner_function: any python function that accepts a user object
 
-    Wrap any python function and check the current session to see if 
+    Wrap any python function and check the current session to see if
     the user has logged in. If login, it will call the inner_function
     with the logged in user object.
 
@@ -132,14 +136,16 @@ def authenticate(inner_function):
 @app.route('/')
 @authenticate
 def profile(user):
-    # authentication is done in the wrapper function
-    # see above.
-    # by using @authenticate, we don't need to re-write
-    # the login checking code all the time for other
-    # front-end portals
+    """authentication is done in the wrapper function see above.
+
+    by using @authenticate, we don't need to re-write
+    the login checking code all the time for other
+    front-end portals
+    """
     tickets = bn.get_all_tickets()
     return render_template('index.html', user=user, tickets=tickets)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'),404
+    """handle 404 errors"""
+    return render_template('404.html')
