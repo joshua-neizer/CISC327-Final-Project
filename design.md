@@ -1,0 +1,56 @@
+# Design Document
+
+## Code Style
+
+To establish a consistent and clear coding style,
+the team has decided to follow 
+[PEP-8](https://www.python.org/dev/peps/pep-0008/)
+conventions.
+To guarantee that the team adheres to these guidelines,
+the PyLint tool will be used.
+A custom linter configuration will also be created from
+the default template,
+such that style rules can be adjusted to
+the team's preference and application.
+
+## Test Plan
+
+Test cases of different levels,
+such as frontend, backend, and integration tests
+will be organized into separate folders.
+Using this method,
+different levels of tests can be run in isolation.
+This will be especially useful for team members
+who are working on frontend and backend tests,
+and don't want the integration tests 
+slowing down their development.
+Given that each level of testing is independent,
+there are minimal restrictions on the testing order.
+However, frontend and backend testing should be
+attempted before integration testing,
+as these will find bugs more explicitly.
+Team members will be assigned as in charge of test cases
+by endpoint / function.
+If the team is unclear on who is in charge of
+a particular test case,
+then commands such as `git blame` can be used to determine
+who was working on a module.
+To minimize budget costs,
+CI will only be run on pull requests.
+As such, most of the testing will occur locally
+on the machines of the team members.
+By the time a pull request is made,
+it should ideally already be passing tests,
+though CI will confirm this.
+
+In terms of environments and tooling,
+the provided tools has been determined to be sufficient.
+That is, PyTest will be used for unit tests,
+and Selenium will be applied for integration testing.
+By choosing this standard workflow,
+reproducing test results in a cloud environment
+should be seamless.
+One thign that the team will have to pay attention to
+is explicitly adding dependencies to `requirements.txt`,
+such that third party libraries are also installed on
+the cloud environment.
