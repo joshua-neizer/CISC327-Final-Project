@@ -35,13 +35,6 @@ If the team is unclear on who is in charge of
 a particular test case,
 then commands such as `git blame` can be used to determine
 who was working on a module.
-To minimize budget costs,
-CI will only be run on pull requests.
-As such, most of the testing will occur locally
-on the machines of the team members.
-By the time a pull request is made,
-it should ideally already be passing tests,
-though CI will confirm this.
 
 In terms of environments and tooling,
 the provided tools has been determined to be sufficient.
@@ -54,3 +47,10 @@ One thign that the team will have to pay attention to
 is explicitly adding dependencies to `requirements.txt`,
 such that third party libraries are also installed on
 the cloud environment.
+To minimize budget costs,
+CI will only be run on pull requests.
+As such, most of the testing will occur locally
+on the machines of the team members.
+By the time a pull request is made,
+it should ideally already be passing tests,
+though CI will confirm this.
