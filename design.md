@@ -1,5 +1,25 @@
 # Design Document
 
+## Structure
+
+For the most part, the structure of this software
+will match the template.
+However,
+logic that can be easily separated,
+such as login / register validation,
+should be refractored into other files.
+Applying this pattern enforces 
+the Single Responsibility Principle,
+which minimizes convolution of concerns.
+In addition,
+to achieve the simplest possible implementation,
+small, pure functions are preferred to
+implicit object state.
+This also makes testing easier,
+as the outputs of each function are
+designed to be consistent.
+An overview of the functions created thus far is shown below.
+
 ## Code Style
 
 To establish a consistent and clear coding style,
