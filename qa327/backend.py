@@ -1,10 +1,7 @@
-from qa327.models import db, User
+"""This file defines all backend logic that interacts with database and other services"""
+
 from werkzeug.security import generate_password_hash, check_password_hash
-
-"""
-This file defines all backend logic that interacts with database and other services
-"""
-
+from qa327.models import db, User
 
 def get_user(email):
     """
@@ -50,4 +47,5 @@ def register_user(email, name, password, password2):
 
 
 def get_all_tickets():
+    """Going to be implemented when /sell and /buy is implemented"""
     return []

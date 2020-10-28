@@ -2,12 +2,10 @@
 import re
 
 def is_valid_password(password):
-    """Validate password with provided requirements
-
-    inputs:
-    password -- a string password
-    outputs:
-    true if the password is acceptable, false otherwise
+    """
+    Validate password with provided requirements
+    :param password: a string password
+    :return true if the password is acceptable, false otherwise
     """
     return (
         # min length
@@ -30,12 +28,10 @@ LOCAL_CHARACTERS = set(
 )
 
 def valid_rfc_local_part(local_part):
-    """Validate local part of email with RFC 5322 requirements
-
-    inputs:
-    local_part -- local part as string
-    output:
-    true if the email is acceptable, false otherwise
+    """
+    Validate local part of email with RFC 5322 requirements
+    :param local_part: local part as string
+    :return true if the email is acceptable, false otherwise
     """
     return (
         len(local_part) > 0 and
@@ -54,12 +50,10 @@ DOMAIN_CHARACTERS = set(
 )
 
 def valid_rfc_domain(domain):
-    """Validate domain part of email with RFC 5322 requirements
-
-    inputs:
-    domain -- domain as string
-    output:
-    true if the email is acceptable, false otherwise
+    """
+    Validate domain part of email with RFC 5322 requirements
+    :param domain: domain as string
+    :return true if the email is acceptable, false otherwise
     """
     return (
         len(domain) > 0 and
@@ -73,12 +67,10 @@ def valid_rfc_domain(domain):
 
 # obeys rfc 5322
 def is_valid_email(address):
-    """Validate email with RFC 5322 requirements and calls 2 helpers functions
-
-    inputs:
-    address -- email address as string
-    output:
-    true if the email is acceptable, false otherwise
+    """
+    Validate email with RFC 5322 requirements and calls 2 helpers functions
+    :param address: email address as string
+    :return true if the email is acceptable, false otherwise
     """
     if address.count('@') != 1:
         return False
@@ -89,12 +81,10 @@ def is_valid_email(address):
     )
 
 def is_valid_username(username):
-    """Validate username with provided requirements
-
-    inputs:
-    username -- a string
-    output:
-    true if the username is acceptable, false otherwise
+    """
+    Validate username with provided requirements
+    :param username: username of user trying to login
+    :return true if the username is acceptable, false otherwise
     """
     return (
         # r2.8 requirement
