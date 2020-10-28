@@ -117,7 +117,7 @@ def authenticate(inner_function):
 
     def wrapped_inner():
 
-        # check did we store the key in the session
+        # check if we stored the key in the session
         if 'logged_in' in session:
             email = session['logged_in']
             user = bn.get_user(email)
@@ -146,6 +146,6 @@ def profile(user):
     return render_template('index.html', user=user, tickets=tickets)
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found(error):
     """handle 404 errors"""
     return render_template('404.html')
