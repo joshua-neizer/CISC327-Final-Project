@@ -27,24 +27,28 @@ def register_post():
     password2 = request.form.get('password2')
 
     def error_page(msg):
-        return render_template('register.html', message=msg)
+        return render_template('login.html', message=msg)
 
     if password != password2:
         return error_page("The passwords do not match")
 
     if len(email) < 1:
-        return error_page("Email format error")
+        return error_page("Email format is incorrect")
 
     if not is_valid_password(password):
-        return error_page("Invalid password. Uppercase, lowercase, and special characters required. Minimum length is 6.")
+        return error_page("Password format is incorrect")
+
     if not is_valid_username(name):
-        return error_page("Invalid username.")
+        return error_page("Username format is incorrect")
+
     if not is_valid_email(email):
         return error_page("Invalid email.")
     
     user = bn.get_user(email)
+
     if user:
         return error_page("User exists")
+        
     if not bn.register_user(email, name, password, password2):
         return error_page("Failed to store user info.")
 
