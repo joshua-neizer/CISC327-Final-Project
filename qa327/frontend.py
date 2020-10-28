@@ -12,7 +12,10 @@ import qa327.backend as bn
 
 @app.route('/register', methods=['GET'])
 def register_get():
-    """if a user is logged in redirect to the home page otherwise redirect to register"""
+    """
+    If a user is logged in redirect to the home page, otherwise redirect to register
+    :return: home page if logged in, register page if not logged in
+    """
     if 'logged_in' in session:
         return redirect('/', code=303)
     # templates are stored in the templates folder
@@ -21,13 +24,24 @@ def register_get():
 
 @app.route('/register', methods=['POST'])
 def register_post():
-    """take in register form information and validate all stuff in form follows requirements"""
+    """
+    Intake register form information and validate that all entered information follows 
+    requirements R1 (login) and R2 (register).
+    :return: if requirement not met, error page with specific error message
+    :return: if requirements met, redirect to login page
+    """
+    
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
     password2 = request.form.get('password2')
 
     def error_page(msg):
+        """
+        Render error message on register page.
+        :param msg: text of the error message
+        :return: register page with error message
+        """
         return render_template('register.html', message=msg)
 
     if password != password2:
@@ -54,7 +68,7 @@ def register_post():
 
 @app.route('/login', methods=['GET'])
 def login_get():
-    """if there is a user logged in, redirect to home page, otherwise redirect to login"""
+    """If user is logged in, redirect to home page, otherwise redirect to login"""
     if 'logged_in' in session:
         # success! go back to the home page
         # code 303 is to force a 'GET' request
@@ -64,7 +78,7 @@ def login_get():
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    """take in all login form information and validate using login_user then redirect to home"""
+    """Intake all login form information and validate using login_user then redirect to home"""
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
@@ -94,7 +108,9 @@ def buy_post():
 
 @app.route('/logout')
 def logout():
-    """remove logged in user and redirect to home page"""
+    """When user logs out, remove logged in user and redirect to home page
+    :return: redirect to home page
+    """
     if 'logged_in' in session:
         session.pop('logged_in', None)
     return redirect('/')
@@ -147,5 +163,9 @@ def profile(user):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    """handle 404 errors"""
+    """
+    Handle 404 errors
+    :param error: error message
+    :return: display a 404 error page
+    """
     return render_template('404.html')
