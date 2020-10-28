@@ -18,7 +18,15 @@ implicit object state.
 This also makes testing easier,
 as the outputs of each function are
 designed to be consistent.
-An overview of the functions created thus far is shown below.
+
+TODO Josh describe the difference in responsibilities between frontend and backend.
+
+## Function Descriptions
+
+| Function Name | Description |
+| -- | -- |
+| is_valid_password() | Returns boolean indicating whether password is valid, according to R1 and R2 |
+| TODO Josh finish this table | |
 
 ## Code Style
 
