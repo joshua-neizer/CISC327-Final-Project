@@ -26,7 +26,12 @@ TODO Josh describe the difference in responsibilities between frontend and backe
 | Function Name | Description |
 | -- | -- |
 | is_valid_password() | Returns boolean indicating whether password is valid, according to R1 and R2 |
-| TODO Josh finish this table | |
+| valid_rfc_local_part()| Returns boolean indicating whether local portion of email address is valid, according to RFC 5322 | 
+| valid_rfc_domain() | Returns boolean indicating whether domain portion of email address is valid, according to RFC 5322 |
+| is_valid_email() | Returns boolean indicating if email address is valid according to RFC 5322 - uses 2 helper functions |
+| is_valid_username() | Returns boolean indicating whether username is valid according to R1 and R2 |
+| register_get() | Redirects user to home page if logged in, otherwise redirects them to register |
+| TODO: Josh finish the table please :) | |
 
 ## Code Style
 
