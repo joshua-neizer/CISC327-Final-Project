@@ -35,13 +35,31 @@ appropriate permissions such as valid passwords.
 
 ## Function Descriptions
 
+| File Name | Method | Intention |
+|--|--|--|
+| `frontend.py` | | |
+| | **register_get** |  If a user is logged in redirect to the home page, otherwise redirect to register <br> :return: home page if logged in, register page if not logged in  |
+| | **register_post** |  Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register).<br>:return: if requirement not met, error page with specific error message<br>:return: if requirements met, redirect to login page  |
+| | **login_get** |  If user is logged in, redirect to home page, otherwise redirect to login  |
+| | **login_post** |  Intake all login form information and validate using login_user then redirect to home  |
+| | **logout** |  When user logs out, remove logged in user and redirect to home page<br>:return: redirect to home page  |
+| | **authenticate** |  param inner_function: any python function that accepts a user object<br>Wrap any python function and check the current session to see if the user has logged in. If login, it will call the inner_function with the logged in user object. |
+| | **profile** |  authentication is done in the wrapper function see above  |
+| | **page_not_found** |  Handle 404 errors<br>:param error: error message<br>:return: display a 404 error page  |
+| `backend.py` | | |
+| | **get_user** | Get a user by a given email<br>:param email: the email of the user<br>:return: a user that has the matched email address |
+| | **get_user** | Check user authentication by comparing the password<br>:param email: the email of the user<br>:param password: the password input<br>:return: the user if login succeeds |
+| | **get_user** | Register the user to the database<br>:param email: the email of the user<br>:param name: the name of the user<br>:param password: the password of user<br>:param password2: another password input to make sure the input is correct<br>:return: an error message if there is any, or None if register succeeds |
+| `login_format.py` | | |
+| | **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
+| | **valid_rfc_local_part()** | Returns a boolean indicating whether the local part of an email is valid, according to RFC 5322 requirements  |
+| | **valid_rfc_domain()** | Returns a boolean indicating whether the domain part of an email is valid, according to RFC 5322 requirements |
+| | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the helper functions `valid_rfc_local_part()` and `valid_rfc_domain()` respectively  |
+| | **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
+
 | Function Name | Function Description |
 | -- | -- |
-| **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
-| **valid_rfc_local_part()** | Returns a boolean indicating whether the local part of an email is valid, according to RFC 5322 requirements  |
-| **valid_rfc_domain()** | Returns a boolean indicating whether the domain part of an email is valid, according to RFC 5322 requirements |
-| **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the helper functions `valid_rfc_local_part()` and `valid_rfc_domain()` respectively  |
-| **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
+
 
 ## Program Diagram
 <div style="display: flex; align-items: center; justify-content: center; padding: 20px 0px 50px 0px">
