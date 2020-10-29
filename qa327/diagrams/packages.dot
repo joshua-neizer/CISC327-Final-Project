@@ -1,0 +1,17 @@
+digraph "packages" {
+charset="utf-8"
+rankdir=BT
+"0" [label="qa327", shape="box"];
+"1" [label="qa327.__main__", shape="box"];
+"2" [label="qa327.backend", shape="box"];
+"3" [label="qa327.frontend", shape="box"];
+"4" [label="qa327.login_format", shape="box"];
+"5" [label="qa327.models", shape="box"];
+"1" -> "0" [arrowhead="open", arrowtail="none"];
+"1" -> "3" [arrowhead="open", arrowtail="none"];
+"2" -> "5" [arrowhead="open", arrowtail="none"];
+"3" -> "0" [arrowhead="open", arrowtail="none"];
+"3" -> "2" [arrowhead="open", arrowtail="none"];
+"3" -> "4" [arrowhead="open", arrowtail="none"];
+"5" -> "0" [arrowhead="open", arrowtail="none"];
+}

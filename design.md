@@ -7,7 +7,7 @@ will match the template.
 However,
 logic that can be easily separated,
 such as login / register validation,
-should be refractored into other files.
+should be refactored into other files.
 Applying this pattern enforces 
 the Single Responsibility Principle,
 which minimizes convolution of concerns.
@@ -19,19 +19,35 @@ This also makes testing easier,
 as the outputs of each function are
 designed to be consistent.
 
-TODO Josh describe the difference in responsibilities between frontend and backend.
+The front end of the program has the responsibilities of being the interface with the user. 
+Here, the user is able to input the their information to login into the database,
+or register as a new user. The frontend has the responsibility to ensure validity
+in all of the inputted information, and ensures that the information abides by
+certain format standards, as outlined in the assignment, such that data storage
+remains consistent. The frontend does not interact with the database, but requests
+information through the backend.
+
+The backend of the program has the responsibility of writing and reading 
+information to and from the database. The backend starts new sessions, saves new
+users, updates user information and will retrieve user information. Moreover, the
+backend is responsible for database security as no information can be accessed with 
+appropriate permissions such as valid passwords.
 
 ## Function Descriptions
 
-| Function Name | Description |
+| Function Name | Function Description |
 | -- | -- |
-| is_valid_password() | Returns boolean indicating whether password is valid, according to R1 and R2 |
-| valid_rfc_local_part()| Returns boolean indicating whether local portion of email address is valid, according to RFC 5322 | 
-| valid_rfc_domain() | Returns boolean indicating whether domain portion of email address is valid, according to RFC 5322 |
-| is_valid_email() | Returns boolean indicating if email address is valid according to RFC 5322 - uses 2 helper functions |
-| is_valid_username() | Returns boolean indicating whether username is valid according to R1 and R2 |
-| register_get() | Redirects user to home page if logged in, otherwise redirects them to register |
-| TODO: Josh finish the table please :) | |
+| **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
+| **valid_rfc_local_part()** | Returns a boolean indicating whether the local part of an email is valid, according to RFC 5322 requirements  |
+| **valid_rfc_domain()** | Returns a boolean indicating whether the domain part of an email is valid, according to RFC 5322 requirements |
+| **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the helper functions `valid_rfc_local_part()` and `valid_rfc_domain()` respectively  |
+| **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
+
+## Program Diagram
+<div style="width: 100%; margin: auto; padding: 20px 0px 50px 0px">
+<img style="height: 350px;" src="qa327/diagrams/qa327.png" />
+<img style="padding-left: 40px; height: 350px;" src="qa327/diagrams/qa327_packages.png" />
+</div>
 
 ## Code Style
 
@@ -45,6 +61,14 @@ A custom linter configuration will also be created from
 the default template,
 such that style rules can be adjusted to
 the team's preference and application.
+
+### Code Style Examples
+* Snake case for variable names
+* Using four spaces for indentation
+* Limit all lines to a maximum of 79 characters
+* All constant variables have format `CONSTANT*NAME`
+* All boolean values have format `is_NAME`
+* All lists variables are plural, .i.e `users`
 
 ## Test Plan
 
