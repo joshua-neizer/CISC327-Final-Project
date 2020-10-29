@@ -60,14 +60,16 @@ appropriate permissions such as valid passwords.
 
 ### Description
 
-The **diagram to the left** shows the relationship between the classes used in the program. The over arching object is the user object which has the attributes balance, email, id, name and password. These attributes contain the users account balance, the email for their account, the user id name, the name of the individual associated with that account, and their account password, respectively.
+The **diagram to the left** details the attributes of the user object. This is the main object and has the attributes balance, email, id, name and password. These attributes contain the user's account balance, the email for their account, the user id name, the name of the individual associated with that account, and their account password, respectively. 
 
 The **diagram to the right** shows the relationships between packages in the program. The main program `qa327`, inherits methods and functions, from almost all other programs. The outlier is `login_format`, as it is used to validate inputted user information within the `frontend` program.
+
+As a whole, the `__main__.py` program will instantiate the website by running the server. When the user interacts with the website, `frontend.py` will handle the various http requests from the client by redirecting the user to the appropriate page and posting requests for them. Whenever the user enters information into the client, `frontend.py` uses functions defined in `login_format.py` to ensure correct formatting and validity of information as outlined in the requirements. `frontend.py` intakes information and passes it to `backend.py` to perform any database operations (eg. reading, writing, updating etc.) with `models.py`.
 
 ## Code Style
 
 To establish a consistent and clear coding style,
-the team has decided to follow 
+the team has decided to follow some of the
 [PEP-8](https://www.python.org/dev/peps/pep-0008/)
 conventions.
 To guarantee that the team adheres to these guidelines,
@@ -75,12 +77,11 @@ the PyLint tool will be used.
 A custom linter configuration will also be created from
 the default template,
 such that style rules can be adjusted to
-the team's preference and application.
+the team's preference and application. PyLint's scoring system will be used to ensure code meets clarity objectives as only code with a score of **9/10 or higher** is acceptable. 
 
 ### Code Style Examples
 * Snake case for variable names
 * Using four spaces for indentation
-* Limit all lines to a maximum of 79 characters
 * All constant variables have format `CONSTANT_NAME`
 * All boolean values have format `is_NAME`
 * All lists variables are plural, .i.e `users`
