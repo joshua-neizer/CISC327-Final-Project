@@ -20,17 +20,14 @@ as the outputs of each function are
 designed to be consistent.
 
 The front end of the program has the responsibilities of being the interface with the user. 
-Here, the user is able to input the their information to login into the database,
-or register as a new user. The frontend has the responsibility to ensure validity
-in all of the inputted information, and ensures that the information abides by
-certain format standards, as outlined in the assignment, such that data storage
-remains consistent. The frontend does not interact with the database, but requests
-information through the backend.
+Here, the user is able to enter their information into forms to login and register as a new user, in `/login` and `/register` respectively. The frontend has the responsibility to ensure validity and correct formatting
+in all of the submitted information, as outlined in the requirements. This will maintain consistent data storage. The front end does not interact with the database, but requests
+information through the backend and uses POST methods to enter new information.
 
 The backend of the program has the responsibility of writing and reading 
 information to and from the database. The backend starts new sessions, saves new
 users, updates user information and will retrieve user information. Moreover, the
-backend is responsible for database security as no information can be accessed with 
+backend is responsible for database security as no information can be accessed without 
 appropriate permissions such as valid passwords.
 
 ## Function Descriptions
