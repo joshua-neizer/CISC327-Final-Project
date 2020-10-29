@@ -59,9 +59,15 @@ appropriate permissions such as valid passwords.
 
 ## Program Diagram
 <div style="display: flex; align-items: center; justify-content: center; padding: 20px 0px 50px 0px">
-<img src="qa327/diagrams/qa327.png" />
-<img style="padding-left: 40px;" src="qa327/diagrams/qa327_packages.png" />
+<img src="qa327.png" />
+<img style="padding-left: 40px;" src="qa327_packages.png" />
 </div>
+
+### Description
+
+The **diagram to the left** shows the relationship between the classes used in the program. The over arching object is the user object which has the attributes balance, email, id, name and password. These attributes contain the users account balance, the email for their account, the user id name, the name of the individual associated with that account, and their account password, respectively.
+
+The **diagram to the right** shows the relationships between packages in the program. The main program `qa327`, inherits methods and functions, from almost all other programs. The outlier is `login_format`, as it is used to validate inputted user information within the `frontend` program.
 
 ## Code Style
 
@@ -80,7 +86,7 @@ the team's preference and application.
 * Snake case for variable names
 * Using four spaces for indentation
 * Limit all lines to a maximum of 79 characters
-* All constant variables have format `CONSTANT*NAME`
+* All constant variables have format `CONSTANT_NAME`
 * All boolean values have format `is_NAME`
 * All lists variables are plural, .i.e `users`
 
