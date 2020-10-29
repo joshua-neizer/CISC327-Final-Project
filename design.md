@@ -44,9 +44,9 @@ appropriate permissions such as valid passwords.
 | **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
 
 ## Program Diagram
-<div style="width: 100%; margin: auto; padding: 20px 0px 50px 0px">
-<img style="height: 350px;" src="qa327/diagrams/qa327.png" />
-<img style="padding-left: 40px; height: 350px;" src="qa327/diagrams/qa327_packages.png" />
+<div style="display: flex; align-items: center; justify-content: center; padding: 20px 0px 50px 0px">
+<img src="qa327/diagrams/qa327.png" />
+<img style="padding-left: 40px;" src="qa327/diagrams/qa327_packages.png" />
 </div>
 
 ## Code Style
