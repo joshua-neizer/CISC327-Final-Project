@@ -49,9 +49,7 @@ appropriate permissions such as valid passwords.
 | | **register_user** | Register the user to the database<br>:param email: the email of the user<br>:param name: the name of the user<br>:param password: the password of user<br>:param password2: another password input to make sure the input is correct<br>:return: an error message if there is any, or None if register succeeds |
 | `login_format.py` | | |
 | | **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
-| | **valid_rfc_local_part()** | Returns a boolean indicating whether the local part of an email is valid, according to RFC 5322 requirements  |
-| | **valid_rfc_domain()** | Returns a boolean indicating whether the domain part of an email is valid, according to RFC 5322 requirements |
-| | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the helper functions `valid_rfc_local_part()` and `valid_rfc_domain()` respectively  |
+| | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the `validate_email` library  |
 | | **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
 
 ## Program Diagram
