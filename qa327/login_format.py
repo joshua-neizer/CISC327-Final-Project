@@ -1,5 +1,7 @@
 """helper functions for login format verification"""
 import re
+import validate_email
+
 
 def is_valid_password(password):
     """
@@ -18,67 +20,27 @@ def is_valid_password(password):
         re.search(r'[^\w\d\s]', password)
     )
 
+
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 NUMBERS = '0123456789'
 PRINTABLES = "!#$%&'*+-/=?^_`{|}~"
 
 LOCAL_CHARACTERS = set(
-    ALPHABET+ALPHABET.upper()+
-    NUMBERS+PRINTABLES+'.'
+    ALPHABET + ALPHABET.upper() +
+    NUMBERS + PRINTABLES+'.'
 )
 
-def valid_rfc_local_part(local_part):
-    """
-    Validate local part of email with RFC 5322 requirements
-    :param local_part: local part as string
-    :return true if the email is acceptable, false otherwise
-    """
-    return (
-        len(local_part) > 0 and
-        '..' not in local_part and
-        local_part[0] != '.' and
-        local_part[-1] != '.' and
-        all(
-            character in LOCAL_CHARACTERS
-            for character in local_part
-        )
-    )
-
-DOMAIN_CHARACTERS = set(
-    ALPHABET+ALPHABET.upper()+
-    NUMBERS+'-.'
-)
-
-def valid_rfc_domain(domain):
-    """
-    Validate domain part of email with RFC 5322 requirements
-    :param domain: domain as string
-    :return true if the email is acceptable, false otherwise
-    """
-    return (
-        len(domain) > 0 and
-        domain[0] != '-' and
-        domain[-1] != '-' and
-        all(
-            character in DOMAIN_CHARACTERS
-            for character in domain
-        )
-    )
 
 # obeys rfc 5322
 def is_valid_email(address):
     """
-    Validate email with RFC 5322 requirements and calls 2 helpers functions
+    Validate email with RFC 5322 requirements using the validate_email library
     :param address: email address as string
     :return true if the email is acceptable, false otherwise
     """
-    if address.count('@') != 1:
-        return False
-    local_part, domain = address.split('@')
-    return (
-        valid_rfc_local_part(local_part) and
-        valid_rfc_domain(domain)
-    )
+    return validate_email.validate_email(email_address=address,
+                                         check_regex=True, check_mx=False)
+
 
 def is_valid_username(username):
     """
