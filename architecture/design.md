@@ -58,7 +58,7 @@ appropriate permissions such as valid passwords.
 
 ### Description
 
-The **diagram to the left** details the attributes of the user object. This is the main object and has the attributes balance, email, id, name and password. These attributes contain the user's account balance, the email for their account, the user id name, the name of the individual associated with that account, and their account password, respectively. 
+The **diagram to the left** details the attributes of the user model. This has the attributes balance, email, id, name and password. These attributes contain the user's account balance, the email for their account, the user id name, the name of the individual associated with that account, and their account password, respectively. 
 
 The **diagram to the right** shows the relationships between packages in the program. The main program `qa327`, inherits methods and functions, from almost all other programs. The outlier is `login_format`, as it is used to validate inputted user information within the `frontend` program.
 
