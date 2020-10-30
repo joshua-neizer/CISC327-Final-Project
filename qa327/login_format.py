@@ -1,7 +1,6 @@
 """helper functions for login format verification"""
 import re
-import validate_email
-
+from validate_email import validate_email
 
 def is_valid_password(password):
     """
@@ -20,17 +19,6 @@ def is_valid_password(password):
         re.search(r'[^\w\d\s]', password)
     )
 
-
-ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
-NUMBERS = '0123456789'
-PRINTABLES = "!#$%&'*+-/=?^_`{|}~"
-
-LOCAL_CHARACTERS = set(
-    ALPHABET + ALPHABET.upper() +
-    NUMBERS + PRINTABLES+'.'
-)
-
-
 # obeys rfc 5322
 def is_valid_email(address):
     """
@@ -38,8 +26,10 @@ def is_valid_email(address):
     :param address: email address as string
     :return: true if the email is acceptable, false otherwise
     """
-    return validate_email.validate_email(email_address=address,
-                                         check_regex=True, check_mx=False)
+    return validate_email(
+        email_address=address,
+        check_regex=True, check_mx=False
+    )
 
 
 def is_valid_username(username):
