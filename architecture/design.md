@@ -114,4 +114,9 @@ etc
 - Connect github actions to test all and run on pull requests into main only (to reduce budget)
 
 ## Test Results
-- use HTML output option with pytest
+
+The pytest framework will be leveraged to generate test results.
+The output format will be HTML,
+to demonstrate the output in a clear manner.
+A plugin such as [pytest-html](https://pypi.org/project/pytest-html/)
+will likely be used to achieve this.
