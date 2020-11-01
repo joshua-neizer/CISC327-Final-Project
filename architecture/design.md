@@ -1,4 +1,4 @@
-# Design Document
+# Design
 
 ## Structure
 
@@ -84,44 +84,34 @@ the team's preference and application. PyLint's scoring system will be used to e
 * All boolean values have format `is_NAME`
 * All lists variables are plural, .i.e `users`
 
-## Test Plan
+# Test Design
 
-Test cases of different levels,
-such as frontend, backend, and integration tests
-will be organized into separate folders.
-Using this method,
-different levels of tests can be run in isolation.
-This will be especially useful for team members
-who are working on frontend and backend tests,
-and don't want the integration tests 
-slowing down their development.
-Given that each level of testing is independent,
-there are minimal restrictions on the testing order.
-However, frontend and backend testing should be
-attempted before integration testing,
-as these will find bugs more explicitly.
-Team members will be assigned as in charge of test cases
-by endpoint / function.
-If the team is unclear on who is in charge of
-a particular test case,
-then commands such as `git blame` can be used to determine
-who was working on a module.
+## Test strategy
+- levels = integration testing + unit testing
+- methods = automated assertion based tests
+- techniques = manually selected inputs => minimal series of actions => assert expected outputs
+- tools = pytest + selenium + github actions
+- standards = naming is VERY important for tests
 
-In terms of environments and tooling,
-the provided tools has been determined to be sufficient.
-That is, PyTest will be used for unit tests,
-and Selenium will be applied for integration testing.
-By choosing this standard workflow,
-reproducing test results in a cloud environment
-should be seamless.
-One thign that the team will have to pay attention to
-is explicitly adding dependencies to `requirements.txt`,
-such that third party libraries are also installed on
-the cloud environment.
-To minimize budget costs,
-CI will only be run on pull requests.
-As such, most of the testing will occur locally
-on the machines of the team members.
-By the time a pull request is made,
-it should ideally already be passing tests,
-though CI will confirm this.
+## Test plans
+- items = integration tests from requirements + unit tests we add
+- levels = integration tests + unit tests
+- order = doesn't matter, but if an integration test fails, apply unit tests before guessing at things
+- environment = pytest on test module, virtualenv preferred for simplicity
+- responsibility = for initial tests, divide up explicitly. for test maintenance, its all fair game
+- coverage = aim for 100%, close to this is acceptable (might look into automated coverage check)
+
+## Test case design
+- Implement positive, negative and boundary cases for ALL requirements
+- Implementation is tested using simple asserts for unit tests and mock server + selenim + asserts for integration tests
+- Test will be known to be sucessful because assert statements output success or fail and pytest collects them all
+
+## Test procedures
+- Tests can be run separately for each level via different test folders
+pytest qa327_test (all)
+pytest qa327_test/backend (just backend)
+etc
+- Connect github actions to test all and run on pull requests into main only (to reduce budget)
+
+## Test Results
+- use HTML output option with pytest
