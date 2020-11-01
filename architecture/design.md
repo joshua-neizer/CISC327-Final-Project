@@ -107,11 +107,25 @@ the team's preference and application. PyLint's scoring system will be used to e
 - Test will be known to be sucessful because assert statements output success or fail and pytest collects them all
 
 ## Test procedures
-- Tests can be run separately for each level via different test folders
-pytest qa327_test (all)
-pytest qa327_test/backend (just backend)
-etc
-- Connect github actions to test all and run on pull requests into main only (to reduce budget)
+
+Locally, different test levels can be run independently,
+as each test level will be assigned to a folder.
+Thus, different test levels can be run using commands such as these.
+
+```
+pytest qa327_test # test all
+pytest qa327_test/backend # test backend
+pytest qa327_test/integration # test integration
+pytest qa327_test/frontend # test frontend
+```
+
+The overall test command will then be run on all pull requests into main.
+Restricting the rate at which CI is applied will reduce the budget,
+while maintaining our overall confidence about the codebase on the main branch.
+For pull requests on feature branches,
+it is presumed that team members will run tests individually.
+However, if somebody forgets to, continuous integration will catch the error
+when the pull request to main is opened.
 
 ## Test Results
 
