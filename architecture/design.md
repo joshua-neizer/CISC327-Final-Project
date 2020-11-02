@@ -87,11 +87,15 @@ the team's preference and application. PyLint's scoring system will be used to e
 # Test Design
 
 ## Test strategy
-- levels = integration testing + unit testing
-- methods = automated assertion based tests
-- techniques = manually selected inputs => minimal series of actions => assert expected outputs
-- tools = pytest + selenium + github actions
-- standards = naming is VERY important for tests
+The levels of testing will be unit testing and integration testing. Unit testing will be done indiviudally by each group member who is implementing a given specification (R1,R2, etc.). The unit testing will be done using pytest and will take place before merging into main. Integration testing will be performed in the main branch only using CI GitHub actions. This integration testing will be able to check if the created unit works with the overall architecture while also potentially highlighting any issues not caught by unit testing. 
+
+The testing will be done using automated assertion based tests. We will use Selenium to develop the tests which will be used to verify if specific elements and outputs are observed given the inputs. Assertion based testing will make it easy to see if there is a bug in the code as the output will be false if there is an issue.
+
+Tests will be set up such that we manually choose inputs (see test case design), perform a minimal series of actions to achieve the desired output, and then assert the expected outputs to verify that the functionality matches the specifiations.
+
+To develop the tests there are three main tools that will be used. Pytest will be used to for the tests with code split up into specific folders allowing us to focus on individual aspects of the design. Selenium will be used to assert inputs and navigate the webpage for the tests. Lastly, GitHub actions will be used for CI and will be set up to work on pull requests into main only (see test procedures)
+
+The final important aspect of the test strategy are the standards. As explained previously, we will adhere to PEP8 conventions, and ensuring such with Pylint. Standardized naming is very important for tests and makes creating tests easier and clearer. It will be clear as to what is being tested and if there are any problems, what the bug is.
 
 ## Test plans
 - items = integration tests from requirements + unit tests we add
