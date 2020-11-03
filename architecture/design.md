@@ -93,13 +93,35 @@ the team's preference and application. PyLint's scoring system will be used to e
 - tools = pytest + selenium + github actions
 - standards = naming is VERY important for tests
 
-## Test plans
-- items = integration tests from requirements + unit tests we add
-- levels = integration tests + unit tests
-- order = doesn't matter, but if an integration test fails, apply unit tests before guessing at things
-- environment = pytest on test module, virtualenv preferred for simplicity
-- responsibility = for initial tests, divide up explicitly. for test maintenance, its all fair game
-- coverage = aim for 100%, close to this is acceptable (might look into automated coverage check)
+## Test Plans
+The items we are testing are the features from R1, R2, R3, R7 and R8, including the frontend and the backend. These include all of the methods outlined in the function description 
+table. There may be more unit tests added in as needed, depending on how successful
+integration testing is.
+
+As stated previously, all of the features are gonna be unit tested first before they
+are integrated tested. The lower level is the unit test with each feature
+being validated, before features are integrated together.
+
+There is no specific order while doing unit testing. However, while integrating the
+unit tests, we will test R2 --> R1 --> R3 --> R7. This is because to verify login, registration
+needs to be implemented. And to go the general user page, the user needs to be registered
+and logged in. Lastly for a user to login out, they must be logged in. R8 is independent
+of these tests as it does not have any dependency on the others.
+
+We will use the pytest environment when testing modules within python. To validate
+the tests across systems, we will be using python's virtualenv, which is a tool for creating
+isolated Python environments containing their own copy of python. All selenium will be
+done with Google Chrome as the chosen web browser
+
+All of the unit tests are going to be explicitly divided up between group members, and 
+they are responsible for validating those specific tests. Therefore, when integrating testing
+begins, if there is a bug that is clearly from an overlooked unit test, the individual
+responsible for that test will be responsible for identifying what was overlooked. However,
+for test maintenance, everyone is equally responsible.
+
+We want to be able to cover as close to 100% of the items we want to test as possible.
+Any less than 100% may be acceptable if what is left pertains to features that have
+not yet been implemented.
 
 ## Test case design
 - Implement positive, negative and boundary cases for ALL requirements
