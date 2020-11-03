@@ -98,9 +98,10 @@ The items we are testing are the features from R1, R2, R3, R7 and R8, including 
 table. There may be more unit tests added in as needed, depending on how successful
 integration testing is.
 
-As stated previously, all of the features are gonna be unit tested first before they
-are integrated tested. The lower level is the unit test with each feature
-being validated, before features are integrated together.
+As stated previously, the levels of testing that we are going to be used are unit testing
+and integration testing. Unit testing to validate software components are fulfilling their specifications, and integration testing to validate that the data flows properly 
+from each software component. System testing and acceptance testing cannot be 
+done at this time as R4, R5 and R6 have yet to implemented.
 
 There is no specific order while doing unit testing. However, while integrating the
 unit tests, we will test R2 --> R1 --> R3 --> R7. This is because to verify login, registration
@@ -117,11 +118,13 @@ All of the unit tests are going to be explicitly divided up between group member
 they are responsible for validating those specific tests. Therefore, when integrating testing
 begins, if there is a bug that is clearly from an overlooked unit test, the individual
 responsible for that test will be responsible for identifying what was overlooked. However,
-for test maintenance, everyone is equally responsible.
+in instances where the source of bug is clear and there is an simple solution, an individual may fix the bug to avoid people waiting on each other. The person responsible for the feature's
+unit testing will be informed of the bug and solution. They should then validate the solution, 
+and review their unit tests to ensure no other bugs remain.
 
 We want to be able to cover as close to 100% of the items we want to test as possible.
-Any less than 100% may be acceptable if what is left pertains to features that have
-not yet been implemented.
+Instances at which there would be slightly less than 100% coverage may be due to 
+setup tasks like database creation being omitted from testing.
 
 ## Test case design
 - Implement positive, negative and boundary cases for ALL requirements
