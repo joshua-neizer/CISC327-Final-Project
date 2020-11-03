@@ -102,9 +102,19 @@ the team's preference and application. PyLint's scoring system will be used to e
 - coverage = aim for 100%, close to this is acceptable (might look into automated coverage check)
 
 ## Test case design
-- Implement positive, negative and boundary cases for ALL requirements
-- Implementation is tested using simple asserts for unit tests and mock server + selenim + asserts for integration tests
-- Test will be known to be sucessful because assert statements output success or fail and pytest collects them all
+All requirements will be tested with positive and negative cases. For example, requirements specifying the username formatting will input a valid and invalid username as test cases. Requirements with quantitative specifications, such as a character limit, will be tested with boundary cases as well. Note that a boundary case and negative case can be represented by the same test. 
+
+Each test case will be partitioned specifically according to the requirement's inputs. Thus, a test resulting in a negative response will test one input requirement specifically. For example, invalid usernames may contain special characters, a space in the middle, or too many characters. This will be covered by 3 partitions, each with positive and negative cases and a boundary case for the character limit. 
+
+Integration testing will be conducted by mocking the server and using assert statements in Selenium. Unit testing will be conducted using assert statements. An example is shown below:
+
+```
+# Negative case
+# Expected output = "Fail: too short"
+user.name = "a"
+assert len(user.name) > 2, "Fail: too short"
+```
+All test results will be collected by pytest. If an assertion evaluates to false, an exception will be thrown with a specified message. 
 
 ## Test procedures
 - Tests can be run separately for each level via different test folders
