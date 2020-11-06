@@ -97,13 +97,38 @@ To develop the tests there are three main tools that will be used. Pytest will b
 
 The final important aspect of the test strategy are the standards. As explained previously, we will adhere to PEP8 conventions, and ensuring such with Pylint. Standardized naming is very important for tests and makes creating tests easier and clearer. It will be clear as to what is being tested and if there are any problems, what the bug is. Tests will be named including the tested method, the expected input/state, and the behaviour (i.e. loginUser_userDoesNotExist_someException())
 
-## Test plans
-- items = integration tests from requirements + unit tests we add
-- levels = integration tests + unit tests
-- order = doesn't matter, but if an integration test fails, apply unit tests before guessing at things
-- environment = pytest on test module, virtualenv preferred for simplicity
-- responsibility = for initial tests, divide up explicitly. for test maintenance, its all fair game
-- coverage = aim for 100%, close to this is acceptable (might look into automated coverage check)
+## Test Plans
+The items we are testing are the features from R1, R2, R3, R7 and R8, including the frontend and the backend. These include all of the methods outlined in the function description 
+table. There may be more unit tests added in as needed, depending on how successful
+integration testing is.
+
+As stated previously, the levels of testing that we are going to be used are unit testing
+and integration testing. Unit testing to validate software components are fulfilling their specifications, and integration testing to validate that the data flows properly 
+from each software component. System testing and acceptance testing cannot be 
+done at this time as R4, R5 and R6 have yet to implemented.
+
+There is no specific order while doing unit testing. However, while integrating the
+unit tests, we will test R2 --> R1 --> R3 --> R7. This is because to verify login, registration
+needs to be implemented. And to go the general user page, the user needs to be registered
+and logged in. Lastly for a user to login out, they must be logged in. R8 is independent
+of these tests as it does not have any dependency on the others.
+
+We will use the pytest environment when testing modules within python. To validate
+the tests across systems, we will be using python's virtualenv, which is a tool for creating
+isolated Python environments containing their own copy of python. All selenium will be
+done with Google Chrome as the chosen web browser
+
+All of the unit tests are going to be explicitly divided up between group members, and 
+they are responsible for validating those specific tests. Therefore, when integrating testing
+begins, if there is a bug that is clearly from an overlooked unit test, the individual
+responsible for that test will be responsible for identifying what was overlooked. However,
+in instances where the source of bug is clear and there is an simple solution, an individual may fix the bug to avoid people waiting on each other. The person responsible for the feature's
+unit testing will be informed of the bug and solution. They should then validate the solution, 
+and review their unit tests to ensure no other bugs remain.
+
+We want to be able to cover as close to 100% of the items we want to test as possible.
+Instances at which there would be slightly less than 100% coverage may be due to 
+setup tasks like database creation being omitted from testing.
 
 ## Test case design
 All requirements will be tested with positive and negative cases. For example, requirements specifying the username formatting will input a valid and invalid username as test cases. Requirements with quantitative specifications, such as a character limit, will be tested with boundary cases as well. Note that a boundary case and negative case can be represented by the same test. 
