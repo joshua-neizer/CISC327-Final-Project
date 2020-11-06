@@ -121,11 +121,30 @@ assert len(user.name) > 2, "Fail: too short"
 All test results will be collected by pytest. If an assertion evaluates to false, an exception will be thrown with a specified message. 
 
 ## Test procedures
-- Tests can be run separately for each level via different test folders
-pytest qa327_test (all)
-pytest qa327_test/backend (just backend)
-etc
-- Connect github actions to test all and run on pull requests into main only (to reduce budget)
+
+Locally, different test levels can be run independently,
+as each test level will be assigned to a folder.
+Thus, different test levels can be run using commands such as these.
+
+```
+pytest qa327_test # test all
+pytest qa327_test/backend # test backend
+pytest qa327_test/integration # test integration
+pytest qa327_test/frontend # test frontend
+```
+
+The overall test command will then be run on all pull requests into main.
+Restricting the rate at which CI is applied will reduce the budget,
+while maintaining our overall confidence about the codebase on the main branch.
+For pull requests on feature branches,
+it is presumed that team members will run tests individually.
+However, if somebody forgets to, continuous integration will catch the error
+when the pull request to main is opened.
 
 ## Test Results
-- use HTML output option with pytest
+
+The pytest framework will be leveraged to generate test results.
+The output format will be HTML,
+to demonstrate the output in a clear manner.
+A plugin such as [pytest-html](https://pypi.org/project/pytest-html/)
+can be used to achieve this.
