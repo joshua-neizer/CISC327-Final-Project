@@ -130,7 +130,7 @@ We want to be able to cover as close to 100% of the items we want to test as pos
 Instances at which there would be slightly less than 100% coverage may be due to 
 setup tasks like database creation being omitted from testing.
 
-## Test case design
+## Test Case Design
 All requirements will be tested with positive and negative cases. For example, requirements specifying the username formatting will input a valid and invalid username as test cases. Requirements with quantitative specifications, such as a character limit, will be tested with boundary cases as well. Note that a boundary case and negative case can be represented by the same test. 
 
 Each test case will be partitioned specifically according to the requirement's inputs. Thus, a test resulting in a negative response will test one input requirement specifically. For example, invalid usernames may contain special characters, a space in the middle, or too many characters. This will be covered by 3 partitions, each with positive and negative cases and a boundary case for the character limit. 
@@ -145,7 +145,7 @@ assert len(user.name) > 2, "Fail: too short"
 ```
 All test results will be collected by pytest. If an assertion evaluates to false, an exception will be thrown with a specified message. 
 
-## Test procedures
+## Test Procedures
 
 Locally, different test levels can be run independently,
 as each test level will be assigned to a folder.
