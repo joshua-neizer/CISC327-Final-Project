@@ -1,10 +1,7 @@
-from qa327.models import db, User
+"""This file defines all backend logic that interacts with database and other services"""
+
 from werkzeug.security import generate_password_hash, check_password_hash
-
-"""
-This file defines all backend logic that interacts with database and other services
-"""
-
+from qa327.models import db, User
 
 def get_user(email):
     """
@@ -42,12 +39,13 @@ def register_user(email, name, password, password2):
 
     hashed_pw = generate_password_hash(password, method='sha256')
     # store the encrypted password rather than the plain password
-    new_user = User(email=email, name=name, password=hashed_pw)
+    new_user = User(email=email, name=name, password=hashed_pw, balance=5000)
 
     db.session.add(new_user)
     db.session.commit()
-    return None
+    return True
 
 
 def get_all_tickets():
+    """Going to be implemented when /sell and /buy is implemented"""
     return []
