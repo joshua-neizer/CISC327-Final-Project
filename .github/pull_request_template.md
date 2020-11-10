@@ -11,3 +11,8 @@ Mention them like #14
 Optional. Delete if not needed.
 Used to contain stuff like 
 "does the way I'm using this function make sense?".
+
+# Checklist:
+
+- [ ] I ran pylint to correct obvious style errors
+- [ ] Pytest is passing locally
