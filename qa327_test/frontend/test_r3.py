@@ -78,5 +78,6 @@ class R3Test(BaseCase):
         '''
         self.login_test_user()
         for ticket in test_tickets:
-            ticket_div = self.find_element(f'#tickets.ticket[name={ticket.name}]')
+            name = ticket['name']
+            ticket_div = self.find_element(f'#tickets .ticket[name={name}]')
             print(ticket_div)
