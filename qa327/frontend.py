@@ -109,6 +109,11 @@ def buy_post():
     """TODO"""
     return 'TODO implement buying'
 
+@app.route('/sell', methods=['POST'])
+def sell_post():
+    """TODO"""
+    return redirect('/?message=ticket+sold+successfully')
+
 
 @app.route('/logout')
 def logout():

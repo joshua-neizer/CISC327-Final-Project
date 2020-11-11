@@ -47,4 +47,12 @@
     <td>Adjusted DOM IDs in test case</td>
 </tr>
 
+<tr>
+    <td>test_sell_posts()</td>
+    <td>Verify that sell form POSTs correctly</td>
+    <td>Cannot verify POST easily with selenium</td>
+    <td>Test case made incorrect assumptions about selenium usage</td>
+    <td>Redesign test case to add message to page</td>
+</tr>
+
 </tbody></table>

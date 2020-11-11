@@ -80,11 +80,11 @@ class R3Test(BaseCase):
         for ticket in test_tickets:
             name = ticket['name']
             ticket_div = self.find_element(f'#tickets .ticket[name={name}]')
-            for prop in ['name','price','owner','count']:
-                displayed_text=ticket_div.find_element_by_class_name(prop).text
+            for key in ticket.keys():
+                displayed_text=ticket_div.find_element_by_class_name(key).text
                 # assert that displayed ticket property matches
                 # mock ticket
-                self.assertEqual(displayed_text,str(ticket[prop]))
+                self.assertEqual(displayed_text,str(ticket[key]))
 
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_sell_form(self,*_):
@@ -113,3 +113,15 @@ class R3Test(BaseCase):
         self.assert_element('#update-ticket-quantity')
         self.assert_element('#update-ticket-price')
         self.assert_element('#update-ticket-expiration-date')
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    def test_sell_posts(self,*_):
+        '''see r3.9'''
+        self.login_test_user()
+        self.open(base_url)
+        self.input('#sell-ticket-name','dont-care')
+        self.input('#sell-ticket-quantity','dont-care')
+        self.input('#sell-ticket-price','dont-care')
+        self.input('#sell-ticket-expiration-date','dont-care')
+        self.click('#sell-submit')
+        self.assert_text('ticket sold successfully','#post-message')

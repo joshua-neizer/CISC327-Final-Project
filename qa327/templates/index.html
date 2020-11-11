@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+
+<p id='post-message'>
+    {{ request.args.get('message') or '' }}
+</p>
+
 <h2 id="welcome-header">
     Hi {{ user.name }} !
     Your balance is ${{ user.balance }}
@@ -36,7 +41,7 @@
         <input class="form-control" name="ticket-price" id="sell-ticket-price" required>
         <label for="ticket-quantity">Expiration Date</label>
         <input class="form-control" name="ticket-expiration-date" id="sell-ticket-expiration-date" required>
-        <input class="btn btn-lg btn-primary" type="submit" id="btn-submit" value="Sell">
+        <input class="btn btn-lg btn-primary" type="submit" id="sell-submit" value="Sell">
     </div>
 </form>
 
@@ -51,7 +56,7 @@
         <input class="form-control" name="ticket-price" id="update-ticket-price" required>
         <label for="ticket-quantity">Expiration Date</label>
         <input class="form-control" name="ticket-expiration-date" id="update-ticket-expiration-date" required>
-        <input class="btn btn-lg btn-primary" type="submit" id="btn-submit" value="Update">
+        <input class="btn btn-lg btn-primary" type="submit" id="update-submit" value="Update">
     </div>
 </form>
 
@@ -62,7 +67,7 @@
         <input class="form-control" name="ticket-name" id="buy-ticket-name" required>
         <label for="ticket-quantity">Quantity</label>
         <input class="form-control" name="ticket-quantity" id="buy-ticket-quantity" required>
-        <input class="btn btn-lg btn-primary" type="submit" id="btn-submit" value="Buy">
+        <input class="btn btn-lg btn-primary" type="submit" id="buy-submit" value="Buy">
     </div>
 </form>
 
