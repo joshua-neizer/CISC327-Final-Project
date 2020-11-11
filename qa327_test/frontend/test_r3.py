@@ -80,5 +80,6 @@ class R3Test(BaseCase):
         for ticket in test_tickets:
             name = ticket['name']
             ticket_div = self.find_element(f'#tickets .ticket[name={name}]')
-            for classname in ['name','price','owner','count']:
-                assert ticket_div.find_element_by_class_name(classname)
+            for prop in ['name','price','owner','count']:
+                displayed_text=ticket_div.find_element_by_class_name(prop).text
+                self.assertEqual(displayed_text,str(ticket[prop]))
