@@ -1,9 +1,14 @@
-import pytest
+'''
+Tests requirements according to R3
+'''
+
 from seleniumbase import BaseCase
 from unittest.mock import patch
+import pytest
+from werkzeug.security import generate_password_hash
+
 from qa327_test.conftest import base_url
-from qa327.models import db, User
-from werkzeug.security import generate_password_hash, check_password_hash
+from qa327.models import User
 
 # Moch a sample user
 test_user = User(
@@ -15,11 +20,14 @@ test_user = User(
 
 # Moch some sample tickets
 test_tickets = [
-    {'name': 't1', 'price': '100', 'owner':'god','count':2},
-    {'name': 't2', 'price': '90','owner':'geek','count':3},
+    {'name': 't1', 'price': '100', 'owner':'god', 'count':2},
+    {'name': 't2', 'price': '90', 'owner':'geek', 'count':3},
 ]
 
 class R3Test(BaseCase):
+    '''
+    Contains test cases specific to R3
+    '''
 
     def login_test_user(self):
         self.open(base_url+'/login')
