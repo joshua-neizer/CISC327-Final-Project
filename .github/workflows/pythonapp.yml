@@ -1,6 +1,8 @@
-name: Python application
+name: PyTest
 
-on: [push]
+# as specified in A2, we'll save CI time
+# by not runnning on every push
+on: [pull_request]
 
 jobs:
   build:
