@@ -15,8 +15,8 @@ test_user = User(
 
 # Moch some sample tickets
 test_tickets = [
-    {'name': 't1', 'price': '100'},
-    {'name': 't2', 'price': '90'},
+    {'name': 't1', 'price': '100', 'owner':'god','count':2},
+    {'name': 't2', 'price': '90','owner':'geek','count':3},
 ]
 
 class R3Test(BaseCase):
@@ -80,4 +80,5 @@ class R3Test(BaseCase):
         for ticket in test_tickets:
             name = ticket['name']
             ticket_div = self.find_element(f'#tickets .ticket[name={name}]')
-            print(ticket_div)
+            for classname in ['name','price','owner','count']:
+                assert ticket_div.find_element_by_class_name(classname)
