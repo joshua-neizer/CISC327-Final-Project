@@ -23,4 +23,12 @@
     <td>Adjusted string in HTML template</th>
 </tr>
 
+<tr>
+    <td>test_logout_link()</th>
+    <td>Verify that logout link is visible</th>
+    <td>Logout link cannot be found</th>
+    <td>Logout link does not have ID</th>
+    <td>Added ID to logout link</th>
+</tr>
+
 </tbody></table>
