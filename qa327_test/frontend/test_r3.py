@@ -85,3 +85,14 @@ class R3Test(BaseCase):
                 # assert that displayed ticket property matches
                 # mock ticket
                 self.assertEqual(displayed_text,str(ticket[prop]))
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    def test_sell_form(self,*_):
+        '''see r3.6'''
+        self.login_test_user()
+        self.open(base_url)
+        self.assert_element('sell-ticket-name')
+        self.assert_element('sell-ticket-quantity')
+        self.assert_element('sell-ticket-price')
+        self.assert_element('sell-ticket-expiration-date')

@@ -39,4 +39,12 @@
     <td>Redesigned test selectors and added ticket information to HTML template</td>
 </tr>
 
+<tr>
+    <td>test_sell_form()</td>
+    <td>Verify that sell form exists</td>
+    <td>Sell form not found</td>
+    <td>Selectors are incorrect</td>
+    <td>Adjusted DOM IDs in test case</td>
+</tr>
+
 </tbody></table>
