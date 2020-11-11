@@ -21,7 +21,7 @@ class R3Test(BaseCase):
 
     def login_test_user(self):
         self.open(base_url+'/login')
-        self.input('#id',test_user.email)
+        self.input('#email',test_user.email)
         self.input('#password','test_frontend')
         self.click('#btn-submit')
 
@@ -40,6 +40,9 @@ class R3Test(BaseCase):
         '''
         see r3.2
         '''
+        self.login_test_user()
         # open home page
         self.open(base_url)
-        self.assert_text('Hi test_frontend','#welcome-header')
+        # use contains check because element also contains
+        # balance
+        assert 'Hi test_frontend' in self.find_element('#welcome-header').text

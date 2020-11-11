@@ -18,9 +18,9 @@
 <tr>
     <td>test_hi_user()</th>
     <td>Verify that 'Hi user' message displays</th>
-    <td>#header doesn't exist</th>
-    <td>header element has different ID</th>
-    <td>Fix</th>
+    <td>'Welcome user' message is displayed</th>
+    <td>Harcoded string is incorrect</th>
+    <td>Adjusted string in HTML template</th>
 </tr>
 
 </tbody></table>
