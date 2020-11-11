@@ -28,10 +28,7 @@ class R3Test(BaseCase):
         self.click('#btn-submit')
 
     def test_login_redirects(self, *_):
-        '''
-        see r3.1
-        '''
-        # open home page
+        '''see r3.1'''
         self.open(base_url)
         # verify redirected to /login
         assert self.get_current_url() == base_url+'/login'
@@ -39,11 +36,8 @@ class R3Test(BaseCase):
 
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_hi_user(self,*_):
-        '''
-        see r3.2
-        '''
+        '''see r3.2'''
         self.login_test_user()
-        # open home page
         self.open(base_url)
         # use contains check because element also contains
         # balance
@@ -51,35 +45,29 @@ class R3Test(BaseCase):
 
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_user_balance(self,*_):
-        '''
-        see r3.3
-        '''
+        '''see r3.3'''
         self.login_test_user()
-        # open home page
         self.open(base_url)
         # use contains check because element also contains username
         assert 'Your balance is $140' in self.find_element('#welcome-header').text
 
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_logout_link(self,*_):
-        '''
-        see r3.4
-        '''
+        '''see r3.4'''
         self.login_test_user()
-        # open home page
         self.open(base_url)
         self.assert_element('#logout')
 
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     def test_tickets_listed(self,*_):
-        '''
-        see r3.5
-        '''
+        '''see r3.5'''
         self.login_test_user()
         for ticket in test_tickets:
             name = ticket['name']
+            # find div containing ticket info in page
             ticket_div = self.find_element(f'#tickets .ticket[name={name}]')
+            # verify all ticket properties match mock
             for key in ticket.keys():
                 displayed_text=ticket_div.find_element_by_class_name(key).text
                 # assert that displayed ticket property matches
