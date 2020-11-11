@@ -92,7 +92,7 @@ class R3Test(BaseCase):
         '''see r3.6'''
         self.login_test_user()
         self.open(base_url)
-        self.assert_element('sell-ticket-name')
-        self.assert_element('sell-ticket-quantity')
-        self.assert_element('sell-ticket-price')
-        self.assert_element('sell-ticket-expiration-date')
+        self.assert_element('#sell-ticket-name')
+        self.assert_element('#sell-ticket-quantity')
+        self.assert_element('#sell-ticket-price')
+        self.assert_element('#sell-ticket-expiration-date')
