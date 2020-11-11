@@ -15,7 +15,8 @@ test_user = User(
 
 # Moch some sample tickets
 test_tickets = [
-    {'name': 't1', 'price': '100'}
+    {'name': 't1', 'price': '100'},
+    {'name': 't2', 'price': '90'},
 ]
 
 class R3Test(BaseCase):
@@ -68,3 +69,14 @@ class R3Test(BaseCase):
         # open home page
         self.open(base_url)
         self.assert_element('#logout')
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    def test_tickets_listed(self,*_):
+        '''
+        see r3.5
+        '''
+        self.login_test_user()
+        for ticket in test_tickets:
+            ticket_div = self.find_element(f'#tickets.ticket[name={ticket.name}]')
+            print(ticket_div)

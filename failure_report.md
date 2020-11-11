@@ -8,27 +8,35 @@
 </tr>
 
 <tr>
-    <td>test_login_redirects()</th>
-    <td>Verify that '/' redirects to login</th>
-    <td>#login_input doesn't exist</th>
-    <td>Login input element has different ID</th>
-    <td>Update spec with correct ID</th>
+    <td>test_login_redirects()</td>
+    <td>Verify that '/' redirects to login</td>
+    <td>#login_input doesn't exist</td>
+    <td>Login input element has different ID</td>
+    <td>Update spec with correct ID</td>
 </tr>
 
 <tr>
-    <td>test_hi_user()</th>
-    <td>Verify that 'Hi user' message displays</th>
-    <td>'Welcome user' message is displayed</th>
-    <td>Harcoded string is incorrect</th>
-    <td>Adjusted string in HTML template</th>
+    <td>test_hi_user()</td>
+    <td>Verify that 'Hi user' message displays</td>
+    <td>'Welcome user' message is displayed</td>
+    <td>Harcoded string is incorrect</td>
+    <td>Adjusted string in HTML template</td>
 </tr>
 
 <tr>
-    <td>test_logout_link()</th>
-    <td>Verify that logout link is visible</th>
-    <td>Logout link cannot be found</th>
-    <td>Logout link does not have ID</th>
-    <td>Added ID to logout link</th>
+    <td>test_logout_link()</td>
+    <td>Verify that logout link is visible</td>
+    <td>Logout link cannot be found</td>
+    <td>Logout link does not have ID</td>
+    <td>Added ID to logout link</td>
+</tr>
+
+<tr>
+    <td>test_tickets_listed()</td>
+    <td>Verify that ticket information is listed</td>
+    <td>Ticket information cannot be found</td>
+    <td>Selectors are incorrect / Ticket information missing</td>
+    <td>TODO fix</td>
 </tr>
 
 </tbody></table>
