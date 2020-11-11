@@ -36,7 +36,7 @@
     <td>Verify that ticket information is listed</td>
     <td>Ticket information cannot be found</td>
     <td>Selectors are incorrect / Ticket information missing</td>
-    <td>TODO fix</td>
+    <td>Redesigned test selectors and added ticket information to HTML template</td>
 </tr>
 
 </tbody></table>
