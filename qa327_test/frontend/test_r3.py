@@ -103,3 +103,13 @@ class R3Test(BaseCase):
         self.open(base_url)
         self.assert_element('#buy-ticket-name')
         self.assert_element('#buy-ticket-quantity')
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    def test_update_form(self,*_):
+        '''see r3.8'''
+        self.login_test_user()
+        self.open(base_url)
+        self.assert_element('#update-ticket-name')
+        self.assert_element('#update-ticket-quantity')
+        self.assert_element('#update-ticket-price')
+        self.assert_element('#update-ticket-expiration-date')
