@@ -125,3 +125,25 @@ class R3Test(BaseCase):
         self.input('#sell-ticket-expiration-date','dont-care')
         self.click('#sell-submit')
         self.assert_text('ticket sold successfully','#post-message')
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    def test_buy_posts(self,*_):
+        '''see r3.10'''
+        self.login_test_user()
+        self.open(base_url)
+        self.input('#buy-ticket-name','dont-care')
+        self.input('#buy-ticket-quantity','dont-care')
+        self.click('#buy-submit')
+        self.assert_text('ticket bought successfully','#post-message')
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    def test_update_posts(self,*_):
+        '''see r3.11'''
+        self.login_test_user()
+        self.open(base_url)
+        self.input('#update-ticket-name','dont-care')
+        self.input('#update-ticket-quantity','dont-care')
+        self.input('#update-ticket-price','dont-care')
+        self.input('#update-ticket-expiration-date','dont-care')
+        self.click('#update-submit')
+        self.assert_text('ticket updated successfully','#post-message')

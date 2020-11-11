@@ -107,12 +107,17 @@ def login_post():
 @app.route('/buy', methods=['POST'])
 def buy_post():
     """TODO"""
-    return 'TODO implement buying'
+    return redirect('/?message=ticket+bought+successfully')
 
 @app.route('/sell', methods=['POST'])
 def sell_post():
     """TODO"""
     return redirect('/?message=ticket+sold+successfully')
+
+@app.route('/update', methods=['POST'])
+def update_post():
+    '''TODO'''
+    return redirect('/?message=ticket+updated+successfully')
 
 
 @app.route('/logout')
