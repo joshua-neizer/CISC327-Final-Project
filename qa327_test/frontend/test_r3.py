@@ -9,7 +9,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 test_user = User(
     email='test_frontend@test.com',
     name='test_frontend',
-    password=generate_password_hash('test_frontend')
+    password=generate_password_hash('test_frontend'),
+    balance=140
 )
 
 # Moch some sample tickets
@@ -46,3 +47,14 @@ class R3Test(BaseCase):
         # use contains check because element also contains
         # balance
         assert 'Hi test_frontend' in self.find_element('#welcome-header').text
+
+    @patch('qa327.backend.get_user', return_value=test_user)
+    def test_user_balance(self,*_):
+        '''
+        see r3.3
+        '''
+        self.login_test_user()
+        # open home page
+        self.open(base_url)
+        # use contains check because element also contains username
+        assert 'Your balance is $140' in self.find_element('#welcome-header').text
