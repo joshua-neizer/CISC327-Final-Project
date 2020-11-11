@@ -19,6 +19,12 @@ test_tickets = [
 
 class R3Test(BaseCase):
 
+    def login_test_user(self):
+        self.open(base_url+'/login')
+        self.input('#id',test_user.email)
+        self.input('#password','test_frontend')
+        self.click('#btn-submit')
+
     def test_login_redirects(self, *_):
         '''
         see r3.1
@@ -27,7 +33,7 @@ class R3Test(BaseCase):
         self.open(base_url)
         # verify redirected to /login
         assert self.get_current_url() == base_url+'/login'
-        self.assert_element('#login_input')
+        self.assert_element('#login_message')
 
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_hi_user(self,*_):
@@ -36,4 +42,4 @@ class R3Test(BaseCase):
         '''
         # open home page
         self.open(base_url)
-        self.assert_text('Hi test_frontend','#header')
+        self.assert_text('Hi test_frontend','#welcome-header')

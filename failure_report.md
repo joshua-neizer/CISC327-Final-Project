@@ -12,7 +12,7 @@
     <td>Verify that '/' redirects to login</th>
     <td>#login_input doesn't exist</th>
     <td>Login input element has different ID</th>
-    <td>Fix</th>
+    <td>Update spec with correct ID</th>
 </tr>
 
 <tr>
