@@ -54,7 +54,7 @@ class R1Test(BaseCase):
         self.open(base_url+'/login')
         self.assert_element('#email')
         self.assert_element('#password')
-    
+
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_login_submit(self, *_):
         '''see r1.5'''
@@ -80,7 +80,3 @@ class R1Test(BaseCase):
         #leave password empty
         message = self.driver.find_element_by_id('email')
         assert message.get_attribute('validationMessage') == 'Please fill out this field.'
-
-
-
-
