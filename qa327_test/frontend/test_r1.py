@@ -62,15 +62,24 @@ class R1Test(BaseCase):
         assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def test_form_data_missing(self, *_):
+    def test_form_password_missing(self, *_):
         '''see r1.6'''
         self.open(base_url+'/login')
         self.input('#email', TEST_USER.email)
-        #leave password empty
         self.click('#btn-submit')
-        assert 'email/password combination incorrect' in self.find_element('#login_message').text
+        #leave password empty
+        message = self.driver.find_element_by_id('password')
+        assert message.get_attribute('validationMessage') == 'Please fill out this field.'
 
-
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
+    def test_form_email_missing(self, *_):
+        '''see r1.6'''
+        self.open(base_url+'/login')
+        self.input('#password', 'test_frontend')
+        self.click('#btn-submit')
+        #leave password empty
+        message = self.driver.find_element_by_id('email')
+        assert message.get_attribute('validationMessage') == 'Please fill out this field.'
 
 
 
