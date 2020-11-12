@@ -21,3 +21,23 @@ class R1Test(BaseCase):
     '''
     Contains test cases specific to R1
     '''
+
+    def login_test_user(self):
+        '''login our test user'''
+        self.open(base_url+'/login')
+        self.input('#email', TEST_USER.email)
+        self.input('#password', 'test_frontend')
+        self.click('#btn-submit')
+
+    def test_login_redirects(self, *_):
+        '''see r1.1'''
+        self.open(base_url)
+        assert self.get_current_url() == base_url+'/login'
+        self.assert_element('#login_message')
+
+
+    def test_login_message(self, *_):
+        '''see r1.2'''
+        self.open(base_url)
+        assert self.get_current_url() == base_url+'/login'
+        assert 'Please Login' in self.find_element('#login_message').text
