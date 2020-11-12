@@ -59,13 +59,14 @@ class R1Test(BaseCase):
     def test_login_submit(self, *_):
         '''see r1.5'''
         self.login_test_user()
-        assert self.get_current_url() == base_url
+        assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_form_data_missing(self, *_):
         '''see r1.6'''
         self.open(base_url+'/login')
-        # no input for email and password
+        self.input('#email', TEST_USER.email)
+        #leave password empty
         self.click('#btn-submit')
         assert 'email/password combination incorrect' in self.find_element('#login_message').text
 

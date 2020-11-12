@@ -21,3 +21,13 @@
     <td>Error message sent to wrong message ID</td>
     <td>Updated test case with correct ID</td>
 </tr>
+
+<tr>
+    <td>test_login_submit()</td>
+    <td>Verify that login form can be submitted as POST request to URL /login</td>
+    <td>Incorrect URL</td>
+    <td>Asserted incorrect URL</td>
+    <td>Adjusted assertion to correct URL</td>>
+</tr>
+
+</tbody></table>
