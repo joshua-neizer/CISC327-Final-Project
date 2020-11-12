@@ -58,8 +58,10 @@ class R3Test(BaseCase):
         self.login_test_user()
         self.open(base_url)
         # use contains check because element also contains username
-        assert 'Your balance is $140' in self.find_element(
-            '#welcome-header').text
+        assert (
+            'Your balance is $140' in
+            self.find_element('#welcome-header').text
+        )
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_logout_link(self, *_):
