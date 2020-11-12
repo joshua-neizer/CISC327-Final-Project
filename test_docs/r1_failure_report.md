@@ -10,7 +10,7 @@
 <tr>
     <td>test_login_submit()</td> 
     <td>Verify that login form can be submitted as POST request to URL /login</td>
-    <td>get_current_url() taks 1 positional argument but 2 were given</td>
+    <td>get_current_url() takes 1 positional argument but 2 were given</td>
     <td>Used the function incorrectly</td>
     <td>Removed extra argument</td>
 </tr>
@@ -19,6 +19,7 @@
     <td>test_form_data_missing()</td>
     <td>Verify that email and password both cannot be empty</td>
     <td>Error message sent to wrong message ID</td>
+    <td>Assert error message is matching</td>
     <td>Updated test case with correct ID</td>
 </tr>
 
