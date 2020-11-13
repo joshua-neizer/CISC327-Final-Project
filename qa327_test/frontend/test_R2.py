@@ -3,67 +3,61 @@
 Tests requirements according to R2
 '''
 
-from unittest.mock import patch
+import pytest
 from seleniumbase import BaseCase
-from werkzeug.security import generate_password_hash
 
 from qa327_test.conftest import base_url
-from qa327.models import User
 
 import qa327.backend as bn
 
-# Moch a sample user
-test_user = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!',
-    password2='Password123!'
-)
-
-test_user_bad_nameA= User(
-    name=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
-)
-
-test_user_bad_nameB= User(
-    name=['te', 'test_frontend1234567890']
-)
-
-test_user_bad_email = User(
-    email=['', 'test_frontendtest.com', 'test_frontend@testcom', '.test_frontend@test.com']
-)
-
-test_user_bad_password = User(
-    password=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
-)
-
-test_user_bad_password2A = User(
-    password2=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
-)
-
-test_user_bad_password2B = User(
-    password2='Password123! '
-)
-
-# Moch some sample tickets
-TEST_TICKETS = [
-    {'name': 't1', 'price': '100', 'owner': 'god', 'count': 2},
-    {'name': 't2', 'price': '90', 'owner': 'geek', 'count': 3},
-]
-
+class User:
+    def __init__(self, e=None, n=None, p=None):
+        self.email = e
+        self.name = n
+        self.password = p
+    
 class R2Test(BaseCase):
     '''
     Contains test cases specific to R2
     '''
+
+    def __init__(self):
+        # Moch a sample user
+        self.test_user = User(
+            email='test_frontend@test.com',
+            name='test_frontend',
+            password='Password123!'
+        )
+
+        self.test_user_bad_nameA= User(
+            name=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
+        )
+
+        self.test_user_bad_nameB= User(
+            name=['te', 'test_frontend1234567890']
+        )
+
+        self.test_user_bad_email = User(
+            email=['', 'test_frontendtest.com', 'test_frontend@testcom', '.test_frontend@test.com']
+        )
+
+        self.test_user_bad_password = User(
+            password=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
+        )
+
+        self.test_user_bad_password2 = User(
+            password='Password123! '
+        )
 
     def positive_case(self, *_):
          # Opens regisration page
         self.open(base_url+'/register')
 
         # Inputs test user information into the fields
-        self.input('#email', test_user.email)
-        self.input('#name', test_user.name)
-        self.input('#password', test_user.password)
-        self.input('#password2', test_user.password2)
+        self.input('#email', self.test_user.email)
+        self.input('#name', self.test_user.name)
+        self.input('#password', self.test_user.password)
+        self.input('#password2', self.test_user.password)
 
         # Submits the inputted information
         self.click('#btn-submit')
@@ -80,7 +74,7 @@ class R2Test(BaseCase):
         # opens regisration page
         self.open(base_url+'/login')
         # tests if these elements are available
-        self.input('#email', test_user.email)
+        self.input('#email', self.test_user.email)
         self.input('#password', 'test_frontend')
         self.click('#btn-submit')
         self.assert_element('#welcome-header')
@@ -153,10 +147,10 @@ class R2Test(BaseCase):
         # opens regisration page
         self.open(base_url+'/register')
         
-        for email in test_user_bad_email.email:
-            self.input('#name', test_user.name)
-            self.input('#password', test_user.password)
-            self.input('#password2', test_user.password2)
+        for email in self.test_user_bad_email.email:
+            self.input('#name', self.test_user.name)
+            self.input('#password', self.test_user.password)
+            self.input('#password2', self.test_user.password)
             self.input("#email", email)
             self.click('#btn-submit')
             self.assert_text('Email format is incorrect', '#message')
@@ -174,10 +168,10 @@ class R2Test(BaseCase):
         # opens regisration page
         self.open(base_url+'/register')
 
-        for password in test_user_bad_password.passord:
-            self.input('#email', test_user.email)
-            self.input('#name', test_user.name)
-            self.input('#password2', test_user.password2)
+        for password in self.test_user_bad_password.passord:
+            self.input('#email', self.test_user.email)
+            self.input('#name', self.test_user.name)
+            self.input('#password2', self.test_user.password)
             self.input("#password", password)
             self.click('#btn-submit')
             self.assert_text('Password format is incorrect', '#message')
@@ -192,10 +186,10 @@ class R2Test(BaseCase):
 
         self.open(base_url+'/register')
 
-        for password2 in test_user_bad_password2A.password2:
-            self.input('#email', test_user.email)
-            self.input('#name', test_user.name)
-            self.input('#password', test_user.password)
+        for password2 in self.test_user_bad_password.password:
+            self.input('#email', self.test_user.email)
+            self.input('#name', self.test_user.name)
+            self.input('#password', self.test_user.password)
             self.input("#password2", password2)
             self.click('#btn-submit')
             self.assert_text('Password2 format is incorrect', '#message')
@@ -220,10 +214,10 @@ class R2Test(BaseCase):
 
         # opens regisration page
         self.open(base_url+'/register')
-        self.input('#email', test_user.email)
-        self.input('#name', test_user.name)
-        self.input('#password', test_user.password)
-        self.input('#password2', test_user_bad_password2B.password2)
+        self.input('#email', self.test_user.email)
+        self.input('#name', self.test_user.name)
+        self.input('#password', self.test_user.password)
+        self.input('#password2', self.test_user_bad_password2.password)
         self.click('#btn-submit') 
         self.assert_text('The passwords do not match', '#message')
 
@@ -245,10 +239,10 @@ class R2Test(BaseCase):
         last character.
         '''
 
-        for name in test_user_bad_nameA.name:
-            self.input('#email', test_user.email)
-            self.input('#password', test_user.password)
-            self.input("#password2", test_user.password2)
+        for name in self.test_user_bad_nameA.name:
+            self.input('#email', self.test_user.email)
+            self.input('#password', self.test_user.password)
+            self.input("#password2", self.test_user.password)
             self.input('#name', name)
             self.click('#btn-submit')
             self.assert_text('Username format is incorrect', '#message')
@@ -271,10 +265,10 @@ class R2Test(BaseCase):
         NOT DONE
         '''
 
-        for name in test_user_bad_nameB.name:
-            self.input('#email', test_user.email)
-            self.input('#password', test_user.password)
-            self.input("#password2", test_user.password2)
+        for name in self.test_user_bad_nameB.name:
+            self.input('#email', self.test_user.email)
+            self.input('#password', self.test_user.password)
+            self.input("#password2", self.test_user.password)
             self.input('#name', name)
             self.click('#btn-submit')
             self.assert_text('Username format is incorrect', '#message')
@@ -300,28 +294,29 @@ class R2Test(BaseCase):
         self.assert_text('user registered successfully', '#login_message')
 
 
-    def r2_10(self, *_):
-        '''
-        10) Test Case R2.10 - If the email already exists, show message 
-        'this email has been ALREADY used'
+    # @patch('qa327.backend.get_user', return_value=TEST_USER)
+    # def r2_10(self, *_):
+    #     '''
+    #     10) Test Case R2.10 - If the email already exists, show message 
+    #     'this email has been ALREADY used'
 
-        Changed how it checks the email
-        '''
+    #     Changed how it checks the email
+    #     '''
 
-        # Opens regisration page
-        self.open(base_url+'/register')
+    #     # Opens regisration page
+    #     self.open(base_url+'/register')
 
-        # Inputs test user information into the fields
-        self.input('#email', test_user.email)
-        self.input('#name', test_user.name)
-        self.input('#password', test_user.password)
-        self.input('#password2', test_user.password2)
+    #     # Inputs test user information into the fields
+    #     self.input('#email', self.test_user.email)
+    #     self.input('#name', self.test_user.name)
+    #     self.input('#password', self.test_user.password)
+    #     self.input('#password2', self.test_user.password)
 
-        # Submits the inputted information
-        self.click('#btn-submit')
+    #     # Submits the inputted information
+    #     self.click('#btn-submit')
 
-        # Asserts that user was registered
-        self.assert_text('User exists', '#message')
+    #     # Asserts that user was registered
+    #     self.assert_text('User exists', '#message')
 
 
     def r2_11(self, *_):
@@ -336,8 +331,8 @@ class R2Test(BaseCase):
         self.positive_case()
 
         self.open(base_url+'/login')
-        self.input('#email', test_user.email)
-        self.input('#password', test_user.password)
+        self.input('#email', self.test_user.email)
+        self.input('#password', self.test_user.password)
 
         self.click('#btn-submit')
 
