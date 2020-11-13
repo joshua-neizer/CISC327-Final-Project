@@ -69,7 +69,7 @@ class R2Test(BaseCase):
         self.click('#btn-submit')
 
         # Asserts that user was registered
-        self.assert_text('user registered successfully', '#post-message')
+        self.assert_text('user registered successfully', '#login_message')
 
     def r2_1(self, *_):
         '''
@@ -297,7 +297,7 @@ class R2Test(BaseCase):
 
 
         # Asserts that user was registered
-        self.assert_text('user registered successfully', '#post-message')
+        self.assert_text('user registered successfully', '#login_message')
 
 
     def r2_10(self, *_):
