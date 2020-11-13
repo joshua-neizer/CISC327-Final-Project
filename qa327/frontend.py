@@ -47,17 +47,17 @@ def register_post():
     if password != password2:
         return error_page("The passwords do not match")
 
-    if len(email) < 1:
+    if not is_valid_email(email):
         return error_page("Email format is incorrect")
 
     if not is_valid_password(password):
         return error_page("Password format is incorrect")
 
+    if not is_valid_password(password2):
+        return error_page("Password2 format is incorrect")
+
     if not is_valid_username(name):
         return error_page("Username format is incorrect")
-
-    if not is_valid_email(email):
-        return error_page("Invalid email.")
 
     user = bn.get_user(email)
 
@@ -67,7 +67,7 @@ def register_post():
     if not bn.register_user(email, name, password, password2):
         return error_page("Failed to store user info.")
 
-    return redirect('/login')
+    return redirect('/login?message=user+registered+successfully')
 
 
 @app.route('/login', methods=['GET'])
