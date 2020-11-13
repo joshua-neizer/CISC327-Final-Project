@@ -10,16 +10,18 @@ from qa327_test.conftest import base_url
 
 import qa327.backend as bn
 
-class User:
-    def __init__(self, e=None, n=None, p=None):
-        self.email = e
-        self.name = n
-        self.password = p
+
     
 class R2Test(BaseCase):
     '''
     Contains test cases specific to R2
     '''
+
+    class User:
+        def __init__(self, email=None, name=None, password=None):
+            self.email = email
+            self.name = name
+            self.password = password
 
     def __init__(self):
         # Moch a sample user
