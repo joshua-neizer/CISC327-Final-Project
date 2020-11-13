@@ -5,6 +5,8 @@ Tests requirements according to R2
 
 import pytest
 from seleniumbase import BaseCase
+from unittest.mock import patch
+import qa327.models 
 
 from qa327_test.conftest import base_url
 
@@ -49,6 +51,12 @@ class R2Test(BaseCase):
 
         self.test_user_bad_password2 = User(
             password='Password123! '
+        )
+
+        self.TEST_USER = qa327.models.User(
+            email='test_frontend@test.com',
+            name='test_frontend',
+            password='Password123!'
         )
 
     def positive_case(self, *_):
@@ -296,29 +304,29 @@ class R2Test(BaseCase):
         self.assert_text('user registered successfully', '#login_message')
 
 
-    # @patch('qa327.backend.get_user', return_value=TEST_USER)
-    # def r2_10(self, *_):
-    #     '''
-    #     10) Test Case R2.10 - If the email already exists, show message 
-    #     'this email has been ALREADY used'
+    @patch('qa327.backend.register_user', return_value=self.TEST_USER)
+    def r2_10(self, *_):
+        '''
+        10) Test Case R2.10 - If the email already exists, show message 
+        'this email has been ALREADY used'
 
-    #     Changed how it checks the email
-    #     '''
+        Changed how it checks the email
+        '''
 
-    #     # Opens regisration page
-    #     self.open(base_url+'/register')
+        # Opens regisration page
+        self.open(base_url+'/register')
 
-    #     # Inputs test user information into the fields
-    #     self.input('#email', self.test_user.email)
-    #     self.input('#name', self.test_user.name)
-    #     self.input('#password', self.test_user.password)
-    #     self.input('#password2', self.test_user.password)
+        # Inputs test user information into the fields
+        self.input('#email', self.test_user.email)
+        self.input('#name', self.test_user.name)
+        self.input('#password', self.test_user.password)
+        self.input('#password2', self.test_user.password)
 
-    #     # Submits the inputted information
-    #     self.click('#btn-submit')
+        # Submits the inputted information
+        self.click('#btn-submit')
 
-    #     # Asserts that user was registered
-    #     self.assert_text('User exists', '#message')
+        # Asserts that user was registered
+        self.assert_text('User exists', '#message')
 
 
     def r2_11(self, *_):
