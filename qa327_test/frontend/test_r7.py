@@ -5,7 +5,7 @@ import pytest
 from seleniumbase import BaseCase
 
 from qa327.models import User
-from qa327_test.frontend.test_r1 import login_test_user
+#from qa327_test.frontend.test_r1 import login_test_user
 from qa327_test.conftest import base_url
 from unittest.mock import patch
 from werkzeug.security import generate_password_hash
@@ -36,5 +36,25 @@ class R7Test(BaseCase):
 
     def logout_redirect(self, *_):
         '''see r7.1'''
-        #mock backend.get_user to return a test_user instance
+        self.login_test_user()
+        self.input('#email', TEST_USER.email)
+        self.input('#password', TEST_USER.password)
+        self.click('#btn-submit')
+        self.open(base_url+'/logout')
+        assert self.get_current_url() == base_url+'/login'
+        message = self.driver.find_element_by_id('login_message')
+        assert message == 'Please Login'
+        
+    def logout_restricted(self, *_):
+        self.login_test_user()
+        self.input('#email', TEST_USER.email)
+        self.input('#password', TEST_USER.password)
+        self.click('#btn-submit')
+        self.open(base_url+'/logout')
+        assert self.get_current_url() == base_url+'/login'
+        message = self.driver.find_element_by_id('login_message')
+        assert message == 'Please Login'
+        self.open(base_url)
+        message = self.driver.find_element_by_id('error404')
+        assert message != None
         
