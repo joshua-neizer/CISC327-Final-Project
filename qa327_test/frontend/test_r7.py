@@ -34,7 +34,7 @@ class R7Test(BaseCase):
 
     @patch('qa327.backend.get_user', return_value= TEST_USER)
 
-    def logout_redirect(self, *_):
+    def test_logout_redirect(self, *_):
         '''see r7.1'''
         self.login_test_user()
         self.input('#email', TEST_USER.email)
@@ -45,7 +45,7 @@ class R7Test(BaseCase):
         message = self.driver.find_element_by_id('login_message')
         assert message == 'Please Login'
         
-    def logout_restricted(self, *_):
+    def test_logout_restricted(self, *_):
         self.login_test_user()
         self.input('#email', TEST_USER.email)
         self.input('#password', TEST_USER.password)
