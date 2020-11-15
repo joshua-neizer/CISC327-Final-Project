@@ -5,7 +5,7 @@ http requests from the client (browser) through templating.
 The html templates are stored in the 'templates' folder.
 """
 
-from flask import render_template, request, session, redirect
+from flask import render_template, request, session, redirect, flash
 from qa327 import app
 from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
 import qa327.backend as bn
@@ -106,18 +106,18 @@ def login_post():
 
 @app.route('/buy', methods=['POST'])
 def buy_post():
-    """TODO"""
-    return redirect('/?message=ticket+bought+successfully')
+    flash('ticket bought succesfully')
+    return redirect('/',303)
 
 @app.route('/sell', methods=['POST'])
 def sell_post():
-    """TODO"""
-    return redirect('/?message=ticket+sold+successfully')
+    flash('ticket sold succesfully')
+    return redirect('/',303)
 
 @app.route('/update', methods=['POST'])
 def update_post():
-    '''TODO'''
-    return redirect('/?message=ticket+updated+successfully')
+    flash('ticket updated successfully')
+    return redirect('/',303)
 
 
 @app.route('/logout')

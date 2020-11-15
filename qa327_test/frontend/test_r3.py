@@ -36,6 +36,13 @@ class R3Test(BaseCase):
         self.input('#password', 'test_frontend')
         self.click('#btn-submit')
 
+    def assert_flash(self, text):
+        '''asserts that message exists in flashes'''
+        for flash_dom in self.find_elements('.flash'):
+            if flash_dom.text == text:
+                return
+        raise AssertionError(f'Flash not found for text "{text}"')
+
     def test_login_redirects(self, *_):
         '''see r3.1'''
         self.open(base_url)
@@ -126,7 +133,7 @@ class R3Test(BaseCase):
         self.input('#sell-ticket-price', 'dont-care')
         self.input('#sell-ticket-expiration-date', 'dont-care')
         self.click('#sell-submit')
-        self.assert_text('ticket sold successfully', '#post-message')
+        self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_buy_posts(self, *_):
@@ -136,7 +143,7 @@ class R3Test(BaseCase):
         self.input('#buy-ticket-name', 'dont-care')
         self.input('#buy-ticket-quantity', 'dont-care')
         self.click('#buy-submit')
-        self.assert_text('ticket bought successfully', '#post-message')
+        self.assert_flash('ticket bought successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_update_posts(self, *_):
@@ -148,4 +155,4 @@ class R3Test(BaseCase):
         self.input('#update-ticket-price', 'dont-care')
         self.input('#update-ticket-expiration-date', 'dont-care')
         self.click('#update-submit')
-        self.assert_text('ticket updated successfully', '#post-message')
+        self.assert_flash('ticket updated successfully')
