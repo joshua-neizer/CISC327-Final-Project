@@ -9,12 +9,20 @@ from werkzeug.security import generate_password_hash
 from qa327_test.conftest import base_url
 from qa327.models import User
 
-# Moch a sample user
+# Mock a sample user
 TEST_USER = User(
     email='test_frontend@test.com',
     name='test_frontend',
     password=generate_password_hash('test_frontend'),
     balance=140
+)
+
+INVALID_EMAIL = User(
+    email = ['test_frontendtest.com', 'test_frontend@.com']
+)
+
+INVALID_PASSWORD = User(
+    password = ['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 )
 
 class R1Test(BaseCase):
@@ -80,3 +88,39 @@ class R1Test(BaseCase):
         #leave password empty
         message = self.driver.find_element_by_id('email')
         assert message.get_attribute('validationMessage') == 'Please fill out this field.'
+
+    '''Nicole's cases'''
+
+
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
+    def test_email_rfc_specs(self, *_):
+        '''see r1.7 (positive)'''
+        self.login_test_user()
+        assert self.get_current_url() == base_url
+
+    def test_invalid_email_rfc_specs(self, *_):
+        '''see r1.7 (negative)'''
+        #invalid email format
+        for invalid_email in INVALID_EMAIL.email:
+            self.open(base_url+'/login')
+            self.input('#email', invalid_email)
+            self.input('#password', 'test_frontend')
+            self.click('#btn-submit')
+            self.assert_text('Invalid email.', '#email_error_message')
+            assert self.get_current_url() == base_url+'/login'
+
+    def test_password_complexity(self, *_):
+        '''see r1.8 (positive)'''
+        self.login_test_user()
+        assert self.get_current_url() == base_url
+
+     def test_invalid_password_complexity(self, *_):
+        '''see r1.8 (negative)'''
+        #invalid password complexity
+        for invalid_pass in INVALID_PASSWORD.password:
+            self.open(base_url+'/login')
+            self.input('#email', TEST_USER.email)
+            self.input('#password', invalid_pass)
+            self.click('#btn-submit')
+            self.assert_text('Password format is incorrect.', '#password_error')
+            assert self.get_current_url() == base_url+'/login'
