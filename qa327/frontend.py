@@ -45,16 +45,16 @@ def register_post():
         flash(msg)
         return redirect('/login', code=303)
 
-    if not is_valid_email(email) or len(email) < 0:
+    if not is_valid_email(email) or len(email) < 1:
         return error_page("Email format is incorrect")
 
-    if not is_valid_password(password) or len(password) < 0:
+    if not is_valid_password(password):
         return error_page("Password format is incorrect")
 
-    if not is_valid_password(password2) or len(password2) < 0:
+    if not is_valid_password(password2):
         return error_page("Password2 format is incorrect")
 
-    if not is_valid_username(name) or len(name) < 0:
+    if not is_valid_username(name):
         return error_page("Username format is incorrect")
 
     if password != password2:
