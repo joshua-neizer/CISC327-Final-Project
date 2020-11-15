@@ -1,14 +1,13 @@
 '''
 Test requirements according to R7
 '''
-import pytest
+from unittest.mock import patch
 from seleniumbase import BaseCase
+from werkzeug.security import generate_password_hash
+import pytest
 
 from qa327.models import User
-#from qa327_test.frontend.test_r1 import login_test_user
 from qa327_test.conftest import base_url
-from unittest.mock import patch
-from werkzeug.security import generate_password_hash
 
 #Mock a sample user
 TEST_USER = User(
@@ -26,13 +25,13 @@ class R7Test(BaseCase):
     '''
 
     def login_test_user(self):
-            '''login our test user'''
-            self.open(base_url+'/login')
-            self.input('#email', TEST_USER.email)
-            self.input('#password', 'test_frontend')
-            self.click('#btn-submit')
+        '''login our test user'''
+        self.open(base_url+'/login')
+        self.input('#email', TEST_USER.email)
+        self.input('#password', 'test_frontend')
+        self.click('#btn-submit')
 
-    @patch('qa327.backend.get_user', return_value= TEST_USER)
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
 
     def test_logout_redirect(self, *_):
         '''see r7.1'''
@@ -42,8 +41,9 @@ class R7Test(BaseCase):
         assert self.get_current_url() == base_url+'/login'
         message = self.driver.find_element_by_id('login_message')
         assert 'Please Login' in message.text
- 
+
     def test_logout_restricted(self, *_):
+        '''see r7.2'''
         self.login_test_user()
         self.open(base_url+'/logout')
         assert self.get_current_url() == base_url+'/login'
@@ -51,5 +51,3 @@ class R7Test(BaseCase):
         assert 'Please Login' in message.text
         self.open(base_url)
         assert self.get_current_url() == base_url+'/login'
-        
-
