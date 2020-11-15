@@ -86,7 +86,7 @@ class R2Test(BaseCase):
 
         # Logins in with user information
         self.input('#email', TEST_USER_A.email)
-        self.input('#password', 'Password123!')
+        self.input('#password', VALID_USER.password)
 
         # Submits the inputted information
         self.click('#btn-submit')
@@ -351,6 +351,9 @@ class R2Test(BaseCase):
         # Asserts that user was registered
         self.assert_text('Email format is incorrect', '#login_message')
 
+        # Verifies that the user is redirected to login page
+        assert self.get_current_url() == base_url+'/login'
+
 
     @patch('qa327.backend.get_user', return_value=TEST_USER_B)
     def test_r2_10(self, *_):
@@ -390,6 +393,9 @@ class R2Test(BaseCase):
 
         # Registers user
         self.register_test_user()
+
+        # Asserts that user successfully registered
+        self.assert_text('User registered successfully', '#login_message')
 
         # Logs in user with newly registered user
         self.login_test_user()
