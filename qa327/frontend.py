@@ -30,7 +30,7 @@ def register_post():
     :return: if requirement not met, error page with specific error message
     :return: if requirements met, redirect to login page
     """
-    
+
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
@@ -45,7 +45,7 @@ def register_post():
         flash(msg)
         return redirect('/login', code=303)
 
-    if not is_valid_email(email) or len(email) < 1:
+    if not is_valid_email(email):
         return error_page("Email format is incorrect")
 
     if not is_valid_password(password):
@@ -64,7 +64,7 @@ def register_post():
 
     if user:
         return render_template('register.html', message="User exists")
-        
+
     if not bn.register_user(email, name, password, password2):
         return error_page("Failed to store user info.")
 
