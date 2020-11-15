@@ -10,9 +10,6 @@ from qa327_test.conftest import base_url
 from unittest.mock import patch
 from werkzeug.security import generate_password_hash
 
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-
 #Mock a sample user
 TEST_USER = User(
     email='test_frontend@test.com',
