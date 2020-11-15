@@ -26,7 +26,7 @@ TEST_USER_A = qa327.models.User(
     email='test_frontend@test.com',
     name='test_frontend',
     password=generate_password_hash('Password123!'),
-    balance=140
+    balance=5000
 )
 
 TEST_USER_B = qa327.models.User(
@@ -357,7 +357,7 @@ class R2Test(BaseCase):
         self.assert_text('Email format is incorrect', '#login_message')
 
 
-    @patch('qa327.backend.register_user', return_value=TEST_USER_B)
+    @patch('qa327.backend.get_user', return_value=TEST_USER_B)
     def test_r2_10(self, *_):
         '''
         10) Test Case R2.10 - If the email already exists, show message 
@@ -381,7 +381,8 @@ class R2Test(BaseCase):
         # Asserts that user was registered
         self.assert_text('User exists', '#message')
 
-    @patch('qa327.backend.register_user', return_value=TEST_USER_A)
+    @patch('qa327.backend.register_user', return_value=True)
+    @patch('qa327.backend.get_user', return_value=TEST_USER_A)   
     def test_r2_11(self, *_):
         '''
         11) Test Case R2.11 - If no error regarding the inputs following the 
@@ -395,10 +396,10 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Logs in user with newly registered user
-        self.open(base_url+'/login')
-        self.input('#email', test_user.email)
-        self.input('#password', test_user.password)
-        self.click('#btn-submit')
+        self.login_test_user()
+        
+        # Opens the user profile page /
+        self.open(base_url)
 
         # Asserts there is a welcome-header id
         self.assert_element('#welcome-header')
