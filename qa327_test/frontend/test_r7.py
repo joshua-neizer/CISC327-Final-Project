@@ -42,14 +42,14 @@ class R7Test(BaseCase):
         assert self.get_current_url() == base_url+'/login'
         message = self.driver.find_element_by_id('login_message')
         assert 'Please Login' in message.text
-    '''  
+ 
     def test_logout_restricted(self, *_):
         self.login_test_user()
         self.open(base_url+'/logout')
         assert self.get_current_url() == base_url+'/login'
         message = self.driver.find_element_by_id('login_message')
-        assert message == 'Please Login'
+        assert 'Please Login' in message.text
         self.open(base_url)
-        message = self.driver.find_element_by_id('error404')
-        assert message != None
-    '''
+        assert self.get_current_url() == base_url+'/login'
+        
+
