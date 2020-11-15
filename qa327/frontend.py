@@ -5,7 +5,7 @@ http requests from the client (browser) through templating.
 The html templates are stored in the 'templates' folder.
 """
 
-from flask import render_template, request, session, redirect
+from flask import render_template, request, session, redirect, flash
 from qa327 import app
 from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
 import qa327.backend as bn
@@ -42,32 +42,34 @@ def register_post():
         :param msg: text of the error message
         :return: register page with error message
         """
-        return render_template('register.html', message=msg)
+        flash(msg)
+        return redirect('/login', code=303)
+
+    if not is_valid_email(email) or len(email) < 0:
+        return error_page("Email format is incorrect")
+
+    if not is_valid_password(password) or len(password) < 0:
+        return error_page("Password format is incorrect")
+
+    if not is_valid_password(password2) or len(password2) < 0:
+        return error_page("Password2 format is incorrect")
+
+    if not is_valid_username(name) or len(name) < 0:
+        return error_page("Username format is incorrect")
 
     if password != password2:
         return error_page("The passwords do not match")
 
-    if not is_valid_email(email):
-        return error_page("Email format is incorrect")
-
-    if not is_valid_password(password):
-        return error_page("Password format is incorrect")
-
-    if not is_valid_password(password2):
-        return error_page("Password2 format is incorrect")
-
-    if not is_valid_username(name):
-        return error_page("Username format is incorrect")
-
     user = bn.get_user(email)
 
     if user:
-        return error_page("User exists")
+        return render_template('register.html', message="User exists")
         
     if not bn.register_user(email, name, password, password2):
         return error_page("Failed to store user info.")
 
-    return redirect('/login?message=user+registered+successfully')
+    flash('User registered successfully')
+    return redirect('/login', code=303)
 
 
 @app.route('/login', methods=['GET'])
