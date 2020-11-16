@@ -334,6 +334,7 @@ class R2Test(BaseCase):
             self.click('#register-submit')
             assert 'Username format is incorrect' in self.find_element('#login_message').text
 
+
     def test_r2_9(self, *_):
         '''
         9) Test Case R2.9 - For any formatting errors, redirect back to /login
@@ -375,20 +376,26 @@ class R2Test(BaseCase):
         # Asserts that user was registered
         self.assert_text('User exists', '#message')
 
+
     @patch('qa327.backend.register_user', return_value=True)
-    @patch('qa327.backend.get_user', side_effect=[[], TEST_USER_A, TEST_USER_A, TEST_USER_A])
-    def test_r2_11(self, *_):
+    @patch('qa327.backend.get_user')
+    def test_r2_11(self, get_user_function, *_):
         '''
         11) Test Case R2.11 - If no error regarding the inputs following the
         rules above, create a new user, set the balance to 5000, and go back to
         the /login page
         '''
+        # Sets get_user to return nothing when registering the user
+        get_user_function.return_value = []
 
         # Registers user
         self.register_test_user()
 
         # Asserts that user successfully registered
         self.assert_text('User registered successfully', '#login_message')
+
+        # Sets get_user to return TEST_USER_A after the user has been registered
+        get_user_function.return_value = TEST_USER_A
 
         # Logs in user with newly registered user
         self.login_test_user()
