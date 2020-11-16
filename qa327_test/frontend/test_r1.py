@@ -18,11 +18,11 @@ TEST_USER = User(
 )
 
 INVALID_EMAIL = User(
-    email = ['test_frontendtest.com', 'test_frontend@.com']
+    email=['test_frontendtest.com', 'test_frontend@.com', 'test\frontend@test.com']
 )
 
 INVALID_PASSWORD = User(
-    password = ['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
+    password=['Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 )
 
 class R1Test(BaseCase):
@@ -89,14 +89,11 @@ class R1Test(BaseCase):
         message = self.driver.find_element_by_id('email')
         assert message.get_attribute('validationMessage') == 'Please fill out this field.'
 
-    '''Nicole's cases'''
-
-
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_email_rfc_specs(self, *_):
         '''see r1.7 (positive)'''
         self.login_test_user()
-        assert self.get_current_url() == base_url
+        assert self.get_current_url() == base_url+'/'
 
     def test_invalid_email_rfc_specs(self, *_):
         '''see r1.7 (negative)'''
@@ -106,15 +103,16 @@ class R1Test(BaseCase):
             self.input('#email', invalid_email)
             self.input('#password', 'test_frontend')
             self.click('#btn-submit')
-            self.assert_text('Invalid email.', '#email_error_message')
+            self.assert_text('email/password combination incorrect', '#login_message')
             assert self.get_current_url() == base_url+'/login'
 
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_password_complexity(self, *_):
         '''see r1.8 (positive)'''
         self.login_test_user()
-        assert self.get_current_url() == base_url
+        assert self.get_current_url() == base_url+'/'
 
-     def test_invalid_password_complexity(self, *_):
+    def test_invalid_password_complexity(self, *_):
         '''see r1.8 (negative)'''
         #invalid password complexity
         for invalid_pass in INVALID_PASSWORD.password:
@@ -122,5 +120,29 @@ class R1Test(BaseCase):
             self.input('#email', TEST_USER.email)
             self.input('#password', invalid_pass)
             self.click('#btn-submit')
-            self.assert_text('Password format is incorrect.', '#password_error')
+            self.assert_text('email/password combination incorrect', '#login_message')
             assert self.get_current_url() == base_url+'/login'
+
+    def test_invalid_formatting(self, *_):
+        '''see r1.9'''
+        self.open(base_url+'/login')
+        self.input('#email', 'frontendtest.com')
+        self.input('#password', 'PASS123')
+        self.click('#btn-submit')
+        self.assert_text('email/password combination incorrect', '#login_message')
+
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
+    def correct_email_pass(self, *_):
+        '''see r1.10'''
+        self.login_test_user()
+        assert self.get_current_url() == base_url+'/'
+
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
+    def incorrect_email_pass(self, *_):
+        '''see r1.11'''
+        self.open(base_url+'/login')
+        self.input('#email', TEST_USER.email)
+        self.input('#password', 'test123')
+        self.click('#btn-submit')
+        assert self.get_current_url() == base_url+'/login'
+        self.assert_text('email/password combination incorrect', '#login_message')

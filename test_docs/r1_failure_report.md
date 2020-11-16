@@ -31,4 +31,22 @@
     <td>Adjusted assertion to correct URL</td>>
 </tr>
 
+<tr>
+    <td>test_email_rfc_specs()</td>
+    <td>Verify that valid emails can be used to login</td>
+    <td>Incorrect URL</td>
+    <td>Asserted base_url instead of base_url+'/'</td>
+    <td>Adjusted assertion to correct URL</td>>
+</tr>
+
+<tr>
+    <td>test_invalid_email_rfc_specs()</td>
+    <td>Verify that emails that do not follow RFC5322 cannot be used to login</td>
+    <td>Element #email_error_message not present</td>
+    <td>Error messages are sent to #login_message</td>
+    <td>Adjusted assertion to correct message and ID</td>>
+</tr>
+
+
+
 </tbody></table>
