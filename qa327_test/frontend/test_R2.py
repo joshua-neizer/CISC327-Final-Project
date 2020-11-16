@@ -191,8 +191,6 @@ class R2Test(BaseCase):
         '''
         5) (Negative Password) Test Case R2.5 - Email, password, password2 all have to
         satisfy the same required as defined in R1
-
-        Changed frontend.py lines 55 to 58 to check password2
         '''
 
         # Opens registration page and iterates over invalid passwords, along
@@ -360,8 +358,6 @@ class R2Test(BaseCase):
         '''
         10) Test Case R2.10 - If the email already exists, show message
         'this email has been ALREADY used'
-
-        Changed how it checks the email
         '''
 
         # Opens regisration page
@@ -386,8 +382,6 @@ class R2Test(BaseCase):
         11) Test Case R2.11 - If no error regarding the inputs following the
         rules above, create a new user, set the balance to 5000, and go back to
         the /login page
-
-        CHANGED HERE
         '''
 
         # Registers user
