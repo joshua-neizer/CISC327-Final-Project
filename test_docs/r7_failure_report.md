@@ -1,0 +1,4 @@
+|Test Name| Test Purpose | Output Incorrectness|Error Source |Fix|
+|---|---|---|--|---|
+|test_logout_redirect| If the user is logged out, invalidate the current session and redirect user to the `/login`| AssertionError: assert  web element == 'Please Login' | Asserting equality between an element and a string  | Get text from element, rather than compare element|
+|test_logout_restricted| After logging out, the user shouldn't be able to access restricted page | No Such Element Exception: unable to locate element id: `#error404` | Test design was wrong, doesn't reroute to 404error. Simply redirects to `/login` | Assert URL was `/login` after opening base_url |
