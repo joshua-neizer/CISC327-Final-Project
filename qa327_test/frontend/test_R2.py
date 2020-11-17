@@ -38,25 +38,18 @@ VALID_USER = User(
     password='Password123!'
 )
 
-INVALID_USER_NAME_A = User(
-    name=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
-)
+INVALID_USER_NAME_FORMATS = ['', 'test_frontend123!', ' test_frontend123',
+                        'test_frontend123 ']
 
-INVALID_USER_NAME_B = User(
-    name=['te', 'test_frontend1234567890']
-)
+INVALID_USER_NAME_LENGTHS = ['te', 'test_frontend1234567890']
 
-INVALID_USER_EMAIL = User(
-    email=['', 'test_frontendtest.com', 'test_frontend@testcom', '.test_frontend@test.com']
-)
+INVALID_USER_EMAILS = ['', 'test_frontendtest.com', 'test_frontend@testcom',
+                       '.test_frontend@test.com']
 
-INVALID_USER_PASSWORD = User(
-    password=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
-)
+INVALID_USER_PASSWORDS = ['', 'Pass!', 'password123!', 'PASSWORD123!',
+                          'Password123']
 
-MISMATCHED_PASSWORD2 = User(
-    password='Password123! '
-)
+MISMATCHED_PASSWORD2 = 'Password123! '
 
 class R2Test(BaseCase):
     '''
@@ -90,6 +83,13 @@ class R2Test(BaseCase):
 
         # Submits the inputted information
         self.click('#btn-submit')
+
+    def assert_flash(self, text):
+        '''asserts that message exists in flashes'''
+        for flash_dom in self.find_elements('.flash'):
+            if flash_dom.text == text:
+                return
+        raise AssertionError(f'Flash not found for text "{text}"')
 
 
     @patch('qa327.backend.get_user', return_value=TEST_USER_A)
@@ -146,7 +146,7 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Verifies that the user has successfully registered
-        self.assert_text('User registered successfully', '#login_message')
+        self.assert_flash('User registered successfully')
 
         # Verifies that the user is redirected to login page
         assert self.get_current_url() == base_url+'/login'
@@ -164,7 +164,7 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Asserts that user successfully registered
-        self.assert_text('User registered successfully', '#login_message')
+        self.assert_flash('User registered successfully')
 
 
 
@@ -177,14 +177,14 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid email addresses, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for email in INVALID_USER_EMAIL.email:
+        for email in INVALID_USER_EMAILS:
             self.open(base_url+'/register')
             self.input('#name', VALID_USER.name)
             self.input('#password', VALID_USER.password)
             self.input('#password2', VALID_USER.password)
             self.input("#email", email)
             self.click('#register-submit')
-            assert 'Email format is incorrect' in self.find_element('#login_message').text
+            self.assert_flash('Email format is incorrect')
 
 
     def test_r2_5_neg_password(self, *_):
@@ -197,14 +197,14 @@ class R2Test(BaseCase):
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
 
-        for password in INVALID_USER_PASSWORD.password:
+        for password in INVALID_USER_PASSWORDS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#name', VALID_USER.name)
             self.input('#password2', VALID_USER.password)
             self.input("#password", password)
             self.click('#register-submit')
-            assert 'Password format is incorrect' in self.find_element('#login_message').text
+            self.assert_flash('Password format is incorrect')
 
     def test_r2_5_neg_password2(self, *_):
         '''
@@ -215,14 +215,14 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid password2s, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for password2 in INVALID_USER_PASSWORD.password:
+        for password2 in INVALID_USER_PASSWORDS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#name', VALID_USER.name)
             self.input('#password', VALID_USER.password)
             self.input("#password2", password2)
             self.click('#register-submit')
-            assert 'Password2 format is incorrect' in self.find_element('#login_message').text
+            self.assert_flash('Password2 format is incorrect')
 
 
     @patch('qa327.backend.get_user', return_value=[])
@@ -237,7 +237,7 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Asserts that user successfully registered
-        self.assert_text('User registered successfully', '#login_message')
+        self.assert_flash('User registered successfully')
 
 
     def test_r2_6_neg(self, *_):
@@ -255,14 +255,14 @@ class R2Test(BaseCase):
         self.input('#password', VALID_USER.password)
 
         # Enters different string for password2 than for password
-        self.input('#password2', MISMATCHED_PASSWORD2.password)
+        self.input('#password2', MISMATCHED_PASSWORD2)
 
         # Submits information
         self.click('#register-submit')
 
 
         # Verifies that there is an error message and there is no POST
-        assert 'The passwords do not match' in self.find_element('#login_message').text
+        self.assert_flash('The passwords do not match')
 
 
     @patch('qa327.backend.get_user', return_value=[])
@@ -278,7 +278,7 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Asserts that user successfully registered
-        self.assert_text('User registered successfully', '#login_message')
+        self.assert_flash('User registered successfully')
 
 
     def test_r2_7_neg(self, *_):
@@ -291,14 +291,14 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid user names, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for name in INVALID_USER_NAME_A.name:
+        for name in INVALID_USER_NAME_FORMATS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#password', VALID_USER.password)
             self.input('#password2', VALID_USER.password)
             self.input('#name', name)
             self.click('#register-submit')
-            assert 'Username format is incorrect' in self.find_element('#login_message').text
+            self.assert_flash('Username format is incorrect')
 
 
     @patch('qa327.backend.get_user', return_value=[])
@@ -313,7 +313,7 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Asserts that user successfully registered
-        self.assert_text('User registered successfully', '#login_message')
+        self.assert_flash('User registered successfully')
 
 
     def test_r2_8_neg(self, *_):
@@ -325,14 +325,14 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid user names, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for name in INVALID_USER_NAME_B.name:
+        for name in INVALID_USER_NAME_LENGTHS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#password', VALID_USER.password)
             self.input("#password2", VALID_USER.password)
             self.input('#name', name)
             self.click('#register-submit')
-            assert 'Username format is incorrect' in self.find_element('#login_message').text
+            self.assert_flash('Username format is incorrect')
 
 
     def test_r2_9(self, *_):
@@ -348,7 +348,7 @@ class R2Test(BaseCase):
         self.click('#register-submit')
 
         # Asserts that user was registered
-        self.assert_text('Email format is incorrect', '#login_message')
+        self.assert_flash('Email format is incorrect')
 
         # Verifies that the user is redirected to login page
         assert self.get_current_url() == base_url+'/login'
@@ -392,7 +392,7 @@ class R2Test(BaseCase):
         self.register_test_user()
 
         # Asserts that user successfully registered
-        self.assert_text('User registered successfully', '#login_message')
+        self.assert_flash('User registered successfully')
 
         # Sets get_user to return TEST_USER_A after the user has been registered
         get_user_function.return_value = TEST_USER_A
