@@ -17,13 +17,9 @@ TEST_USER = User(
     balance=140
 )
 
-INVALID_EMAIL = User(
-    email=['test_frontendtest.com', 'test_frontend@.com', 'test\frontend@test.com']
-)
+INVALID_EMAILS = ['test_frontendtest.com', 'test_frontend@.com', 'test\frontend@test.com']
 
-INVALID_PASSWORD = User(
-    password=['Pass!', 'password123!', 'PASSWORD123!', 'Password123']
-)
+INVALID_PASSWORDS = ['Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 
 class R1Test(BaseCase):
     '''
@@ -98,7 +94,7 @@ class R1Test(BaseCase):
     def test_invalid_email_rfc_specs(self, *_):
         '''see r1.7 (negative)'''
         #invalid email format
-        for invalid_email in INVALID_EMAIL.email:
+        for invalid_email in INVALID_EMAILS:
             self.open(base_url+'/login')
             self.input('#email', invalid_email)
             self.input('#password', 'test_frontend')
@@ -115,7 +111,7 @@ class R1Test(BaseCase):
     def test_invalid_password_complexity(self, *_):
         '''see r1.8 (negative)'''
         #invalid password complexity
-        for invalid_pass in INVALID_PASSWORD.password:
+        for invalid_pass in INVALID_PASSWORDS:
             self.open(base_url+'/login')
             self.input('#email', TEST_USER.email)
             self.input('#password', invalid_pass)
