@@ -110,18 +110,18 @@ def login_post():
 
 @app.route('/buy', methods=['POST'])
 def buy_post():
-    flash('ticket bought successfully')
-    return redirect('/',303)
+    flash(bn.buy_ticket(request.form))
+    return redirect('/', 303)
 
 @app.route('/sell', methods=['POST'])
 def sell_post():
-    flash('ticket sold successfully')
-    return redirect('/',303)
+    flash(bn.sell_ticket(request.form))
+    return redirect('/', 303)
 
 @app.route('/update', methods=['POST'])
 def update_post():
-    flash('ticket updated successfully')
-    return redirect('/',303)
+    flash(bn.update_ticket(request.form))
+    return redirect('/', 303)
 
 
 @app.route('/logout')

@@ -102,6 +102,7 @@ class R3Test(GeekBaseCase):
         self.assert_element('#update-ticket-expiration-date')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.sell_ticket',return_value='ticket sold successfully')
     def test_sell_posts(self, *_):
         '''see r3.9'''
         self.login_test_user()
@@ -114,6 +115,7 @@ class R3Test(GeekBaseCase):
         self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.buy_ticket',return_value='ticket bought successfully')
     def test_buy_posts(self, *_):
         '''see r3.10'''
         self.login_test_user()
@@ -124,6 +126,7 @@ class R3Test(GeekBaseCase):
         self.assert_flash('ticket bought successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.update_ticket', return_value='ticket updated successfully')
     def test_update_posts(self, *_):
         '''see r3.11'''
         self.login_test_user()
