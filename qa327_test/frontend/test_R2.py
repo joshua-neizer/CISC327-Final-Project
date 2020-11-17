@@ -38,15 +38,18 @@ VALID_USER = User(
     password='Password123!'
 )
 
-INVALID_USER_NAMES_A=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
+INVALID_USER_NAMES_A = ['', 'test_frontend123!', ' test_frontend123',
+                        'test_frontend123 ']
 
-INVALID_USER_NAMES_B=['te', 'test_frontend1234567890']
+INVALID_USER_NAMES_B = ['te', 'test_frontend1234567890']
 
-INVALID_USER_EMAILS=['', 'test_frontendtest.com', 'test_frontend@testcom', '.test_frontend@test.com']
+INVALID_USER_EMAILS = ['', 'test_frontendtest.com', 'test_frontend@testcom',
+                       '.test_frontend@test.com']
 
-INVALID_USER_PASSWORDS=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
+INVALID_USER_PASSWORDS = ['', 'Pass!', 'password123!', 'PASSWORD123!',
+                          'Password123']
 
-MISMATCHED_PASSWORD2='Password123! '
+MISMATCHED_PASSWORD2 = 'Password123! '
 
 class R2Test(BaseCase):
     '''
