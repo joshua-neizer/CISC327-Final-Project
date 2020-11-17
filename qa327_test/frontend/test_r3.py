@@ -3,11 +3,8 @@ Tests requirements according to R3
 '''
 
 from unittest.mock import patch
-from seleniumbase import BaseCase
-from werkzeug.security import generate_password_hash
 
 from qa327_test.conftest import base_url
-from qa327.models import User
 from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
 
 # Moch some sample tickets
@@ -102,7 +99,7 @@ class R3Test(GeekBaseCase):
         self.assert_element('#update-ticket-expiration-date')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.sell_ticket',return_value='ticket sold successfully')
+    @patch('qa327.backend.sell_ticket', return_value='ticket sold successfully')
     def test_sell_posts(self, *_):
         '''see r3.9'''
         self.login_test_user()
@@ -115,7 +112,7 @@ class R3Test(GeekBaseCase):
         self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.buy_ticket',return_value='ticket bought successfully')
+    @patch('qa327.backend.buy_ticket', return_value='ticket bought successfully')
     def test_buy_posts(self, *_):
         '''see r3.10'''
         self.login_test_user()
