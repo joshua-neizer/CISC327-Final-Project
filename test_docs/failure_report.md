@@ -64,7 +64,7 @@
 </tr>
 
 <tr>
-    <td>test_r2_4</td>
+    <td>test_r2_4<br>test_r*_pos</td>
     <td>Validates registration can be submitted as a POST request</td>
     <td>Login page did not contain success message when registration fulfilled POST request</td>
     <td>register_post() in frontend.py on line 70</td>
