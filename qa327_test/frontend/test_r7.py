@@ -18,7 +18,6 @@ class R7Test(GeekBaseCase):
     '''
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-
     def test_logout_redirect(self, *_):
         '''see r7.1'''
         self.open(base_url)
