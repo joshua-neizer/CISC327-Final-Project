@@ -47,6 +47,14 @@
     <td>Adjusted assertion to correct message and ID</td>>
 </tr>
 
+<tr>
+    <td>test_invalid_*</td>
+    <td>Verify that login information does not follow required specifications</td>
+    <td>Element #error_message not present</td>
+    <td>Selenium timeout since messages are not being sent to flashed message</td>
+    <td>Adjusted selenium to assert message to correct class (i.e. flash)</td>
+</tr>
+
 
 
 </tbody></table>
