@@ -99,7 +99,8 @@ class R1Test(BaseCase):
             self.input('#email', invalid_email)
             self.input('#password', 'test_frontend')
             self.click('#btn-submit')
-            self.assert_text('email/password combination incorrect', '#error_message')
+            message = self.driver.find_element_by_class_name('flash')
+            assert message.text == 'email/password combination incorrect'
             assert self.get_current_url() == base_url+'/login'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
@@ -116,7 +117,8 @@ class R1Test(BaseCase):
             self.input('#email', TEST_USER.email)
             self.input('#password', invalid_pass)
             self.click('#btn-submit')
-            self.assert_text('email/password combination incorrect', '#error_message')
+            message = self.driver.find_element_by_class_name('flash')
+            assert message.text == 'email/password combination incorrect'
             assert self.get_current_url() == base_url+'/login'
 
     def test_invalid_formatting(self, *_):
@@ -125,7 +127,8 @@ class R1Test(BaseCase):
         self.input('#email', 'frontendtest.com')
         self.input('#password', 'PASS123')
         self.click('#btn-submit')
-        self.assert_text('email/password combination incorrect', '#error_message')
+        message = self.driver.find_element_by_class_name('flash')
+        assert message.text == 'email/password combination incorrect'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def correct_email_pass(self, *_):
@@ -141,4 +144,5 @@ class R1Test(BaseCase):
         self.input('#password', 'test123')
         self.click('#btn-submit')
         assert self.get_current_url() == base_url+'/login'
-        self.assert_text('email/password combination incorrect', '#error_message')
+        message = self.driver.find_element_by_class_name('flash')
+        assert message.text == 'email/password combination incorrect'
