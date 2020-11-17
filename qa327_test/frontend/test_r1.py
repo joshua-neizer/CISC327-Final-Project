@@ -56,7 +56,7 @@ class R1Test(GeekBaseCase):
         self.open(base_url+'/login')
         self.input('#email', TEST_USER.email)
         self.click('#btn-submit')
-        #leave password empty
+        # leave password empty
         message = self.driver.find_element_by_id('password')
         assert message.get_attribute('validationMessage') == 'Please fill out this field.'
 
@@ -66,7 +66,7 @@ class R1Test(GeekBaseCase):
         self.open(base_url+'/login')
         self.input('#password', 'test_frontend')
         self.click('#btn-submit')
-        #leave password empty
+        # leave password empty
         message = self.driver.find_element_by_id('email')
         assert message.get_attribute('validationMessage') == 'Please fill out this field.'
 
@@ -78,7 +78,7 @@ class R1Test(GeekBaseCase):
 
     def test_invalid_email_rfc_specs(self, *_):
         '''see r1.7 (negative)'''
-        #invalid email format
+        # invalid email format
         for invalid_email in INVALID_EMAILS:
             self.open(base_url+'/login')
             self.input('#email', invalid_email)
@@ -96,7 +96,7 @@ class R1Test(GeekBaseCase):
 
     def test_invalid_password_complexity(self, *_):
         '''see r1.8 (negative)'''
-        #invalid password complexity
+        # invalid password complexity
         for invalid_pass in INVALID_PASSWORDS:
             self.open(base_url+'/login')
             self.input('#email', TEST_USER.email)
