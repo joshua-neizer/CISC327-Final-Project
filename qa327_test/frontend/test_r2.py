@@ -24,7 +24,7 @@ VALID_USER = User(
 )
 
 INVALID_USER_NAME_FORMATS = [
-    '', 'test_frontend123!', 
+    '', 'test_frontend123!',
     ' test_frontend123', 'test_frontend123 '
 ]
 

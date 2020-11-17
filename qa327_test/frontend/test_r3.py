@@ -16,7 +16,6 @@ TEST_TICKETS = [
     {'name': 't2', 'price': '90', 'owner': 'geek', 'count': 3},
 ]
 
-
 class R3Test(GeekBaseCase):
     '''
     Contains test cases specific to R3
