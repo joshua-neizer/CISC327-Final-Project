@@ -38,25 +38,15 @@ VALID_USER = User(
     password='Password123!'
 )
 
-INVALID_USER_NAME_A = User(
-    name=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
-)
+INVALID_USER_NAMES_A=['', 'test_frontend123!', ' test_frontend123', 'test_frontend123 ']
 
-INVALID_USER_NAME_B = User(
-    name=['te', 'test_frontend1234567890']
-)
+INVALID_USER_NAMES_B=['te', 'test_frontend1234567890']
 
-INVALID_USER_EMAIL = User(
-    email=['', 'test_frontendtest.com', 'test_frontend@testcom', '.test_frontend@test.com']
-)
+INVALID_USER_EMAILS=['', 'test_frontendtest.com', 'test_frontend@testcom', '.test_frontend@test.com']
 
-INVALID_USER_PASSWORD = User(
-    password=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
-)
+INVALID_USER_PASSWORDS=['', 'Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 
-MISMATCHED_PASSWORD2 = User(
-    password='Password123! '
-)
+MISMATCHED_PASSWORD2='Password123! '
 
 class R2Test(BaseCase):
     '''
@@ -177,7 +167,7 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid email addresses, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for email in INVALID_USER_EMAIL.email:
+        for email in INVALID_USER_EMAILS:
             self.open(base_url+'/register')
             self.input('#name', VALID_USER.name)
             self.input('#password', VALID_USER.password)
@@ -197,7 +187,7 @@ class R2Test(BaseCase):
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
 
-        for password in INVALID_USER_PASSWORD.password:
+        for password in INVALID_USER_PASSWORDS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#name', VALID_USER.name)
@@ -215,7 +205,7 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid password2s, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for password2 in INVALID_USER_PASSWORD.password:
+        for password2 in INVALID_USER_PASSWORDS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#name', VALID_USER.name)
@@ -255,7 +245,7 @@ class R2Test(BaseCase):
         self.input('#password', VALID_USER.password)
 
         # Enters different string for password2 than for password
-        self.input('#password2', MISMATCHED_PASSWORD2.password)
+        self.input('#password2', MISMATCHED_PASSWORD2)
 
         # Submits information
         self.click('#register-submit')
@@ -291,7 +281,7 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid user names, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for name in INVALID_USER_NAME_A.name:
+        for name in INVALID_USER_NAMES_A:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#password', VALID_USER.password)
@@ -325,7 +315,7 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid user names, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for name in INVALID_USER_NAME_B.name:
+        for name in INVALID_USER_NAMES_B:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#password', VALID_USER.password)
