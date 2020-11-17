@@ -8,30 +8,15 @@ from werkzeug.security import generate_password_hash
 
 from qa327_test.conftest import base_url
 from qa327.models import User
-
-# Mock a sample user
-TEST_USER = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password=generate_password_hash('test_frontend'),
-    balance=140
-)
+from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
 
 INVALID_EMAILS = ['test_frontendtest.com', 'test_frontend@.com', 'test\frontend@test.com']
-
 INVALID_PASSWORDS = ['Pass!', 'password123!', 'PASSWORD123!', 'Password123']
 
-class R1Test(BaseCase):
+class R1Test(GeekBaseCase):
     '''
     Contains test cases specific to R1
     '''
-
-    def login_test_user(self):
-        '''login our test user'''
-        self.open(base_url+'/login')
-        self.input('#email', TEST_USER.email)
-        self.input('#password', 'test_frontend')
-        self.click('#btn-submit')
 
     def test_login_redirects(self, *_):
         '''see r1.1'''

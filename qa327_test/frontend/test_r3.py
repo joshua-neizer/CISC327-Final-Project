@@ -8,14 +8,7 @@ from werkzeug.security import generate_password_hash
 
 from qa327_test.conftest import base_url
 from qa327.models import User
-
-# Moch a sample user
-TEST_USER = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password=generate_password_hash('test_frontend'),
-    balance=140
-)
+from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
 
 # Moch some sample tickets
 TEST_TICKETS = [
@@ -24,24 +17,10 @@ TEST_TICKETS = [
 ]
 
 
-class R3Test(BaseCase):
+class R3Test(GeekBaseCase):
     '''
     Contains test cases specific to R3
     '''
-
-    def login_test_user(self):
-        '''login our test user'''
-        self.open(base_url+'/login')
-        self.input('#email', TEST_USER.email)
-        self.input('#password', 'test_frontend')
-        self.click('#btn-submit')
-
-    def assert_flash(self, text):
-        '''asserts that message exists in flashes'''
-        for flash_dom in self.find_elements('.flash'):
-            if flash_dom.text == text:
-                return
-        raise AssertionError(f'Flash not found for text "{text}"')
 
     def test_login_redirects(self, *_):
         '''see r3.1'''
