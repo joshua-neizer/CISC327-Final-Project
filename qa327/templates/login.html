@@ -2,13 +2,7 @@
 
 {% block content %}
 <h1>{% block title %}Log In{% endblock %}</h1>
-{% with message = get_flashed_messages()[0] %}
-  {% if message %}
-    <h4 class=flashes id='login_message'>{{message}}</h4>
-  {% else %}
-    <h4 id='login_message'>Please Login</h4>
-  {% endif %}
-{% endwith %}
+<h4 id='login_message'>Please Login</h4>
 <form method="post">
   <div class="form-group">
     <label for="email">Email</label>
