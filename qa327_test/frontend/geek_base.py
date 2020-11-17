@@ -24,9 +24,9 @@ class GeekBaseCase(BaseCase):
                 return
         raise AssertionError(f'Flash not found for text "{text}"')
 
-    def login_test_user(self):
+    def login_test_user(self, email=TEST_USER.email, password='test_frontend'):
         '''login our test user'''
         self.open(base_url+'/login')
-        self.input('#email', TEST_USER.email)
-        self.input('#password', 'test_frontend')
+        self.input('#email', email)
+        self.input('#password', password)
         self.click('#btn-submit')

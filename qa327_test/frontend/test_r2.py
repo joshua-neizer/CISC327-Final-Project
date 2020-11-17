@@ -77,7 +77,10 @@ class R2Test(GeekBaseCase):
         '''
 
         # Logs in user to
-        self.login_test_user()
+        self.login_test_user(
+            email=TEST_USER_A.email,
+            password='Password123!'
+        )
 
         # Opens the user profile page /
         self.open(base_url)
@@ -375,7 +378,10 @@ class R2Test(GeekBaseCase):
         get_user_function.return_value = TEST_USER_A
 
         # Logs in user with newly registered user
-        self.login_test_user()
+        self.login_test_user(
+            email=TEST_USER_A.email,
+            password='Password123!'
+        )
 
         # Opens the user profile page /
         self.open(base_url)
