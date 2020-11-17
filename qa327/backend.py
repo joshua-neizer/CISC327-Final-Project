@@ -51,10 +51,13 @@ def get_all_tickets():
     return []
 
 def buy_ticket(form):
+    '''buy a ticket, returns a message'''
     raise "TODO"
 
 def sell_ticket(form):
+    '''sell a ticket, returns a message'''
     raise 'TODO'
 
 def update_ticket(form):
+    '''update a ticket, returns a message'''
     raise 'TODO'

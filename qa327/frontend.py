@@ -110,16 +110,19 @@ def login_post():
 
 @app.route('/buy', methods=['POST'])
 def buy_post():
+    '''buy a ticket using the HTML form'''
     flash(bn.buy_ticket(request.form))
     return redirect('/', 303)
 
 @app.route('/sell', methods=['POST'])
 def sell_post():
+    '''sell a ticket using the HTML form'''
     flash(bn.sell_ticket(request.form))
     return redirect('/', 303)
 
 @app.route('/update', methods=['POST'])
 def update_post():
+    '''update a ticket using the HTML form'''
     flash(bn.update_ticket(request.form))
     return redirect('/', 303)
 
