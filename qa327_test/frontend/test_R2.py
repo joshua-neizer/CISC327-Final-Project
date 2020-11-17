@@ -38,10 +38,10 @@ VALID_USER = User(
     password='Password123!'
 )
 
-INVALID_USER_NAMES_A = ['', 'test_frontend123!', ' test_frontend123',
+INVALID_USER_NAME_FORMATS = ['', 'test_frontend123!', ' test_frontend123',
                         'test_frontend123 ']
 
-INVALID_USER_NAMES_B = ['te', 'test_frontend1234567890']
+INVALID_USER_NAME_LENGTHS = ['te', 'test_frontend1234567890']
 
 INVALID_USER_EMAILS = ['', 'test_frontendtest.com', 'test_frontend@testcom',
                        '.test_frontend@test.com']
@@ -284,7 +284,7 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid user names, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for name in INVALID_USER_NAMES_A:
+        for name in INVALID_USER_NAME_FORMATS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#password', VALID_USER.password)
@@ -318,7 +318,7 @@ class R2Test(BaseCase):
         # Opens registration page and iterates over invalid user names, along
         # with remaining valid information to verifies that there is an error message
         # and there is no POST
-        for name in INVALID_USER_NAMES_B:
+        for name in INVALID_USER_NAME_LENGTHS:
             self.open(base_url+'/register')
             self.input('#email', VALID_USER.email)
             self.input('#password', VALID_USER.password)
