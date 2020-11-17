@@ -105,7 +105,7 @@ def login_post():
         return redirect('/', code=303)
     else:
         flash('email/password combination incorrect')
-        return redirect('/login')
+        return redirect('/login', code=303)
         #return render_template('login.html', message='Please Login')
 
 @app.route('/buy', methods=['POST'])
