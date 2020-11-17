@@ -17,13 +17,6 @@ TEST_USER_A = User(
     balance=5000
 )
 
-TEST_USER_B = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-)
-
-
 VALID_USER = User(
     email='test_frontend@test.com',
     name='test_frontend',
@@ -334,7 +327,7 @@ class R2Test(GeekBaseCase):
         assert self.get_current_url() == base_url+'/login'
 
 
-    @patch('qa327.backend.get_user', return_value=TEST_USER_B)
+    @patch('qa327.backend.get_user', return_value=VALID_USER)
     def test_r2_10(self, *_):
         '''
         10) Test Case R2.10 - If the email already exists, show message
