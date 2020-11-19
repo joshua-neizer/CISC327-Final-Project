@@ -49,3 +49,15 @@ def register_user(email, name, password, password2):
 def get_all_tickets():
     """Going to be implemented when /sell and /buy is implemented"""
     return []
+
+def buy_ticket(form):
+    '''buy a ticket, returns a message'''
+    raise "TODO"
+
+def sell_ticket(form):
+    '''sell a ticket, returns a message'''
+    raise 'TODO'
+
+def update_ticket(form):
+    '''update a ticket, returns a message'''
+    raise 'TODO'

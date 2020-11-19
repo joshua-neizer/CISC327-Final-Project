@@ -8,31 +8,16 @@ import pytest
 
 from qa327.models import User
 from qa327_test.conftest import base_url
+from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
 
-#Mock a sample user
-TEST_USER = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password=generate_password_hash('test_frontend'),
-    balance=140
-)
-
-class R7Test(BaseCase):
+class R7Test(GeekBaseCase):
     '''
     Contains test cases specific to R7.
     Test only test the frontend portion, and will patch the backend
     specific values
     '''
 
-    def login_test_user(self):
-        '''login our test user'''
-        self.open(base_url+'/login')
-        self.input('#email', TEST_USER.email)
-        self.input('#password', 'test_frontend')
-        self.click('#btn-submit')
-
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-
     def test_logout_redirect(self, *_):
         '''see r7.1'''
         self.open(base_url)

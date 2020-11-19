@@ -4,33 +4,18 @@ Tests requirements according to R2
 
 from unittest.mock import patch
 from werkzeug.security import generate_password_hash
-from seleniumbase import BaseCase
+
+from qa327.models import User
 from qa327_test.conftest import base_url
-
-import qa327.models
-
-# Defines user class to make testing more streamlined
-class User:
-    def __init__(self, email=None, name=None, password=None):
-        self.email = email
-        self.name = name
-        self.password = password
-
+from qa327_test.frontend.geek_base import GeekBaseCase
 
 # Defines test information
-TEST_USER_A = qa327.models.User(
+TEST_USER_A = User(
     email='test_frontend@test.com',
     name='test_frontend',
     password=generate_password_hash('Password123!', method='sha256'),
     balance=5000
 )
-
-TEST_USER_B = qa327.models.User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password='Password123!'
-)
-
 
 VALID_USER = User(
     email='test_frontend@test.com',
@@ -38,20 +23,26 @@ VALID_USER = User(
     password='Password123!'
 )
 
-INVALID_USER_NAME_FORMATS = ['', 'test_frontend123!', ' test_frontend123',
-                        'test_frontend123 ']
+INVALID_USER_NAME_FORMATS = [
+    '', 'test_frontend123!',
+    ' test_frontend123', 'test_frontend123 '
+]
 
 INVALID_USER_NAME_LENGTHS = ['te', 'test_frontend1234567890']
 
-INVALID_USER_EMAILS = ['', 'test_frontendtest.com', 'test_frontend@testcom',
-                       '.test_frontend@test.com']
+INVALID_USER_EMAILS = [
+    '', 'test_frontendtest.com', 
+    'test_frontend@testcom', '.test_frontend@test.com'
+]
 
-INVALID_USER_PASSWORDS = ['', 'Pass!', 'password123!', 'PASSWORD123!',
-                          'Password123']
+INVALID_USER_PASSWORDS = [
+    '', 'Pass!', 'password123!', 
+    'PASSWORD123!','Password123'
+]
 
 MISMATCHED_PASSWORD2 = 'Password123! '
 
-class R2Test(BaseCase):
+class R2Test(GeekBaseCase):
     '''
     Contains test cases specific to R2
     '''
@@ -71,27 +62,6 @@ class R2Test(BaseCase):
         # Submits the inputted information
         self.click('#register-submit')
 
-
-    def login_test_user(self):
-        '''login our test user'''
-        # Opens login page
-        self.open(base_url+'/login')
-
-        # Logins in with user information
-        self.input('#email', TEST_USER_A.email)
-        self.input('#password', VALID_USER.password)
-
-        # Submits the inputted information
-        self.click('#btn-submit')
-
-    def assert_flash(self, text):
-        '''asserts that message exists in flashes'''
-        for flash_dom in self.find_elements('.flash'):
-            if flash_dom.text == text:
-                return
-        raise AssertionError(f'Flash not found for text "{text}"')
-
-
     @patch('qa327.backend.get_user', return_value=TEST_USER_A)
     def test_r2_1(self, *_):
         '''
@@ -100,7 +70,10 @@ class R2Test(BaseCase):
         '''
 
         # Logs in user to
-        self.login_test_user()
+        self.login_test_user(
+            email=TEST_USER_A.email,
+            password='Password123!'
+        )
 
         # Opens the user profile page /
         self.open(base_url)
@@ -354,7 +327,7 @@ class R2Test(BaseCase):
         assert self.get_current_url() == base_url+'/login'
 
 
-    @patch('qa327.backend.get_user', return_value=TEST_USER_B)
+    @patch('qa327.backend.get_user', return_value=VALID_USER)
     def test_r2_10(self, *_):
         '''
         10) Test Case R2.10 - If the email already exists, show message
@@ -398,7 +371,10 @@ class R2Test(BaseCase):
         get_user_function.return_value = TEST_USER_A
 
         # Logs in user with newly registered user
-        self.login_test_user()
+        self.login_test_user(
+            email=TEST_USER_A.email,
+            password='Password123!'
+        )
 
         # Opens the user profile page /
         self.open(base_url)

@@ -3,19 +3,9 @@ Tests requirements according to R3
 '''
 
 from unittest.mock import patch
-from seleniumbase import BaseCase
-from werkzeug.security import generate_password_hash
 
 from qa327_test.conftest import base_url
-from qa327.models import User
-
-# Moch a sample user
-TEST_USER = User(
-    email='test_frontend@test.com',
-    name='test_frontend',
-    password=generate_password_hash('test_frontend'),
-    balance=140
-)
+from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
 
 # Moch some sample tickets
 TEST_TICKETS = [
@@ -23,25 +13,10 @@ TEST_TICKETS = [
     {'name': 't2', 'price': '90', 'owner': 'geek', 'count': 3},
 ]
 
-
-class R3Test(BaseCase):
+class R3Test(GeekBaseCase):
     '''
     Contains test cases specific to R3
     '''
-
-    def login_test_user(self):
-        '''login our test user'''
-        self.open(base_url+'/login')
-        self.input('#email', TEST_USER.email)
-        self.input('#password', 'test_frontend')
-        self.click('#btn-submit')
-
-    def assert_flash(self, text):
-        '''asserts that message exists in flashes'''
-        for flash_dom in self.find_elements('.flash'):
-            if flash_dom.text == text:
-                return
-        raise AssertionError(f'Flash not found for text "{text}"')
 
     def test_login_redirects(self, *_):
         '''see r3.1'''
@@ -124,6 +99,7 @@ class R3Test(BaseCase):
         self.assert_element('#update-ticket-expiration-date')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.sell_ticket', return_value='ticket sold successfully')
     def test_sell_posts(self, *_):
         '''see r3.9'''
         self.login_test_user()
@@ -136,6 +112,7 @@ class R3Test(BaseCase):
         self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.buy_ticket', return_value='ticket bought successfully')
     def test_buy_posts(self, *_):
         '''see r3.10'''
         self.login_test_user()
@@ -146,6 +123,7 @@ class R3Test(BaseCase):
         self.assert_flash('ticket bought successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.update_ticket', return_value='ticket updated successfully')
     def test_update_posts(self, *_):
         '''see r3.11'''
         self.login_test_user()
