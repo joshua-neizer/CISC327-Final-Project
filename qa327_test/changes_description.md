@@ -12,7 +12,7 @@ The template files provided had to be altered to conduct front-end unit testing.
 <tr>
     <td>base.html</td>
     <td></td>
-    <td></td>
+    <td>Allows templates to flash error messages for invalid formatting, wrong password and user combinations, and other requirements.</td>
 </tr>
 
 <tr>
@@ -29,6 +29,18 @@ The template files provided had to be altered to conduct front-end unit testing.
 
 <tr>
     <td>register.html</td>
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td>backend.py</td>
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td>frontend.py</td>
     <td></td>
     <td></td>
 </tr>
