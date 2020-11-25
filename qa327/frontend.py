@@ -9,6 +9,7 @@ from flask import render_template, request, session, redirect, flash
 from qa327 import app
 from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
 import qa327.backend as bn
+from qa327.authenticate import authenticate
 
 @app.route('/register', methods=['GET'])
 def register_get():
@@ -115,9 +116,10 @@ def buy_post():
     return redirect('/', 303)
 
 @app.route('/sell', methods=['POST'])
-def sell_post():
+@authenticate
+def sell_post(user):
     '''sell a ticket using the HTML form'''
-    flash(bn.sell_ticket(request.form))
+    flash(bn.sell_ticket(user, request.form))
     return redirect('/', 303)
 
 @app.route('/update', methods=['POST'])
@@ -135,40 +137,6 @@ def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
     return redirect('/')
-
-
-def authenticate(inner_function):
-    """:param inner_function: any python function that accepts a user object
-
-    Wrap any python function and check the current session to see if
-    the user has logged in. If login, it will call the inner_function
-    with the logged in user object.
-
-    To wrap a function, we can put a decoration on that function.
-    Example:
-
-    @authenticate
-    def home_page(user):
-        pass
-    """
-
-    def wrapped_inner():
-
-        # check if we stored the key in the session
-        if 'logged_in' in session:
-            email = session['logged_in']
-            user = bn.get_user(email)
-            if user:
-                # if the user exists, call the inner_function
-                # with user as parameter
-                return inner_function(user)
-        else:
-            # else, redirect to the login page
-            return redirect('/login')
-
-    # return the wrapped version of the inner_function:
-    return wrapped_inner
-
 
 @app.route('/')
 @authenticate
