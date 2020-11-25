@@ -1,6 +1,7 @@
 """This file defines all backend logic that interacts with database and other services"""
 
 from werkzeug.security import generate_password_hash, check_password_hash
+from dateutil.parser import parse as parse_date
 from qa327.models import db, User, Ticket
 
 def get_user(email):
@@ -60,7 +61,7 @@ def sell_ticket(user, form):
         name=form['ticket-name'],
         quantity=form['ticket-quantity'],
         price=form['ticket-price'],
-        expires=form['ticket-expiration-date'],
+        expires=parse_date(form['ticket-expiration-date']),
         seller = user
     )
     db.session.add(ticket)

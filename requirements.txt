@@ -32,3 +32,4 @@ py3-validate-email==0.1.4
 
 flask-pytest
 seleniumbase
+python-dateutil

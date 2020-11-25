@@ -27,6 +27,7 @@ class Ticket(db.Model):
     name = db.Column(db.String(1000), primary_key=True)
     seller_id = db.Column(db.Integer,db.ForeignKey(User.id))
     price = db.Column(db.Integer)
+    quantity = db.Column(db.Integer)
     expires = db.Column(db.Date)
 
     seller = db.relationship('User',foreign_keys='Ticket.seller_id')
