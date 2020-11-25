@@ -16,6 +16,9 @@ def authenticate(inner_function):
     def home_page(user):
         pass
     """
+    # wraps maintains original function name and other magic
+    # so that flask doesn't complain about duplicate routes
+    # to wrapped_inner()
     @wraps(inner_function)
     def wrapped_inner():
 
