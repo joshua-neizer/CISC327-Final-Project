@@ -1,7 +1,8 @@
 """This file defines all backend logic that interacts with database and other services"""
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from qa327.models import db, User
+from dateutil.parser import parse as parse_date
+from qa327.models import db, User, Ticket
 
 def get_user(email):
     """
@@ -48,15 +49,25 @@ def register_user(email, name, password, password2):
 
 def get_all_tickets():
     """Going to be implemented when /sell and /buy is implemented"""
-    return []
+    return Ticket.query.all()
+
 
 def buy_ticket(form):
     '''buy a ticket, returns a message'''
     raise "TODO"
 
-def sell_ticket(form):
+def sell_ticket(user, form):
     '''sell a ticket, returns a message'''
-    raise 'TODO'
+    ticket = Ticket(
+        name=form['ticket-name'],
+        quantity=form['ticket-quantity'],
+        price=form['ticket-price'],
+        expires=parse_date(form['ticket-expiration-date']),
+        seller=user
+    )
+    db.session.add(ticket)
+    db.session.commit()
+    return 'ticket sold successfully'
 
 def update_ticket(form):
     '''update a ticket, returns a message'''
