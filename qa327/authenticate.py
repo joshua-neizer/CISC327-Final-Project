@@ -1,5 +1,9 @@
-from flask import session, redirect
+"""
+handle session authentication as a decorator
+"""
+
 from functools import wraps
+from flask import session, redirect
 import qa327.backend as bn
 
 def authenticate(inner_function):

@@ -57,12 +57,13 @@ def buy_ticket(form):
     raise "TODO"
 
 def sell_ticket(user, form):
+    '''sell a ticket, returns a message'''
     ticket = Ticket(
         name=form['ticket-name'],
         quantity=form['ticket-quantity'],
         price=form['ticket-price'],
         expires=parse_date(form['ticket-expiration-date']),
-        seller = user
+        seller=user
     )
     db.session.add(ticket)
     db.session.commit()
