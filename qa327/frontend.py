@@ -118,7 +118,37 @@ def buy_post():
 @app.route('/sell', methods=['POST'])
 @authenticate
 def sell_post(user):
-    '''sell a ticket using the HTML form'''
+    '''
+    Intake all information from ticket selling form and validate it meets requirements
+    :return: if requirements are not met, redirect to user page with error
+    :return: if requirements are met, post ticket information to user page 
+    '''
+    name = request.form.get('sell-ticket-name')
+    quantity = request.form.get('sell-ticket-quantity')
+    price = request.form.get('sell-ticket-price')
+    expiration = request.form.get('sell-ticket-expiration-date')
+
+    def error_page(msg):
+        """
+        Render error message on register page.
+        :param msg: text of the error message
+        :return: register page with error message
+        """
+        flash(msg)
+        return redirect('/', code=303)
+
+    if not is_valid_ticket_name(name):
+        return error_page('Invalid ticket name')
+
+    if not is_valid_quantity(quantity):
+        return error_page('Invalid ticket quantity')
+
+    if not is_valid_price(price):
+        return error_page('Invalid ticket price')
+
+    if not is_valid_date(expiration):
+        return error_page('Invalid ticket date')
+
     flash(bn.sell_ticket(user, request.form))
     return redirect('/', 303)
 
