@@ -26,7 +26,7 @@ def register_get():
 @app.route('/register', methods=['POST'])
 def register_post():
     """
-    Intake register form information and validate that all entered information follows 
+    Intake register form information and validate that all entered information follows
     requirements R1 (login) and R2 (register).
     :return: if requirement not met, error page with specific error message
     :return: if requirements met, redirect to login page
@@ -121,7 +121,7 @@ def sell_post(user):
     '''
     Intake all information from ticket selling form and validate it meets requirements
     :return: if requirements are not met, redirect to user page with error
-    :return: if requirements are met, post ticket information to user page 
+    :return: if requirements are met, post ticket information to user page
     '''
     name = request.form.get('sell-ticket-name')
     quantity = request.form.get('sell-ticket-quantity')
