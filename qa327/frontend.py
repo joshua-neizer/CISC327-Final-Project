@@ -8,6 +8,7 @@ The html templates are stored in the 'templates' folder.
 from flask import render_template, request, session, redirect, flash
 from qa327 import app
 from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
+from qa327.ticket_format import is_valid_ticket_name, is_valid_quantity
 import qa327.backend as bn
 from qa327.authenticate import authenticate
 
@@ -110,9 +111,32 @@ def login_post():
         #return render_template('login.html', message='Please Login')
 
 @app.route('/buy', methods=['POST'])
-def buy_post():
-    '''buy a ticket using the HTML form'''
-    flash(bn.buy_ticket(request.form))
+def buy_post(user):
+    '''
+    Intake all information from the buying ticket form and ensure it meets all requirements 
+    outlined in R6.
+    :return: if invalid information, redirect to user page with error
+    :return: if valid information, decrease quantity by X in the DB and XXXXXX huh
+    '''
+    def error_page(msg):
+        '''
+        Render error message on home page.
+        :param msg: text of the error message
+        :return: home page with error message
+        '''
+        flash(msg)
+        return redirect('/', 303)
+
+    name = request.form.get('buy-ticket-name')
+    quantity = request.form.get('buy-ticket-quantity')
+
+    if not is_valid_ticket_name(name):
+        return error_page('Invalid ticket name')
+
+    if not is_valid_quantity(quantity):
+        return error_page('Invalid ticket quantity')
+
+    flash(bn.buy_ticket(user, request.form))
     return redirect('/', 303)
 
 @app.route('/sell', methods=['POST'])

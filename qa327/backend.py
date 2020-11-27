@@ -52,9 +52,12 @@ def get_all_tickets():
     return Ticket.query.all()
 
 
-def buy_ticket(form):
+def buy_ticket(user, form):
     '''buy a ticket, returns a message'''
-    raise "TODO"
+    #check if ticket exists
+    #check if quantity req < quantity
+    #check user's balance 
+    return 'ticket bought successfully'
 
 def sell_ticket(user, form):
     '''sell a ticket, returns a message'''
