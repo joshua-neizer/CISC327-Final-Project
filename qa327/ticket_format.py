@@ -22,7 +22,7 @@ def is_valid_ticket_name(ticket_name):
 def is_valid_quantity(quantity):
     """
     Validate quantity with provided requirements
-    :param quantity: a interger for how many tickets the user wants to sell
+    :param quantity: a string for how many tickets the user wants to sell
     :return: true if the password is acceptable, false otherwise
     """
     # Verifies that quantity is an integer
@@ -37,7 +37,7 @@ def is_valid_quantity(quantity):
 def is_valid_price(price):
     """
     Validate price with provided requirements
-    :param price: a integer price for the ticket
+    :param price: a string of the price for the ticket
     :return: true if the password is acceptable, false otherwise
     """
     # Verifies that price is an integer
@@ -52,7 +52,7 @@ def is_valid_price(price):
 def is_valid_date(date):
     """
     Validate date with provided requirements
-    :param date: a integer date for when the ticket is available for
+    :param date: a string of the date for when the ticket expires
     :return: true if the password is acceptable, false otherwise
     """
     date_format = '%Y%m%d'
