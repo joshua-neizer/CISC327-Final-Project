@@ -51,6 +51,9 @@ def get_all_tickets():
     """Going to be implemented when /sell and /buy is implemented"""
     return Ticket.query.all()
 
+def get_ticket(seller, ticket_name):
+    ticket = Ticket.query.filter_by(seller_id=seller, name=ticket_name).first()
+    return ticket
 
 def buy_ticket(form):
     '''buy a ticket, returns a message'''
@@ -69,6 +72,15 @@ def sell_ticket(user, form):
     db.session.commit()
     return 'ticket sold successfully'
 
-def update_ticket(form):
+def update_ticket(name, quantity, price, exp_date):
     '''update a ticket, returns a message'''
-    raise 'TODO'
+    ticket = get_ticket(name)
+
+    ticket.name = name
+    ticket.quantity = quantity
+    ticket.price = price
+    ticket.expires = exp_date
+
+    db.session.commit()
+
+    return True

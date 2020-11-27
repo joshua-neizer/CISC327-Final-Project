@@ -130,6 +130,36 @@ def sell_post(user):
 @app.route('/update', methods=['POST'])
 def update_post():
     '''update a ticket using the HTML form'''
+    def error_page(msg):
+        """
+        Render error message on register page.
+        :param msg: text of the error message
+        :return: default page with error message
+        """
+        flash(msg)
+        return redirect('/', code=303)
+
+    ticket_name = request.form.get('update-ticket-name')
+    ticket_quantity = request.form.get('update-ticket-quantity')
+    ticket_price = request.form.get('update-ticket-price')
+    ticket_expiration_date = request.form.get('update-ticket-expiration-date')
+
+    if not is_valid_ticket_name(ticket_name):
+        error_page("Ticket name format is inccorrect")
+    
+    if not is_valid_quantity(ticket_quantity):
+        error_page("Ticket quantity format is inccorrect")
+
+    if not is_valid_price(ticket_price):
+        error_page("Ticket price format is inccorrect")
+
+    if not is_valid_date(ticket_expiration_date):
+        error_page("Ticket expiration date format is inccorrect")
+
+    if not bn.get_ticket(ticket_name):
+        error_page("Ticket doesn't exist")
+        bn.update_ticket(ticket_name, ticket_quantity, ticket_price, ticket_expiration_date)
+
     flash(bn.update_ticket(request.form))
     return redirect('/', 303)
 
