@@ -7,7 +7,12 @@ The html templates are stored in the 'templates' folder.
 
 from flask import render_template, request, session, redirect, flash
 from qa327 import app
-from qa327.login_format import is_valid_password, is_valid_username, is_valid_email
+from qa327.login_format import (
+    is_valid_password, is_valid_username, is_valid_email
+)
+from qa327.ticket_format import (
+    is_valid_ticket_name, is_valid_quantity, is_valid_price, is_valid_date
+)
 import qa327.backend as bn
 from qa327.authenticate import authenticate
 
