@@ -29,6 +29,7 @@ Werkzeug==1.0.1
 wrapt==1.11.2
 zipp==0.6.0
 py3-validate-email==0.1.4
+datetime==4.3
 
 flask-pytest
 seleniumbase
