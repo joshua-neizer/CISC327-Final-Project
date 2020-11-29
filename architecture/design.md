@@ -20,14 +20,20 @@ as the outputs of each function are
 designed to be consistent.
 
 The front end of the program has the responsibilities of being the interface with the user. 
-Here, the user is able to enter their information into forms to login and register as a new user, in `/login` and `/register` respectively. The frontend has the responsibility to ensure validity and correct formatting
-in all of the submitted information, as outlined in the requirements. This will maintain consistent data storage. The front end does not interact with the database, but requests
+Here, the user is able to enter their information into forms to login and register as a new user,
+through `/login` and `/register` respectively. 
+The frontend has the responsibility to ensure validity and correct formatting
+in all of the submitted information, as outlined in the requirements.
+This will maintain consistent data storage. 
+The front end does not interact with the database, but requests
 information through the backend and uses POST methods to enter new information.
 
 The backend of the program has the responsibility of writing and reading 
-information to and from the database. The backend starts new sessions, saves new
-users, updates user information and will retrieve user information. Moreover, the
-backend is responsible for database security as no information can be accessed without 
+information to and from the database.
+The backend starts new sessions, saves new users,
+updates user information and will retrieve user information.
+Moreover, the backend is responsible for database security
+as no information can be accessed without 
 appropriate permissions such as valid passwords.
 
 ## Function Descriptions
@@ -62,7 +68,15 @@ The **diagram to the left** details the attributes of the user model. This has t
 
 The **diagram to the right** shows the relationships between packages in the program. The main program `qa327`, inherits methods and functions, from almost all other programs. The outlier is `login_format`, as it is used to validate inputted user information within the `frontend` program.
 
-As a whole, the `__main__.py` program will instantiate the website by running the server. When the user interacts with the website, `frontend.py` will handle the various http requests from the client by redirecting the user to the appropriate page and posting requests for them. Whenever the user enters information into the client, `frontend.py` uses functions defined in `login_format.py` to ensure correct formatting and validity of information as outlined in the requirements. `frontend.py` intakes information and passes it to `backend.py` to perform any database operations (eg. reading, writing, updating etc.) with `models.py`.
+As a whole, the `__main__.py` program will instantiate the website by running the server. 
+When the user interacts with the website, 
+`frontend.py` will handle the various http requests from the client
+ by redirecting the user to the appropriate page and posting requests for them.
+Whenever the user enters information into the client,
+`frontend.py` uses functions defined in `login_format.py` and `ticket_format.py`
+to validate requests as per the requirements.
+`frontend.py` intakes information and passes it to `backend.py` to perform any database operations
+(reading, writing, updating etc.) with `models.py`.
 
 ## Code Style
 
@@ -75,7 +89,9 @@ the PyLint tool will be used.
 A custom linter configuration will also be created from
 the default template,
 such that style rules can be adjusted to
-the team's preference and application. PyLint's scoring system will be used to ensure code meets clarity objectives as only code with a score of **9/10 or higher** is acceptable. 
+the team's preference and application.
+PyLint's scoring system will be used to ensure code meets clarity objectives
+as only code with a score of **9/10 or higher** is acceptable. 
 
 ### Code Style Examples
 * Snake case for variable names
