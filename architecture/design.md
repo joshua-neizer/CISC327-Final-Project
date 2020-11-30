@@ -20,14 +20,20 @@ as the outputs of each function are
 designed to be consistent.
 
 The front end of the program has the responsibilities of being the interface with the user. 
-Here, the user is able to enter their information into forms to login and register as a new user, in `/login` and `/register` respectively. The frontend has the responsibility to ensure validity and correct formatting
-in all of the submitted information, as outlined in the requirements. This will maintain consistent data storage. The front end does not interact with the database, but requests
+Here, the user is able to enter their information into forms to login and register as a new user,
+through `/login` and `/register` respectively. 
+The frontend has the responsibility to ensure validity and correct formatting
+in all of the submitted information, as outlined in the requirements.
+This will maintain consistent data storage. 
+The front end does not interact with the database, but requests
 information through the backend and uses POST methods to enter new information.
 
 The backend of the program has the responsibility of writing and reading 
-information to and from the database. The backend starts new sessions, saves new
-users, updates user information and will retrieve user information. Moreover, the
-backend is responsible for database security as no information can be accessed without 
+information to and from the database.
+The backend starts new sessions, saves new users,
+updates user information and will retrieve user information.
+Moreover, the backend is responsible for database security
+as no information can be accessed without 
 appropriate permissions such as valid passwords.
 
 ## Function Descriptions
@@ -39,6 +45,9 @@ appropriate permissions such as valid passwords.
 | | **register_post** |  Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register).<br>:return: if requirement not met, error page with specific error message<br>:return: if requirements met, redirect to login page  |
 | | **login_get** |  If user is logged in, redirect to home page, otherwise redirect to login  |
 | | **login_post** |  Intake all login form information and validate using login_user then redirect to home  |
+||**buy_post()**|Intake all information from the buying ticket form and ensure it meets all requirements outlined in R6.<br>:return: if invalid information, redirect to user page with error<br>:return: if valid information, decrease quantity of tickets and user's balance|
+||**sell_post()**|Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register).<br>:return: if requirement not met, error page with specific error message<br>:return: if requirements met, redirect to login page|
+||**update_post()**||
 | | **logout** |  When user logs out, remove logged in user and redirect to home page<br>:return: redirect to home page  |
 | | **authenticate** |  param inner_function: any python function that accepts a user object<br>Wrap any python function and check the current session to see if the user has logged in. If login, it will call the inner_function with the logged in user object. |
 | | **profile** |  authentication is done in the wrapper function see above  |
@@ -51,6 +60,11 @@ appropriate permissions such as valid passwords.
 | | **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
 | | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the `validate_email` library  |
 | | **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
+|`ticket_format.py`|    |   |
+||**is_valid_ticket_name()**|Validate ticket name with provided requirements<br>:param ticket_name: ticket name of ticket trying to be registered<br>:return: true if the username is acceptable, false otherwise|
+||**is_valid_quantity()**| Validate quantity with provided requirements<br>:param quantity: a string for how many tickets the user wants to sell<br>:return: true if the password is acceptable, false otherwise|
+||**is_valid_price()**|Validate price with provided requirements<br>:param price: a string of the price for the ticket<br>:return: true if the password is acceptable, false otherwise|
+||**is_valid_date()**|Validate date with provided requirements<br>:param date: a string of the date for when the ticket expires<br>:return: true if the password is acceptable, false otherwise|
 
 ## Program Diagram
 ![User](qa327.png "User Diagaram")
@@ -62,7 +76,15 @@ The **diagram to the left** details the attributes of the user model. This has t
 
 The **diagram to the right** shows the relationships between packages in the program. The main program `qa327`, inherits methods and functions, from almost all other programs. The outlier is `login_format`, as it is used to validate inputted user information within the `frontend` program.
 
-As a whole, the `__main__.py` program will instantiate the website by running the server. When the user interacts with the website, `frontend.py` will handle the various http requests from the client by redirecting the user to the appropriate page and posting requests for them. Whenever the user enters information into the client, `frontend.py` uses functions defined in `login_format.py` to ensure correct formatting and validity of information as outlined in the requirements. `frontend.py` intakes information and passes it to `backend.py` to perform any database operations (eg. reading, writing, updating etc.) with `models.py`.
+As a whole, the `__main__.py` program will instantiate the website by running the server. 
+When the user interacts with the website, 
+`frontend.py` will handle the various http requests from the client
+ by redirecting the user to the appropriate page and posting requests for them.
+Whenever the user enters information into the client,
+`frontend.py` uses functions defined in `login_format.py` and `ticket_format.py`
+to validate requests as per the requirements.
+`frontend.py` intakes information and passes it to `backend.py` to perform any database operations
+(reading, writing, updating etc.) with `models.py`.
 
 ## Code Style
 
@@ -75,7 +97,9 @@ the PyLint tool will be used.
 A custom linter configuration will also be created from
 the default template,
 such that style rules can be adjusted to
-the team's preference and application. PyLint's scoring system will be used to ensure code meets clarity objectives as only code with a score of **9/10 or higher** is acceptable. 
+the team's preference and application.
+PyLint's scoring system will be used to ensure code meets clarity objectives
+as only code with a score of **9/10 or higher** is acceptable. 
 
 ### Code Style Examples
 * Snake case for variable names

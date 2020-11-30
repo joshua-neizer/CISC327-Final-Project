@@ -90,13 +90,13 @@ def login_get():
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    """Intake all login form information and validate using login_user then redirect to home"""
+    '''Intake all login form information and validate using login_user then redirect to home'''
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
     if user:
         session['logged_in'] = user.email
-        """
+        '''
         Session is an object that contains sharing information
         between browser and the end server. Typically it is encrypted
         and stored in the browser cookies. They will be past
@@ -104,25 +104,77 @@ def login_post():
 
         Here we store the user object into the session, so we can tell
         if the client has already login in the following sessions.
-        """
+        '''
         # success! go back to the home page
         # code 303 is to force a 'GET' request
         return redirect('/', code=303)
-    else:
-        flash('email/password combination incorrect')
-        return redirect('/login', code=303)
-        #return render_template('login.html', message='Please Login')
+    flash('email/password combination incorrect')
+    return redirect('/login', code=303)
+    #return render_template('login.html', message='Please Login')
 
 @app.route('/buy', methods=['POST'])
-def buy_post():
-    '''buy a ticket using the HTML form'''
-    flash(bn.buy_ticket(request.form))
+def buy_post(user):
+    '''
+    Intake all information from the buying ticket form and ensure it meets all requirements 
+    outlined in R6.
+    :return: if invalid information, redirect to user page with error
+    :return: if valid information, decrease quantity of tickets and user's balance 
+    '''
+    def error_page(msg):
+        '''
+        Render error message on home page.
+        :param msg: text of the error message
+        :return: home page with error message
+        '''
+        flash(msg)
+        return redirect('/', 303)
+
+    name = request.form.get('buy-ticket-name')
+    quantity = request.form.get('buy-ticket-quantity')
+
+    if not is_valid_ticket_name(name):
+        return error_page('Invalid ticket name')
+
+    if not is_valid_quantity(quantity):
+        return error_page('Invalid ticket quantity')
+
+    flash(bn.buy_ticket(user, request.form))
     return redirect('/', 303)
 
 @app.route('/sell', methods=['POST'])
 @authenticate
 def sell_post(user):
-    '''sell a ticket using the HTML form'''
+    '''
+    Intake all information from ticket selling form and validate it meets requirements
+    :return: if requirements are not met, redirect to user page with error
+    :return: if requirements are met, post ticket information to user page
+    '''
+    name = request.form.get('sell-ticket-name')
+    quantity = request.form.get('sell-ticket-quantity')
+    price = request.form.get('sell-ticket-price')
+    expiration = request.form.get('sell-ticket-expiration-date')
+
+    def error_page(msg):
+        """
+        Render error message on register page.
+        :param msg: text of the error message
+        :return: register page with error message
+        """
+        flash(msg)
+        return redirect('/', code=303)
+
+    if not is_valid_ticket_name(name):
+        return error_page('Invalid ticket name')
+
+    if not is_valid_quantity(quantity):
+        return error_page('Invalid ticket quantity')
+
+    if not is_valid_price(price):
+        return error_page('Invalid ticket price')
+
+    if not is_valid_date(expiration):
+        return error_page('Invalid ticket date')
+
     flash(bn.sell_ticket(user, request.form))
     return redirect('/', 303)
 
