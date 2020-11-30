@@ -72,14 +72,21 @@ def sell_ticket(user, form):
     db.session.commit()
     return 'ticket sold successfully'
 
-def update_ticket(name, quantity, price, exp_date):
-    '''update a ticket, returns a message'''
-    ticket = get_ticket(name)
+def update_ticket(seller, form, isBlank):
+    '''update a ticket, returns a boolean'''
+    ticket = get_ticket(seller,  form['previous-ticket-name'])
 
-    ticket.name = name
-    ticket.quantity = quantity
-    ticket.price = price
-    ticket.expires = exp_date
+    if not isBlank['name'] == 0:
+        ticket.name = form['updated-ticket-name']
+
+    if not isBlank['quantity'] == 0:
+        ticket.quantity = form['ticket-quantity']
+
+    if not isBlank['price'] == 0:
+        ticket.price = form['ticket-price']
+
+    if not isBlank['exp-date'] == 0:
+        ticket.expires = form['ticket-expiration-date']
 
     db.session.commit()
 
