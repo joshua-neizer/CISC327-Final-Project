@@ -113,6 +113,7 @@ def login_post():
     #return render_template('login.html', message='Please Login')
 
 @app.route('/buy', methods=['POST'])
+@authenticate
 def buy_post(user):
     '''
     Intake all information from the buying ticket form and ensure it meets all requirements 
@@ -129,8 +130,8 @@ def buy_post(user):
         flash(msg)
         return redirect('/', 303)
 
-    name = request.form.get('buy-ticket-name')
-    quantity = request.form.get('buy-ticket-quantity')
+    name = request.form.get('ticket-name')
+    quantity = request.form.get('ticket-quantity')
 
     if not is_valid_ticket_name(name):
         return error_page('Invalid ticket name')
@@ -149,10 +150,10 @@ def sell_post(user):
     :return: if requirements are not met, redirect to user page with error
     :return: if requirements are met, post ticket information to user page
     '''
-    name = request.form.get('sell-ticket-name')
-    quantity = request.form.get('sell-ticket-quantity')
-    price = request.form.get('sell-ticket-price')
-    expiration = request.form.get('sell-ticket-expiration-date')
+    name = request.form.get('ticket-name')
+    quantity = request.form.get('ticket-quantity')
+    price = request.form.get('ticket-price')
+    expiration = request.form.get('ticket-expiration-date')
 
     def error_page(msg):
         """

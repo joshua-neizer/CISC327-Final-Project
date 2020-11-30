@@ -8,7 +8,7 @@ TEST_USER = User(
     email='test_frontend@test.com',
     name='test_frontend',
     password=generate_password_hash('test_frontend'),
-    balance=140
+    balance=500
 )
 
 class GeekBaseCase(BaseCase):
@@ -22,6 +22,7 @@ class GeekBaseCase(BaseCase):
         for flash_dom in self.find_elements('.flash'):
             if flash_dom.text == text:
                 return
+            print(flash_dom.text)
         raise AssertionError(f'Flash not found for text "{text}"')
 
     def login_test_user(self, email=TEST_USER.email, password='test_frontend'):
