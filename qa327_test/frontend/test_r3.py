@@ -52,7 +52,7 @@ class R3Test(GeekBaseCase):
         self.open(base_url)
         # use contains check because element also contains username
         assert (
-            'Your balance is $140' in
+            'Your balance is $500' in
             self.find_element('#welcome-header').text
         )
 
