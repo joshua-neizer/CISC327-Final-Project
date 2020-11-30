@@ -52,6 +52,12 @@ def get_all_tickets():
     return Ticket.query.all()
 
 def get_ticket(seller, ticket_name):
+    """
+    Gets a ticket by a given seller and ticket name
+    :param seller: the user who is selling the ticket
+    :param ticket_name: the name of the ticket
+    :return: a ticket that has the matched seller and name
+    """
     ticket = Ticket.query.filter_by(seller_id=seller, name=ticket_name).first()
     return ticket
 
@@ -72,20 +78,26 @@ def sell_ticket(user, form):
     db.session.commit()
     return 'ticket sold successfully'
 
-def update_ticket(seller, form, isBlank):
-    '''update a ticket, returns a boolean'''
-    ticket = get_ticket(seller,  form['previous-ticket-name'])
+def update_ticket(seller, form, is_blank):
+    """
+    Updates a ticket within the the database
+    :param seller: the user who is selling the ticket
+    :param form: a form containing all of the new information for the ticket
+    :param form: a dictionary that indicates if a field was left blank
+    :return: a boolean indicating if the ticket successfull updated
+    """
+    ticket = get_ticket(seller, form['previous-ticket-name'])
 
-    if not isBlank['name'] == 0:
+    if not is_blank['name']:
         ticket.name = form['updated-ticket-name']
 
-    if not isBlank['quantity'] == 0:
+    if not is_blank['quantity']:
         ticket.quantity = form['ticket-quantity']
 
-    if not isBlank['price'] == 0:
+    if not is_blank['price']:
         ticket.price = form['ticket-price']
 
-    if not isBlank['exp-date'] == 0:
+    if not is_blank['exp-date']:
         ticket.expires = form['ticket-expiration-date']
 
     db.session.commit()

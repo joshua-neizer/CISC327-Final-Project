@@ -31,7 +31,7 @@ def register_get():
 @app.route('/register', methods=['POST'])
 def register_post():
     """
-    Intake register form information and validate that all entered information follows 
+    Intake register form information and validate that all entered information follows
     requirements R1 (login) and R2 (register).
     :return: if requirement not met, error page with specific error message
     :return: if requirements met, redirect to login page
@@ -104,7 +104,6 @@ def login_post():
 
         Here we store the user object into the session, so we can tell
         if the client has already login in the following sessions.
-
         """
         # success! go back to the home page
         # code 303 is to force a 'GET' request
@@ -144,7 +143,7 @@ def update_post(user):
     ticket_quantity = request.form.get('update-ticket-quantity')
     ticket_price = request.form.get('update-ticket-price')
     ticket_expiration_date = request.form.get('update-ticket-expiration-date')
-    isBlank = {
+    is_blank = {
         'name': len(upt_ticket_name) == 0,
         'quantity' : len(ticket_quantity) == 0,
         'price' : len(ticket_price) == 0,
@@ -154,22 +153,22 @@ def update_post(user):
     if not bn.get_ticket(user.id, prev_ticket_name):
         error_page("Ticket doesn't exist")
 
-    if isBlank['name'] and not is_valid_ticket_name(upt_ticket_name):
+    if is_blank['name'] and not is_valid_ticket_name(upt_ticket_name):
         error_page("Ticket name format is inccorrect")
-    
-    if isBlank['quantity'] and not is_valid_quantity(ticket_quantity):
+
+    if is_blank['quantity'] and not is_valid_quantity(ticket_quantity):
         error_page("Ticket quantity format is inccorrect")
 
-    if isBlank['price'] and not is_valid_price(ticket_price):
+    if is_blank['price'] and not is_valid_price(ticket_price):
         error_page("Ticket price format is inccorrect")
 
-    if isBlank['exp-date'] and not is_valid_date(ticket_expiration_date):
+    if is_blank['exp-date'] and not is_valid_date(ticket_expiration_date):
         error_page("Ticket expiration date format is inccorrect")
 
-    if not bn.update_ticket(user.id, request.form, isBlank):
+    if not bn.update_ticket(user.id, request.form, is_blank):
         error_page("Error updating your ticket, please try again")
 
-    flash(bn.update_ticket(request.form))
+    flash('User updated ticket successfully')
     return redirect('/', 303)
 
 
