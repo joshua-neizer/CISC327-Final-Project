@@ -46,16 +46,19 @@
 </form>
 
 <h2>Update Tickets</h2>
+<h4>Updated ticket fields left blank will remain unchanged</h4>
 <form method="post" action="/update">
     <div class="form-group">
-        <label for="ticket-name">Ticket Name</label>
-        <input class="form-control" name="ticket-name" id="update-ticket-name" required>
-        <label for="ticket-quantity">Ticket Quantity</label>
-        <input class="form-control" name="ticket-quantity" id="update-ticket-quantity" required>
-        <label for="ticket-quantity">Ticket Price</label>
-        <input class="form-control" name="ticket-price" id="update-ticket-price" required>
-        <label for="ticket-quantity">Expiration Date</label>
-        <input class="form-control" name="ticket-expiration-date" id="update-ticket-expiration-date" required>
+        <label for="previous-ticket-name">Previous Ticket Name - <b>Required</b></label>
+        <input class="form-control" name="previous-ticket-name" id="update-prev-ticket-name" required>
+        <label for="updated-ticket-name">Updated Ticket Name</label>
+        <input class="form-control" name="updated-ticket-name" id="update-upt-ticket-name">
+        <label for="ticket-quantity">Updated Ticket Quantity</label>
+        <input class="form-control" name="ticket-quantity" id="update-ticket-quantity">
+        <label for="ticket-quantity">Updated Ticket Price</label>
+        <input class="form-control" name="ticket-price" id="update-ticket-price">
+        <label for="ticket-expiration-date">Updated Expiration Date</label>
+        <input class="form-control" name="ticket-expiration-date" id="update-ticket-expiration-date">
         <input class="btn btn-lg btn-primary" type="submit" id="update-submit" value="Update">
     </div>
 </form>

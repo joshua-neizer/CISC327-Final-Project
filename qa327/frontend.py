@@ -179,9 +179,48 @@ def sell_post(user):
     return redirect('/', 303)
 
 @app.route('/update', methods=['POST'])
-def update_post():
+def update_post(user):
     '''update a ticket using the HTML form'''
-    flash(bn.update_ticket(request.form))
+    def error_page(msg):
+        """
+        Render error message on index page.
+        :param msg: text of the error message
+        :return: default page with error message
+        """
+        flash(msg)
+        return redirect('/', code=303)
+
+    prev_ticket_name = request.form.get('update-prev-ticket-name')
+    upt_ticket_name = request.form.get('update-upt-ticket-name')
+    ticket_quantity = request.form.get('update-ticket-quantity')
+    ticket_price = request.form.get('update-ticket-price')
+    ticket_expiration_date = request.form.get('update-ticket-expiration-date')
+    is_blank = {
+        'name': len(upt_ticket_name) == 0,
+        'quantity' : len(ticket_quantity) == 0,
+        'price' : len(ticket_price) == 0,
+        'exp-date' : len(ticket_expiration_date) == 0
+    }
+
+    if not bn.get_ticket(user.id, prev_ticket_name):
+        error_page("Ticket doesn't exist")
+
+    if is_blank['name'] and not is_valid_ticket_name(upt_ticket_name):
+        error_page("Ticket name format is inccorrect")
+
+    if is_blank['quantity'] and not is_valid_quantity(ticket_quantity):
+        error_page("Ticket quantity format is inccorrect")
+
+    if is_blank['price'] and not is_valid_price(ticket_price):
+        error_page("Ticket price format is inccorrect")
+
+    if is_blank['exp-date'] and not is_valid_date(ticket_expiration_date):
+        error_page("Ticket expiration date format is inccorrect")
+
+    if not bn.update_ticket(user.id, request.form, is_blank):
+        error_page("Error updating your ticket, please try again")
+
+    flash('User updated ticket successfully')
     return redirect('/', 303)
 
 
