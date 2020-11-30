@@ -179,6 +179,7 @@ def sell_post(user):
     return redirect('/', 303)
 
 @app.route('/update', methods=['POST'])
+@authenticate
 def update_post(user):
     '''update a ticket using the HTML form'''
     def error_page(msg):
@@ -190,11 +191,11 @@ def update_post(user):
         flash(msg)
         return redirect('/', code=303)
 
-    prev_ticket_name = request.form.get('update-prev-ticket-name')
-    upt_ticket_name = request.form.get('update-upt-ticket-name')
-    ticket_quantity = request.form.get('update-ticket-quantity')
-    ticket_price = request.form.get('update-ticket-price')
-    ticket_expiration_date = request.form.get('update-ticket-expiration-date')
+    prev_ticket_name = request.form.get('previous-ticket-name')
+    upt_ticket_name = request.form.get('updated-ticket-name')
+    ticket_quantity = request.form.get('ticket-quantity')
+    ticket_price = request.form.get('ticket-price')
+    ticket_expiration_date = request.form.get('ticket-expiration-date')
     is_blank = {
         'name': len(upt_ticket_name) == 0,
         'quantity' : len(ticket_quantity) == 0,
