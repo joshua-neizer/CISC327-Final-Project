@@ -52,9 +52,26 @@ def get_all_tickets():
     return Ticket.query.all()
 
 
-def buy_ticket(form):
+def buy_ticket(user, form):
     '''buy a ticket, returns a message'''
-    raise "TODO"
+    ticket = Ticket.query.filter_by(name=form['buy-ticket-name'])
+
+    if ticket is None:
+        return 'No such ticket exists'
+
+    quantity = int(form['buy-ticket-quantity'])
+    if int(ticket.quantity) < quantity:
+        return 'Not enough tickets available'
+    min_balance = float(ticket.price)*quantity*1.40
+    if user.balance < min_balance:
+        return 'Account balance is too low'
+
+    ticket.quantity = ticket.quantity - quantity
+    user.balance = user.balance - min_balance
+    db.session.commit(ticket)
+    db.session.commit(user)
+
+    return 'Ticket bought successfully'
 
 def sell_ticket(user, form):
     '''sell a ticket, returns a message'''
