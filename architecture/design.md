@@ -45,8 +45,12 @@ appropriate permissions such as valid passwords.
 | | **register_post** |  Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register).<br>:return: if requirement not met, error page with specific error message<br>:return: if requirements met, redirect to login page  |
 | | **login_get** |  If user is logged in, redirect to home page, otherwise redirect to login  |
 | | **login_post** |  Intake all login form information and validate using login_user then redirect to home  |
-||**buy_post()**|Intake all information from the buying ticket form and ensure it meets all requirements outlined in R6. \n:return: if invalid information, redirect to user page with error \n:return: if valid information, decrease quantity of tickets and user's balance|
-||**sell_post()**|Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register). \n:return: if requirement not met, error page with specific error message \n:return: if requirements met, redirect to login page|
+||**buy_post()**|Intake all information from the buying ticket form and ensure it meets all requirements outlined in R6.
+:return: if invalid information, redirect to user page with error
+:return: if valid information, decrease quantity of tickets and user's balance|
+||**sell_post()**|Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register).
+:return: if requirement not met, error page with specific error message
+:return: if requirements met, redirect to login page|
 ||**update_post()**||
 | | **logout** |  When user logs out, remove logged in user and redirect to home page<br>:return: redirect to home page  |
 | | **authenticate** |  param inner_function: any python function that accepts a user object<br>Wrap any python function and check the current session to see if the user has logged in. If login, it will call the inner_function with the logged in user object. |
@@ -61,10 +65,18 @@ appropriate permissions such as valid passwords.
 | | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the `validate_email` library  |
 | | **is_valid_username()** | Returns boolean indicating whether a username is valid, according to R1 and R2 username definitions |
 |`ticket_format.py`|    |   |
-||**is_valid_ticket_name()**|Validate ticket name with provided requirements \n:param ticket_name: ticket name of ticket trying to be registered \n:return: true if the username is acceptable, false otherwise|
-||**is_valid_quantity()**| Validate quantity with provided requirements \n:param quantity: a string for how many tickets the user wants to sell \n:return: true if the password is acceptable, false otherwise|
-||**is_valid_price()**|Validate price with provided requirements\n:param price: a string of the price for the ticket\n:return: true if the password is acceptable, false otherwise|
-||**is_valid_date()**|Validate date with provided requirements\n:param date: a string of the date for when the ticket expires\n:return: true if the password is acceptable, false otherwise|
+||**is_valid_ticket_name()**|Validate ticket name with provided requirements
+:param ticket_name: ticket name of ticket trying to be registered
+:return: true if the username is acceptable, false otherwise|
+||**is_valid_quantity()**| Validate quantity with provided requirements
+:param quantity: a string for how many tickets the user wants to sell
+:return: true if the password is acceptable, false otherwise|
+||**is_valid_price()**|Validate price with provided requirements
+:param price: a string of the price for the ticket
+:return: true if the password is acceptable, false otherwise|
+||**is_valid_date()**|Validate date with provided requirements
+:param date: a string of the date for when the ticket expires
+:return: true if the password is acceptable, false otherwise|
 
 ## Program Diagram
 ![User](qa327.png "User Diagaram")
