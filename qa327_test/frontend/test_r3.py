@@ -93,7 +93,7 @@ class R3Test(GeekBaseCase):
         '''see r3.8'''
         self.login_test_user()
         self.open(base_url)
-        self.assert_element('#update-ticket-name')
+        self.assert_element('#update-upt-ticket-name')
         self.assert_element('#update-ticket-quantity')
         self.assert_element('#update-ticket-price')
         self.assert_element('#update-ticket-expiration-date')
@@ -128,9 +128,9 @@ class R3Test(GeekBaseCase):
         '''see r3.11'''
         self.login_test_user()
         self.open(base_url)
-        self.input('#update-ticket-name', 'dont-care')
+        self.input('#update-upt-ticket-name', 'dont-care')
         self.input('#update-ticket-quantity', 'dont-care')
         self.input('#update-ticket-price', 'dont-care')
         self.input('#update-ticket-expiration-date', 'dont-care')
         self.click('#update-submit')
-        self.assert_flash('ticket updated successfully')
+        self.assert_flash('User updated ticket successfully')
