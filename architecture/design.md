@@ -60,6 +60,7 @@ appropriate permissions such as valid passwords.
 ||**buy_ticket**|Buy a ticket that is in the database<br>:param user: User who is buying the ticket<br>:param form: form data submitted by user<br>:return: successful message|
 ||**sell_ticket()**|Adds a ticket to the database given ticket information<br>:param user: User who is selling the ticket<br>:param form: form data submitted by user<br>:return: successful message|
 ||**get_ticket()**|Gets a ticket by a given seller and ticket name<br>:param seller: the user who is selling the ticket <br>:param ticket_name: the name of the ticket <br>:return: a ticket that has the matched seller and name|
+||**update_ticket()**|Updates a ticket within the the database<br>:param seller: the user who is selling the ticket<br>:param form: a form containing all of the new information for the ticket<br>:param form: a dictionary that indicates if a field was left blank<br>:return: a boolean indicating if the ticket successfull updated|
 | `login_format.py` | | |
 | | **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
 | | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the `validate_email` library  |
