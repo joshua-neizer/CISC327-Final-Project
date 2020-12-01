@@ -47,7 +47,7 @@ appropriate permissions such as valid passwords.
 | | **login_post** |  Intake all login form information and validate using login_user then redirect to home  |
 ||**buy_post()**|Intake all information from the buying ticket form and ensure it meets all requirements outlined in R6.<br>:return: if invalid information, redirect to user page with error<br>:return: if valid information, decrease quantity of tickets and user's balance|
 ||**sell_post()**|Intake register form information and validate that all entered information follows requirements R1 (login) and R2 (register).<br>:return: if requirement not met, error page with specific error message<br>:return: if requirements met, redirect to login page|
-||**update_post()**||
+||**update_post()**|Updates a ticket within the the database<br>:param seller: the user who is selling the ticket<br>:param form: a form containing all of the new information for the ticket<br>:param form: a dictionary that indicates if a field was left blank<br>:return: a boolean indicating if the ticket successfull updated|
 | | **logout** |  When user logs out, remove logged in user and redirect to home page<br>:return: redirect to home page  |
 | | **authenticate** |  param inner_function: any python function that accepts a user object<br>Wrap any python function and check the current session to see if the user has logged in. If login, it will call the inner_function with the logged in user object. |
 | | **profile** |  authentication is done in the wrapper function see above  |
@@ -56,6 +56,11 @@ appropriate permissions such as valid passwords.
 | | **get_user** | Get a user by a given email<br>:param email: the email of the user<br>:return: a user that has the matched email address |
 | | **login_user** | Check user authentication by comparing the password<br>:param email: the email of the user<br>:param password: the password input<br>:return: the user if login succeeds |
 | | **register_user** | Register the user to the database<br>:param email: the email of the user<br>:param name: the name of the user<br>:param password: the password of user<br>:param password2: another password input to make sure the input is correct<br>:return: an error message if there is any, or None if register succeeds |
+||**get_all_tickets**|Returns all tickets in the database|
+||**buy_ticket**|Buy a ticket that is in the database<br>:param user: User who is buying the ticket<br>:param form: form data submitted by user<br>:return: successful message|
+||**sell_ticket()**|Adds a ticket to the database given ticket information<br>:param user: User who is selling the ticket<br>:param form: form data submitted by user<br>:return: successful message|
+||**get_ticket()**|Gets a ticket by a given seller and ticket name<br>:param seller: the user who is selling the ticket <br>:param ticket_name: the name of the ticket <br>:return: a ticket that has the matched seller and name|
+||**update_ticket()**|Updates a ticket within the the database<br>:param seller: the user who is selling the ticket<br>:param form: a form containing all of the new information for the ticket<br>:param form: a dictionary that indicates if a field was left blank<br>:return: a boolean indicating if the ticket successfull updated|
 | `login_format.py` | | |
 | | **is_valid_password()** | Returns boolean indicating whether a password is valid, according to R1 and R2 password definitions |
 | | **is_valid_email()** | Returns a boolean indicating whether an email is valid, according to RFC 5322 requirements, using the `validate_email` library  |
