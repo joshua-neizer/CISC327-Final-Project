@@ -115,7 +115,7 @@ def update_ticket(seller, form, is_blank):
         ticket.price = form['ticket-price']
 
     if not is_blank['exp-date']:
-        ticket.expires = form['ticket-expiration-date']
+        ticket.expires = parse_date(form['ticket-expiration-date'])
 
     db.session.commit()
 

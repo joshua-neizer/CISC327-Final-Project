@@ -3,15 +3,26 @@ Tests requirements according to R3
 '''
 
 from unittest.mock import patch
+from dateutil.parser import parse as parse_date
 
 from qa327_test.conftest import base_url
 from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
+from qa327.models import Ticket
+
 
 # Moch some sample tickets
 TEST_TICKETS = [
     {'name': 't1', 'price': '100', 'owner': 'god', 'count': 2},
     {'name': 't2', 'price': '90', 'owner': 'geek', 'count': 3},
 ]
+
+HELLO_TICKET = Ticket(
+    name='helloworld',
+    seller_id='1',
+    price=20,
+    quantity=20,
+    expires=parse_date("January 1 2022")
+)
 
 class R3Test(GeekBaseCase):
     '''
@@ -41,7 +52,7 @@ class R3Test(GeekBaseCase):
         self.open(base_url)
         # use contains check because element also contains username
         assert (
-            'Your balance is $140' in
+            'Your balance is $500' in
             self.find_element('#welcome-header').text
         )
 
@@ -93,7 +104,7 @@ class R3Test(GeekBaseCase):
         '''see r3.8'''
         self.login_test_user()
         self.open(base_url)
-        self.assert_element('#update-ticket-name')
+        self.assert_element('#update-upt-ticket-name')
         self.assert_element('#update-ticket-quantity')
         self.assert_element('#update-ticket-price')
         self.assert_element('#update-ticket-expiration-date')
@@ -104,23 +115,24 @@ class R3Test(GeekBaseCase):
         '''see r3.9'''
         self.login_test_user()
         self.open(base_url)
-        self.input('#sell-ticket-name', 'dont-care')
-        self.input('#sell-ticket-quantity', 'dont-care')
-        self.input('#sell-ticket-price', 'dont-care')
-        self.input('#sell-ticket-expiration-date', 'dont-care')
+        self.input('#sell-ticket-name', 'helloworld')
+        self.input('#sell-ticket-quantity', '20')
+        self.input('#sell-ticket-price', '20')
+        self.input('#sell-ticket-expiration-date', '20220101')
         self.click('#sell-submit')
         self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.buy_ticket', return_value='ticket bought successfully')
+    @patch('qa327.backend.get_ticket',return_value=HELLO_TICKET)
+    @patch('qa327.backend.buy_ticket', return_value='Ticket bought successfully')
     def test_buy_posts(self, *_):
         '''see r3.10'''
         self.login_test_user()
         self.open(base_url)
-        self.input('#buy-ticket-name', 'dont-care')
-        self.input('#buy-ticket-quantity', 'dont-care')
+        self.input('#buy-ticket-name', 'helloworld')
+        self.input('#buy-ticket-quantity', '5')
         self.click('#buy-submit')
-        self.assert_flash('ticket bought successfully')
+        self.assert_flash('Ticket bought successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.update_ticket', return_value='ticket updated successfully')
@@ -128,9 +140,10 @@ class R3Test(GeekBaseCase):
         '''see r3.11'''
         self.login_test_user()
         self.open(base_url)
-        self.input('#update-ticket-name', 'dont-care')
-        self.input('#update-ticket-quantity', 'dont-care')
-        self.input('#update-ticket-price', 'dont-care')
-        self.input('#update-ticket-expiration-date', 'dont-care')
+        self.input('#update-prev-ticket-name', 'helloworld')
+        self.input('#update-upt-ticket-name', 'helloworld')
+        self.input('#update-ticket-quantity', '20')
+        self.input('#update-ticket-price', '20')
+        self.input('#update-ticket-expiration-date', '20220101')
         self.click('#update-submit')
-        self.assert_flash('ticket updated successfully')
+        self.assert_flash('User updated ticket successfully')
