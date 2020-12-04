@@ -95,7 +95,14 @@ def sell_ticket(user, form):
     db.session.commit()
     return 'ticket sold successfully'
 
-def update_ticket(seller, form, is_blank):
+def safe_parse_date(date_string):
+    return (
+        None
+        if date_string == '' else
+        parse_date(date_string)
+    )
+
+def update_ticket(seller, form):
     """
     Updates a ticket within the the database
     :param seller: the user who is selling the ticket
@@ -105,17 +112,13 @@ def update_ticket(seller, form, is_blank):
     """
     ticket = get_ticket(seller, form['previous-ticket-name'])
 
-    if not is_blank['name']:
-        ticket.name = form['updated-ticket-name']
-
-    if not is_blank['quantity']:
-        ticket.quantity = form['ticket-quantity']
-
-    if not is_blank['price']:
-        ticket.price = form['ticket-price']
-
-    if not is_blank['exp-date']:
-        ticket.expires = parse_date(form['ticket-expiration-date'])
+    ticket.name = form['updated-ticket-name'] or ticket.name
+    ticket.quantity = form['ticket-quantity'] or ticket.quantity
+    ticket.price = form['ticket-price'] or ticket.price
+    ticket.expires = (
+        safe_parse_date(form['ticket-expiration-date']) or
+        ticket.expires
+    )
 
     db.session.commit()
 
