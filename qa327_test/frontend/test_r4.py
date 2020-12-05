@@ -111,6 +111,7 @@ class R4Test(GeekBaseCase):
         self.input('#sell-ticket-price', GOOD_TICKET.price)
         self.input('#sell-ticket-expiration-date', GOOD_TICKET.expires)
         self.click('#sell-submit')
+        name = GOOD_TICKET.name
         ticket_div = self.find_element(f'#tickets .ticket[name={name}]')
         for prop, value in GOOD_TICKET.items():
             displayed_text = ticket_div.find_element_by_class_name(prop).text
