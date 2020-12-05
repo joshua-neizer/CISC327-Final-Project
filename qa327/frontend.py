@@ -11,7 +11,8 @@ from qa327.login_format import (
     is_valid_password, is_valid_username, is_valid_email
 )
 from qa327.ticket_format import (
-    is_valid_ticket_name, is_valid_quantity, is_valid_price, is_valid_date
+    is_valid_ticket_name, is_valid_quantity, is_valid_price, is_valid_date,
+    parse_date
 )
 import qa327.backend as bn
 from qa327.authenticate import authenticate
@@ -111,7 +112,6 @@ def login_post():
         return redirect('/', code=303)
     flash('email/password combination incorrect')
     return redirect('/login', code=303)
-    #return render_template('login.html', message='Please Login')
 
 @app.route('/buy', methods=['POST'])
 @authenticate
@@ -146,7 +146,7 @@ def sell_post(user):
     name = request.form.get('ticket-name')
     quantity = request.form.get('ticket-quantity')
     price = request.form.get('ticket-price')
-    expiration = request.form.get('ticket-expiration-date')
+    expiration = parse_date(request.form.get('ticket-expiration-date'))
 
     home_page = make_page_with_flash('/')
 
