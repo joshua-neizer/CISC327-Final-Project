@@ -157,7 +157,7 @@ Actions:
 * Click element `#buy_submit`
 * Assert that `#buy_message.text` equal `No such ticket exists`
 
-## T4
+## T3
 Test Data: 
 
 ```
@@ -190,7 +190,7 @@ Actions:
 * Click element `#buy_submit`
 * Assert that `#buy_message.text` equal `Not enough tickets available`
 
-## T2
+## T4
 Test Data: 
 
 ```
