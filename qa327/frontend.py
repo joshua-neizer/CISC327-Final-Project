@@ -133,7 +133,7 @@ def buy_post(user):
     if not is_valid_quantity(quantity):
         return home_page('Invalid ticket quantity')
 
-    buy_status = bn.buy_ticket(user, name, quantity)
+    buy_status = bn.buy_ticket(user, name, int(quantity))
     return home_page(buy_status)
 
 @app.route('/sell', methods=['POST'])

@@ -63,7 +63,7 @@ def get_ticket(seller, ticket_name):
 
 def buy_ticket(user, name, buy_quantity):
     '''buy a ticket, returns a message'''
-    ticket = Ticket.query.filter_by(name=name)
+    ticket = Ticket.query.filter_by(name=name).first()
 
     if ticket is None:
         return 'No such ticket exists'
