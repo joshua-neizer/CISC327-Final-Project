@@ -18,7 +18,7 @@ import qa327.backend as bn
 from qa327.authenticate import authenticate
 
 def make_page_with_flash(route):
-    ''' 
+    '''
     second order function for returning a flash+redirect.
     call like make_page_with_flash('/register')('your message here')
     '''
@@ -117,10 +117,10 @@ def login_post():
 @authenticate
 def buy_post(user):
     '''
-    Intake all information from the buying ticket form and ensure it meets all requirements 
+    Intake all information from the buying ticket form and ensure it meets all requirements
     outlined in R6.
     :return: if invalid information, redirect to user page with error
-    :return: if valid information, decrease quantity of tickets and user's balance 
+    :return: if valid information, decrease quantity of tickets and user's balance
     '''
     home_page = make_page_with_flash('/')
 
@@ -171,7 +171,7 @@ def sell_post(user):
 @app.route('/update', methods=['POST'])
 @authenticate
 def update_post(user):
-    '''update a ticket using the HTML form''' 
+    '''update a ticket using the HTML form'''
     home_page = make_page_with_flash('/')
 
     prev_ticket_name = request.form.get('previous-ticket-name')
@@ -222,7 +222,7 @@ def profile(user):
     return render_template('index.html', user=user, tickets=tickets)
 
 @app.errorhandler(404)
-def page_not_found(error):
+def page_not_found(_error):
     """
     Handle 404 errors
     :param error: error message

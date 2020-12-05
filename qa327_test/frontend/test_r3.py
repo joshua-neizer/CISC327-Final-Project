@@ -122,7 +122,7 @@ class R3Test(GeekBaseCase):
         self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.get_ticket',return_value=HELLO_TICKET)
+    @patch('qa327.backend.get_ticket', return_value=HELLO_TICKET)
     @patch('qa327.backend.buy_ticket', return_value='Ticket bought successfully')
     def test_buy_posts(self, *_):
         '''see r3.10'''

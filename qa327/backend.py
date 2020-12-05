@@ -2,6 +2,7 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from qa327.models import db, User, Ticket
+from qa327.ticket_format import parse_date
 
 # factor of 1.4 accounts for service fee (35%) + tax (5%)
 COST_TO_PRICE_RATIO = 1.4
@@ -69,7 +70,7 @@ def buy_ticket(user, name, buy_quantity):
 
     if ticket.quantity < buy_quantity:
         return 'Not enough tickets available'
-    
+
     ticket_cost = ticket.price*buy_quantity*COST_TO_PRICE_RATIO
     if user.balance < ticket_cost:
         return 'Account balance is too low'
@@ -94,6 +95,10 @@ def sell_ticket(user, name, quantity, price, expiration):
     return 'ticket sold successfully'
 
 def safe_parse_date(date_string):
+    '''
+    parses a date,
+    returning none for the empty string case
+    '''
     return (
         None
         if date_string == '' else

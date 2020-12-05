@@ -49,6 +49,10 @@ def is_valid_price(price):
         return False
 
 def parse_date(date_string):
+    '''
+    parse a date using the format defined
+    in the specs
+    '''
     try:
         return datetime.strptime(
             date_string,
@@ -58,6 +62,10 @@ def parse_date(date_string):
         return None
 
 def is_valid_date(date):
+    '''
+    returns a boolean indicating whether a ticket date
+    is valid according to the spec
+    '''
     # tickets can only be sold for future events
     # sorry mcfly :(
     return date and date > datetime.now()
