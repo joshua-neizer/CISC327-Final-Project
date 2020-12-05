@@ -162,7 +162,11 @@ def sell_post(user):
     if not is_valid_date(expiration):
         return home_page('Invalid ticket date')
 
-    return home_page(bn.sell_ticket(user, request.form))
+    ticket_status = bn.sell_ticket(
+        user,
+        name, quantity, price, expiration
+    )
+    return home_page(ticket_status)
 
 @app.route('/update', methods=['POST'])
 @authenticate

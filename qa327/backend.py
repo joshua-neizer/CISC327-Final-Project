@@ -80,13 +80,13 @@ def buy_ticket(user, name, buy_quantity):
 
     return 'Ticket bought successfully'
 
-def sell_ticket(user, form):
+def sell_ticket(user, name, quantity, price, expiration):
     '''sell a ticket, returns a message'''
     ticket = Ticket(
-        name=form['ticket-name'],
-        quantity=form['ticket-quantity'],
-        price=form['ticket-price'],
-        expires=parse_date(form['ticket-expiration-date']),
+        name=name,
+        quantity=quantity,
+        price=price,
+        expires=expiration,
         seller=user
     )
     db.session.add(ticket)
