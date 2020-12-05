@@ -18,15 +18,14 @@ GOOD_TICKET = Ticket(
     expires="20220101"
 )
 
-GOOD_TICKET_DICT = [{'name': 'helloworld','price': '20','owner': 'jesus', 'count': '20'}]
+GOOD_TICKET_DICT = [{'name': 'helloworld', 'price': '20', 'owner': 'jesus', 'count': '20'}]
 
-INVALID_NAME_FORMATS = ['bad',' alsobad', 'alsobad ', '$alsobad$',
-    'veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerylongname'
-]
+INVALID_NAME_FORMATS = ['bad', ' alsobad', 'alsobad ', '$alsobad$',
+                        'veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerylongname']
 
-INVALID_QUANTITIES = [-1,101]
+INVALID_QUANTITIES = [-1, 101]
 
-INVALID_PRICES = [5,101]
+INVALID_PRICES = [5, 101]
 
 INVALID_DATES = ['January 1 2024', '20200204']
 
@@ -53,7 +52,7 @@ class R4Test(GeekBaseCase):
             self.assert_flash('Invalid ticket name')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def test_ticket_quantity(self,*_):
+    def test_ticket_quantity(self, *_):
         '''
         See r4.3 - Negative
         Checks all invalid ticket quantities
@@ -69,7 +68,7 @@ class R4Test(GeekBaseCase):
             self.assert_flash('Invalid ticket quantity')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def test_ticket_price(self,*_):
+    def test_ticket_price(self, *_):
         '''
         See r4.4 - Negative
         Checks all invalid ticket prices
@@ -85,7 +84,7 @@ class R4Test(GeekBaseCase):
             self.assert_flash('Invalid ticket price')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def test_ticket_date(self,*_):
+    def test_ticket_date(self, *_):
         '''
         See r4.5 - Negative
         Checks all invalid ticket expiration dates
