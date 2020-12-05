@@ -184,16 +184,16 @@ def update_post(user):
     if not bn.get_ticket(user.id, prev_ticket_name):
         return home_page("Ticket doesn't exist")
 
-    if not is_valid_ticket_name(upt_ticket_name):
+    if upt_ticket_name and not is_valid_ticket_name(upt_ticket_name):
         return home_page("Ticket name format is inccorrect")
 
-    if not is_valid_quantity(ticket_quantity):
+    if ticket_quantity and not is_valid_quantity(ticket_quantity):
         return home_page("Ticket quantity format is inccorrect")
 
-    if not is_valid_price(ticket_price):
+    if ticket_price and not is_valid_price(ticket_price):
         return home_page("Ticket price format is inccorrect")
 
-    if not is_valid_date(ticket_expiration_date):
+    if ticket_expiration_date and not is_valid_date(ticket_expiration_date):
         return home_page("Ticket expiration date format is inccorrect")
 
     if not bn.update_ticket(user.id, request.form):
