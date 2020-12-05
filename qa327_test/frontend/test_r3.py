@@ -3,12 +3,11 @@ Tests requirements according to R3
 '''
 
 from unittest.mock import patch
-from dateutil.parser import parse as parse_date
 
 from qa327_test.conftest import base_url
 from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
 from qa327.models import Ticket
-
+from qa327.ticket_format import parse_date
 
 # Moch some sample tickets
 TEST_TICKETS = [
@@ -21,7 +20,7 @@ HELLO_TICKET = Ticket(
     seller_id='1',
     price=20,
     quantity=20,
-    expires=parse_date("January 1 2022")
+    expires=parse_date("20220101")
 )
 
 class R3Test(GeekBaseCase):
@@ -123,7 +122,7 @@ class R3Test(GeekBaseCase):
         self.assert_flash('ticket sold successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.get_ticket',return_value=HELLO_TICKET)
+    @patch('qa327.backend.get_ticket', return_value=HELLO_TICKET)
     @patch('qa327.backend.buy_ticket', return_value='Ticket bought successfully')
     def test_buy_posts(self, *_):
         '''see r3.10'''
@@ -135,6 +134,7 @@ class R3Test(GeekBaseCase):
         self.assert_flash('Ticket bought successfully')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.get_ticket', return_value=HELLO_TICKET)
     @patch('qa327.backend.update_ticket', return_value='ticket updated successfully')
     def test_update_posts(self, *_):
         '''see r3.11'''

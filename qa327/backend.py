@@ -1,8 +1,11 @@
 """This file defines all backend logic that interacts with database and other services"""
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from dateutil.parser import parse as parse_date
 from qa327.models import db, User, Ticket
+from qa327.ticket_format import parse_date
+
+# factor of 1.4 accounts for service fee (35%) + tax (5%)
+COST_TO_PRICE_RATIO = 1.4
 
 def get_user(email):
     """
@@ -12,7 +15,6 @@ def get_user(email):
     """
     user = User.query.filter_by(email=email).first()
     return user
-
 
 def login_user(email, password):
     """
@@ -26,7 +28,6 @@ def login_user(email, password):
     if not user or not check_password_hash(user.password, password):
         return None
     return user
-
 
 def register_user(email, name, password, password2):
     """
@@ -46,7 +47,6 @@ def register_user(email, name, password, password2):
     db.session.commit()
     return True
 
-
 def get_all_tickets():
     """Going to be implemented when /sell and /buy is implemented"""
     return Ticket.query.all()
@@ -61,41 +61,51 @@ def get_ticket(seller, ticket_name):
     ticket = Ticket.query.filter_by(seller_id=seller, name=ticket_name).first()
     return ticket
 
-def buy_ticket(user, form):
+def buy_ticket(user, name, buy_quantity):
     '''buy a ticket, returns a message'''
-    ticket = Ticket.query.filter_by(name=form['buy-ticket-name'])
+    ticket = Ticket.query.filter_by(name=name).first()
 
     if ticket is None:
         return 'No such ticket exists'
 
-    quantity = int(form['buy-ticket-quantity'])
-    if int(ticket.quantity) < quantity:
+    if ticket.quantity < buy_quantity:
         return 'Not enough tickets available'
-    min_balance = float(ticket.price)*quantity*1.40
-    if user.balance < min_balance:
+
+    ticket_cost = ticket.price*buy_quantity*COST_TO_PRICE_RATIO
+    if user.balance < ticket_cost:
         return 'Account balance is too low'
 
-    ticket.quantity = ticket.quantity - quantity
-    user.balance = user.balance - min_balance
-    db.session.commit(ticket)
-    db.session.commit(user)
+    ticket.quantity -= buy_quantity
+    user.balance -= ticket_cost
+    db.session.commit()
 
     return 'Ticket bought successfully'
 
-def sell_ticket(user, form):
+def sell_ticket(user, name, quantity, price, expiration):
     '''sell a ticket, returns a message'''
     ticket = Ticket(
-        name=form['ticket-name'],
-        quantity=form['ticket-quantity'],
-        price=form['ticket-price'],
-        expires=parse_date(form['ticket-expiration-date']),
+        name=name,
+        quantity=quantity,
+        price=price,
+        expires=expiration,
         seller=user
     )
     db.session.add(ticket)
     db.session.commit()
     return 'ticket sold successfully'
 
-def update_ticket(seller, form, is_blank):
+def safe_parse_date(date_string):
+    '''
+    parses a date,
+    returning none for the empty string case
+    '''
+    return (
+        None
+        if date_string == '' else
+        parse_date(date_string)
+    )
+
+def update_ticket(seller, form):
     """
     Updates a ticket within the the database
     :param seller: the user who is selling the ticket
@@ -105,17 +115,13 @@ def update_ticket(seller, form, is_blank):
     """
     ticket = get_ticket(seller, form['previous-ticket-name'])
 
-    if not is_blank['name']:
-        ticket.name = form['updated-ticket-name']
-
-    if not is_blank['quantity']:
-        ticket.quantity = form['ticket-quantity']
-
-    if not is_blank['price']:
-        ticket.price = form['ticket-price']
-
-    if not is_blank['exp-date']:
-        ticket.expires = parse_date(form['ticket-expiration-date'])
+    ticket.name = form['updated-ticket-name'] or ticket.name
+    ticket.quantity = form['ticket-quantity'] or ticket.quantity
+    ticket.price = form['ticket-price'] or ticket.price
+    ticket.expires = (
+        safe_parse_date(form['ticket-expiration-date']) or
+        ticket.expires
+    )
 
     db.session.commit()
 

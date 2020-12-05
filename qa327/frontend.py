@@ -11,10 +11,21 @@ from qa327.login_format import (
     is_valid_password, is_valid_username, is_valid_email
 )
 from qa327.ticket_format import (
-    is_valid_ticket_name, is_valid_quantity, is_valid_price, is_valid_date
+    is_valid_ticket_name, is_valid_quantity, is_valid_price, is_valid_date,
+    parse_date
 )
 import qa327.backend as bn
 from qa327.authenticate import authenticate
+
+def make_page_with_flash(route):
+    '''
+    second order function for returning a flash+redirect.
+    call like make_page_with_flash('/register')('your message here')
+    '''
+    def page_with_flash(msg):
+        flash(msg)
+        return redirect(route, code=303)
+    return page_with_flash
 
 @app.route('/register', methods=['GET'])
 def register_get():
@@ -42,29 +53,22 @@ def register_post():
     password = request.form.get('password')
     password2 = request.form.get('password2')
 
-    def error_page(msg):
-        """
-        Render error message on register page.
-        :param msg: text of the error message
-        :return: register page with error message
-        """
-        flash(msg)
-        return redirect('/login', code=303)
+    login_page = make_page_with_flash('/login')
 
     if not is_valid_email(email):
-        return error_page("Email format is incorrect")
+        return login_page("Email format is incorrect")
 
     if not is_valid_password(password):
-        return error_page("Password format is incorrect")
+        return login_page("Password format is incorrect")
 
     if not is_valid_password(password2):
-        return error_page("Password2 format is incorrect")
+        return login_page("Password2 format is incorrect")
 
     if not is_valid_username(name):
-        return error_page("Username format is incorrect")
+        return login_page("Username format is incorrect")
 
     if password != password2:
-        return error_page("The passwords do not match")
+        return login_page("The passwords do not match")
 
     user = bn.get_user(email)
 
@@ -72,11 +76,9 @@ def register_post():
         return render_template('register.html', message="User exists")
 
     if not bn.register_user(email, name, password, password2):
-        return error_page("Failed to store user info.")
+        return login_page("Failed to store user info.")
 
-    flash('User registered successfully')
-    return redirect('/login', code=303)
-
+    return login_page('User registered successfully')
 
 @app.route('/login', methods=['GET'])
 def login_get():
@@ -110,37 +112,29 @@ def login_post():
         return redirect('/', code=303)
     flash('email/password combination incorrect')
     return redirect('/login', code=303)
-    #return render_template('login.html', message='Please Login')
 
 @app.route('/buy', methods=['POST'])
 @authenticate
 def buy_post(user):
     '''
-    Intake all information from the buying ticket form and ensure it meets all requirements 
+    Intake all information from the buying ticket form and ensure it meets all requirements
     outlined in R6.
     :return: if invalid information, redirect to user page with error
-    :return: if valid information, decrease quantity of tickets and user's balance 
+    :return: if valid information, decrease quantity of tickets and user's balance
     '''
-    def error_page(msg):
-        '''
-        Render error message on home page.
-        :param msg: text of the error message
-        :return: home page with error message
-        '''
-        flash(msg)
-        return redirect('/', 303)
+    home_page = make_page_with_flash('/')
 
     name = request.form.get('ticket-name')
     quantity = request.form.get('ticket-quantity')
 
     if not is_valid_ticket_name(name):
-        return error_page('Invalid ticket name')
+        return home_page('Invalid ticket name')
 
     if not is_valid_quantity(quantity):
-        return error_page('Invalid ticket quantity')
+        return home_page('Invalid ticket quantity')
 
-    flash(bn.buy_ticket(user, request.form))
-    return redirect('/', 303)
+    buy_status = bn.buy_ticket(user, name, int(quantity))
+    return home_page(buy_status)
 
 @app.route('/sell', methods=['POST'])
 @authenticate
@@ -153,78 +147,59 @@ def sell_post(user):
     name = request.form.get('ticket-name')
     quantity = request.form.get('ticket-quantity')
     price = request.form.get('ticket-price')
-    expiration = request.form.get('ticket-expiration-date')
+    expiration = parse_date(request.form.get('ticket-expiration-date'))
 
-    def error_page(msg):
-        """
-        Render error message on register page.
-        :param msg: text of the error message
-        :return: register page with error message
-        """
-        flash(msg)
-        return redirect('/', code=303)
+    home_page = make_page_with_flash('/')
 
     if not is_valid_ticket_name(name):
-        return error_page('Invalid ticket name')
+        return home_page('Invalid ticket name')
 
     if not is_valid_quantity(quantity):
-        return error_page('Invalid ticket quantity')
+        return home_page('Invalid ticket quantity')
 
     if not is_valid_price(price):
-        return error_page('Invalid ticket price')
+        return home_page('Invalid ticket price')
 
     if not is_valid_date(expiration):
-        return error_page('Invalid ticket date')
+        return home_page('Invalid ticket date')
 
-    flash(bn.sell_ticket(user, request.form))
-    return redirect('/', 303)
+    ticket_status = bn.sell_ticket(
+        user,
+        name, quantity, price, expiration
+    )
+    return home_page(ticket_status)
 
 @app.route('/update', methods=['POST'])
 @authenticate
 def update_post(user):
     '''update a ticket using the HTML form'''
-    def error_page(msg):
-        """
-        Render error message on index page.
-        :param msg: text of the error message
-        :return: default page with error message
-        """
-        flash(msg)
-        return redirect('/', code=303)
+    home_page = make_page_with_flash('/')
 
     prev_ticket_name = request.form.get('previous-ticket-name')
     upt_ticket_name = request.form.get('updated-ticket-name')
     ticket_quantity = request.form.get('ticket-quantity')
     ticket_price = request.form.get('ticket-price')
-    ticket_expiration_date = request.form.get('ticket-expiration-date')
-    is_blank = {
-        'name': len(upt_ticket_name) == 0,
-        'quantity' : len(ticket_quantity) == 0,
-        'price' : len(ticket_price) == 0,
-        'exp-date' : len(ticket_expiration_date) == 0
-    }
+    ticket_expiration_date = parse_date(request.form['ticket-expiration-date'])
 
     if not bn.get_ticket(user.id, prev_ticket_name):
-        error_page("Ticket doesn't exist")
+        return home_page("Ticket doesn't exist")
 
-    if is_blank['name'] and not is_valid_ticket_name(upt_ticket_name):
-        error_page("Ticket name format is inccorrect")
+    if upt_ticket_name and not is_valid_ticket_name(upt_ticket_name):
+        return home_page("Ticket name format is inccorrect")
 
-    if is_blank['quantity'] and not is_valid_quantity(ticket_quantity):
-        error_page("Ticket quantity format is inccorrect")
+    if ticket_quantity and not is_valid_quantity(ticket_quantity):
+        return home_page("Ticket quantity format is inccorrect")
 
-    if is_blank['price'] and not is_valid_price(ticket_price):
-        error_page("Ticket price format is inccorrect")
+    if ticket_price and not is_valid_price(ticket_price):
+        return home_page("Ticket price format is inccorrect")
 
-    if is_blank['exp-date'] and not is_valid_date(ticket_expiration_date):
-        error_page("Ticket expiration date format is inccorrect")
+    if ticket_expiration_date and not is_valid_date(ticket_expiration_date):
+        return home_page("Ticket expiration date format is inccorrect")
 
-    if not bn.update_ticket(user.id, request.form, is_blank):
-        error_page("Error updating your ticket, please try again")
+    if not bn.update_ticket(user.id, request.form):
+        return home_page("Error updating your ticket, please try again")
 
-    flash('User updated ticket successfully')
-    return redirect('/', 303)
-
+    return home_page('User updated ticket successfully')
 
 @app.route('/logout')
 def logout():
@@ -248,7 +223,7 @@ def profile(user):
     return render_template('index.html', user=user, tickets=tickets)
 
 @app.errorhandler(404)
-def page_not_found(error):
+def page_not_found(_error):
     """
     Handle 404 errors
     :param error: error message

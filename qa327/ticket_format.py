@@ -48,18 +48,24 @@ def is_valid_price(price):
     except ValueError:
         return False
 
+def parse_date(date_string):
+    '''
+    parse a date using the format defined
+    in the specs
+    '''
+    try:
+        return datetime.strptime(
+            date_string,
+            '%Y%m%d'
+        )
+    except ValueError:
+        return None
 
 def is_valid_date(date):
-    """
-    Validate date with provided requirements
-    :param date: a string of the date for when the ticket expires
-    :return: true if the password is acceptable, false otherwise
-    """
-    date_format = '%Y%m%d'
-    # Date must be in the correct format
-    try:
-        date = datetime.strptime(date, date_format)
-        # Date must not have already passed
-        return datetime.now() < date
-    except ValueError:
-        return False
+    '''
+    returns a boolean indicating whether a ticket date
+    is valid according to the spec
+    '''
+    # tickets can only be sold for future events
+    # sorry mcfly :(
+    return date and date > datetime.now()
