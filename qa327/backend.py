@@ -1,8 +1,10 @@
 """This file defines all backend logic that interacts with database and other services"""
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from dateutil.parser import parse as parse_date
 from qa327.models import db, User, Ticket
+
+# factor of 1.4 accounts for service fee (35%) + tax (5%)
+COST_TO_PRICE_RATIO = 1.4
 
 def get_user(email):
     """
@@ -12,7 +14,6 @@ def get_user(email):
     """
     user = User.query.filter_by(email=email).first()
     return user
-
 
 def login_user(email, password):
     """
@@ -26,7 +27,6 @@ def login_user(email, password):
     if not user or not check_password_hash(user.password, password):
         return None
     return user
-
 
 def register_user(email, name, password, password2):
     """
@@ -46,7 +46,6 @@ def register_user(email, name, password, password2):
     db.session.commit()
     return True
 
-
 def get_all_tickets():
     """Going to be implemented when /sell and /buy is implemented"""
     return Ticket.query.all()
@@ -61,24 +60,23 @@ def get_ticket(seller, ticket_name):
     ticket = Ticket.query.filter_by(seller_id=seller, name=ticket_name).first()
     return ticket
 
-def buy_ticket(user, form):
+def buy_ticket(user, name, buy_quantity):
     '''buy a ticket, returns a message'''
-    ticket = Ticket.query.filter_by(name=form['buy-ticket-name'])
+    ticket = Ticket.query.filter_by(name=name)
 
     if ticket is None:
         return 'No such ticket exists'
 
-    quantity = int(form['buy-ticket-quantity'])
-    if int(ticket.quantity) < quantity:
+    if ticket.quantity < buy_quantity:
         return 'Not enough tickets available'
-    min_balance = float(ticket.price)*quantity*1.40
-    if user.balance < min_balance:
+    
+    ticket_cost = ticket.price*buy_quantity*COST_TO_PRICE_RATIO
+    if user.balance < ticket_cost:
         return 'Account balance is too low'
 
-    ticket.quantity = ticket.quantity - quantity
-    user.balance = user.balance - min_balance
-    db.session.commit(ticket)
-    db.session.commit(user)
+    ticket.quantity -= buy_quantity
+    user.balance -= ticket_cost
+    db.session.commit()
 
     return 'Ticket bought successfully'
 
