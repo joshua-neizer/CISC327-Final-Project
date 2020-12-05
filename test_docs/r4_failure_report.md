@@ -1,0 +1,8 @@
+| **Test Name**          | **Test Purpose**                                                   | **Output Incorrectness**              | **Error Source**                                 | **Fix**                                        |
+|---------------------|----------------------------------------------------------------|-----------------------------------|-----------------------------------------------|--------------------------------------------|
+| test_ticket_name()  | Verify that error is provided if ticket name is invalid format | Element #ticket-name not present  | Element is actually called #sell-ticket-name  | Changed element ID in test                 |
+| test_ticket_name()  | Verify that error is provided if ticket name is invalid format | Wrong date format                 | Input into date field of was incorrect format | Fixed input format to YYYYDDMM             |
+| test_ticket_price() | Verify that price is between 10 and 100 and is a number        | Unexpected indent                 | Accidental indent in code                     | Fixed code formatting                      |
+| test_good_ticket()  | Verify that if a ticket matches all requirements, it is posted | Element #ticket not present       | Selenium timeout since div not found          | Adjusted assert to correct div name        |
+| test_good_ticket()  | Verify that if a ticket matches all requirements, it is posted | No tickets posted to profile page | Not mocking backend get_all_tickets           | Added mocking for get_all_tickets          |
+| test_good_ticket()  | Verify that if a ticket matches all requirements, it is posted | No tickets posted to profile page | Incorrect return type for get_all_tickets     | Fixed return value to be a list of tickets |
