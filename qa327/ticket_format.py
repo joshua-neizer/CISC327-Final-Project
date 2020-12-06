@@ -66,13 +66,9 @@ def is_valid_date(date_string):
     returns a boolean indicating whether a ticket date
     is valid according to the spec
     '''
-    try:
-        date = datetime.strptime(
-            date_string,
-            '%Y%m%d'
-        )
-        
-        return date > datetime.now()
-    except ValueError:
-        return False
-    
+    date = parse_date(date_string)
+    return (
+        False
+        if not date else
+        date > datetime.now()
+    )
