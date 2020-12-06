@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 from werkzeug.security import generate_password_hash
 from qa327_test.conftest import base_url
-from qa327.models import User
+from qa327.models import User, Ticket
 
 # Mock a sample user
 TEST_USER = User(
