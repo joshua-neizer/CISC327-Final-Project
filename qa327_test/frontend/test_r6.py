@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 from qa327_test.conftest import base_url
 from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER, TEST_TICKET
-from qa327.models import Ticket
+from qa327.models import User
 from qa327.ticket_format import parse_date
 
 INVALID_NAMES = ['special^char', 'ticket ', ' ticket', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname']
@@ -95,7 +95,7 @@ class R6Test(GeekBaseCase):
         self.click('#buy-submit')
         self.assert_flash('Account balance is too low')
         self.assert_url('/')
-        
+
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
     def test_buy_ticket_success(self, *_):
