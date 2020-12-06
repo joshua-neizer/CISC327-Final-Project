@@ -24,7 +24,7 @@ BAD_USER = User(
 class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def invalid_ticketname(self, *_):
+    def test_invalid_ticketname(self, *_):
         '''
         see r6.1.2, r6.1.4, r6.2.2- negative
         ensure ticket name is alphanumeric only, 
@@ -34,13 +34,13 @@ class R6Test(GeekBaseCase):
         self.open(base_url)
         for name in INVALID_NAMES:
             self.input('#buy-ticket-name', name)
-            self.input('#buy-ticket-quantity', TEST_TICKET.quantity)
+            self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity))
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket name')
             self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def invalid_quantity(self, *_):
+    def test_invalid_quantity(self, *_):
         '''
         see r6.3.2 - negative
         ensure ticket quantity is > 0 and <= 100
@@ -56,7 +56,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def ticket_exists(self, *_):
+    def test_ticket_exists(self, *_):
         '''
         see r6.4.2 - negative
         ensure ticket exists in DB
@@ -71,7 +71,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
-    def ticket_quant(self, *_):
+    def test_ticket_quant(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough tickets in DB
@@ -79,14 +79,14 @@ class R6Test(GeekBaseCase):
         self.login_test_user()
         self.open(base_url)
         self.input('#buy-ticket-name', TEST_TICKET.name)
-        self.input('#buy-ticket-quantity', str(int(TEST_TICKET.quantity) + 10))
+        self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity + 10))
         self.click('#buy-submit')
         self.assert_flash('Not enough tickets available')
         self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
-    def invalid_balance(self, *_):
+    def test_invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough money to buy tickets

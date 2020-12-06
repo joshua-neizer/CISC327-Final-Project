@@ -16,7 +16,7 @@ TEST_TICKET = Ticket(
     name='helloworld',
     seller_id='1',
     price=20,
-    quantity='20',
+    quantity=20,
     expires="20220101"
 )
 
