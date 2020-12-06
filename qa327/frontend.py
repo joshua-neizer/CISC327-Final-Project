@@ -179,10 +179,10 @@ def update_post(user):
     upt_ticket_name = request.form.get('updated-ticket-name')
     ticket_quantity = request.form.get('ticket-quantity')
     ticket_price = request.form.get('ticket-price')
-    ticket_expiration_date = parse_date(request.form['ticket-expiration-date'])
+    ticket_expiration_date = request.form['ticket-expiration-date']
 
     if not bn.get_ticket(user.id, prev_ticket_name):
-        return home_page("Ticket doesn't exist")
+        return home_page("Ticket does not exist")
 
     if upt_ticket_name and not is_valid_ticket_name(upt_ticket_name):
         return home_page("Ticket name format is inccorrect")
