@@ -13,8 +13,8 @@ from qa327.ticket_format import parse_date
 GOOD_TICKET = Ticket(
     name='helloworld',
     seller_id='1',
-    price=20,
-    quantity=20,
+    price='20',
+    quantity='20',
     expires="20220101"
 )
 
@@ -23,9 +23,9 @@ GOOD_TICKET_DICT = [{'name': 'helloworld', 'price': '20', 'owner': 'jesus', 'cou
 INVALID_NAME_FORMATS = ['bad', ' alsobad', 'alsobad ', '$alsobad$',
                         'veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerylongname']
 
-INVALID_QUANTITIES = [-1, 101]
+INVALID_QUANTITIES = ['-1', '101']
 
-INVALID_PRICES = [5, 101]
+INVALID_PRICES = ['5', '101']
 
 INVALID_DATES = ['January 1 2024', '20200204']
 
