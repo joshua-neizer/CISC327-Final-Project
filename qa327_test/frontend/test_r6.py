@@ -69,7 +69,9 @@ class R6Test(GeekBaseCase):
         self.assert_flash('No such ticket exists')
         self.assert_url('/')
 
-    def test_ticket_quant(self, *_):
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
+    def ticket_quant(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough tickets in DB
