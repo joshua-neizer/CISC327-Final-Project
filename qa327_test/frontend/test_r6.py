@@ -24,7 +24,7 @@ BAD_USER = User(
 class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def test_invalid_ticketname(self, *_):
+    def invalid_ticketname(self, *_):
         '''
         see r6.1.2, r6.1.4, r6.2.2- negative
         ensure ticket name is alphanumeric only, 
@@ -39,8 +39,7 @@ class R6Test(GeekBaseCase):
             self.assert_flash('Invalid ticket name')
             self.get_current_url() == base_url+'/'
 
-    
-    def invalid_quantity(self, *_):
+    def test_invalid_quantity(self, *_):
         '''
         see r6.3.2 - negative
         ensure ticket quantity is > 0 and <= 100
