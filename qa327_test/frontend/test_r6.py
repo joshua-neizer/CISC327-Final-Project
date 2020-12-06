@@ -5,17 +5,9 @@ Test requirements according to R6
 from unittest.mock import patch
 
 from qa327_test.conftest import base_url
-from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER
+from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER, TEST_TICKET
 from qa327.models import Ticket
 from qa327.ticket_format import parse_date
-
-GOOD_TICKET = Ticket(
-    name='helloworld',
-    seller_id='1',
-    price=20,
-    quantity='20',
-    expires="20220101"
-)
 
 INVALID_NAMES = ['special^char', 'ticket ', ' ticket', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname']
 
@@ -34,7 +26,7 @@ class R6Test(GeekBaseCase):
         self.open(base_url)
         for name in INVALID_NAMES:
             self.input('#buy-ticket-name', name)
-            self.input('#buy-ticket-quantity', GOOD_TICKET.quantity)
+            self.input('#buy-ticket-quantity', TEST_TICKET.quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket name')
             self.assert_url('/')
@@ -48,14 +40,14 @@ class R6Test(GeekBaseCase):
         self.login_test_user()
         self.open(base_url)
         for name in INVALID_QUANTITY:
-            self.input('#buy-ticket-name', GOOD_TICKET.name)
-            self.input('#buy-ticket-quantity', GOOD_TICKET.quantity)
+            self.input('#buy-ticket-name', TEST_TICKET.name)
+            self.input('#buy-ticket-quantity', TEST_TICKET.quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket quantity')
             self.assert_url('/')
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.get_ticket', return_value = TEST_TICKET)
+    @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
     def test_ticket_exists(self, *_):
         '''
         see r6.4.2 - negative

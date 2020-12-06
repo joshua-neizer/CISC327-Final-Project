@@ -11,6 +11,15 @@ TEST_USER = User(
     balance=500
 )
 
+# Mock a sample ticket
+TEST_TICKET = Ticket(
+    name='helloworld',
+    seller_id='1',
+    price=20,
+    quantity='20',
+    expires="20220101"
+)
+
 class GeekBaseCase(BaseCase):
     '''
     Selenium base case with some
