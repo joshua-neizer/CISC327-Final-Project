@@ -93,8 +93,8 @@ class R6Test(GeekBaseCase):
         '''
         TEST_USER.balance = 1
         self.open(base_url+'/login')
-        self.input('#email', GOOD_USER.email)
-        self.input('#password', GOOD_USER.password)
+        self.input('#email', TEST_USER.email)
+        self.input('#password', TEST_USER.password)
         self.click('#btn-submit')
         self.open(base_url)
         self.input('#buy-ticket-name', TEST_TICKET.name)
