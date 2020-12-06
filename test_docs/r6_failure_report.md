@@ -34,8 +34,8 @@
 <tr>
     <td>test_ticket_quant()</td>
     <td>Verify that ticket quantity must be >0 and <=100</td>
-    <td>Element #buy-ticket-name not visible</td>
-    <td></td>
+    <td>Cannot concatenate int to str</td>
+    <td>Wrong syntax</td>
     <td></td>
 </tr>
 

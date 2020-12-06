@@ -71,7 +71,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def ticket_quant(self, *_):
+    def test_ticket_quant(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough tickets in DB
@@ -79,14 +79,14 @@ class R6Test(GeekBaseCase):
         self.login_test_user()
         self.open(base_url)
         self.input('#buy-ticket-name', TEST_TICKET.name)
-        self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity + 10))
+        self.input('#buy-ticket-quantity', str(int(TEST_TICKET.quantity) + 10))
         self.click('#buy-submit')
         self.assert_flash('Not enough tickets available')
         self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=BAD_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def test_invalid_balance(self, *_):
+    def invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough money to buy tickets
