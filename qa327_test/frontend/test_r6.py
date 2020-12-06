@@ -40,7 +40,7 @@ class R6Test(GeekBaseCase):
             self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    def test_invalid_quantity(self, *_):
+    def invalid_quantity(self, *_):
         '''
         see r6.3.2 - negative
         ensure ticket quantity is > 0 and <= 100
@@ -56,7 +56,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def ticket_exists(self, *_):
+    def test_ticket_exists(self, *_):
         '''
         see r6.4.2 - negative
         ensure ticket exists in DB
