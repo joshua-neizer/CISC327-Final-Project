@@ -86,7 +86,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
-    def test_invalid_balance(self, *_):
+    def invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough money to buy tickets
@@ -102,7 +102,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
-    def buy_ticket_success(self, *_):
+    def test_buy_ticket_success(self, *_):
         '''
         see r6.1 - r.6 - positive
         ensures a ticket meeting all the requirements can be bought
