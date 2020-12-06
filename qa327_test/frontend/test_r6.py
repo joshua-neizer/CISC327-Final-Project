@@ -5,6 +5,7 @@ Test requirements according to R6
 from unittest.mock import patch
 
 from qa327_test.conftest import base_url
+from werkzeug.security import generate_password_hash
 from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER, TEST_TICKET
 from qa327.models import User
 from qa327.ticket_format import parse_date
