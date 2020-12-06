@@ -13,6 +13,13 @@ INVALID_NAMES = ['special^char', 'ticket ', ' ticket', 'looooooooooooooooooooooo
 
 INVALID_QUANTITY = [-1, 101]
 
+BAD_USER = User(
+    email='test_frontend@test.com',
+    name='test_frontend',
+    password=generate_password_hash('test_frontend'),
+    balance=10
+)
+
 class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
@@ -74,12 +81,13 @@ class R6Test(GeekBaseCase):
         self.assert_flash('Not enough tickets available')
         self.assert_url('/')
 
+    @patch('qa327.backend.get_user', return_value=BAD_USER)
+    @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
     def test_invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough money to buy tickets
         '''
-        TEST_USER.balance = 1
         self.login_test_user()
         self.open(base_url)
         self.input('#buy-ticket-name', TEST_TICKET.name)
@@ -87,7 +95,9 @@ class R6Test(GeekBaseCase):
         self.click('#buy-submit')
         self.assert_flash('Account balance is too low')
         self.assert_url('/')
-
+        
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
+    @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
     def test_buy_ticket_success(self, *_):
         '''
         see r6.1 - r.6 - positive
