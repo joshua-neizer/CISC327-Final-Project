@@ -147,7 +147,7 @@ def sell_post(user):
     name = request.form.get('ticket-name')
     quantity = request.form.get('ticket-quantity')
     price = request.form.get('ticket-price')
-    expiration = parse_date(request.form.get('ticket-expiration-date'))
+    expiration = request.form.get('ticket-expiration-date')
 
     home_page = make_page_with_flash('/')
 
