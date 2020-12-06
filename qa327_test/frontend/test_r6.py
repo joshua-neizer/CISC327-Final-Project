@@ -13,7 +13,7 @@ GOOD_TICKET = Ticket(
     name='helloworld',
     seller_id='1',
     price=20,
-    quantity=20,
+    quantity='20',
     expires="20220101"
 )
 
@@ -34,7 +34,7 @@ class R6Test(GeekBaseCase):
         self.open(base_url)
         for name in INVALID_NAMES:
             self.input('#buy-ticket-name', name)
-            self.input('#buy-ticket-quantity', (str)GOOD_TICKET.quantity)
+            self.input('#buy-ticket-quantity', GOOD_TICKET.quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket name')
             self.assert_url('/')
@@ -49,7 +49,7 @@ class R6Test(GeekBaseCase):
         self.open(base_url)
         for name in INVALID_QUANTITY:
             self.input('#buy-ticket-name', GOOD_TICKET.name)
-            self.input('#buy-ticket-quantity', (str)GOOD_TICKET.quantity)
+            self.input('#buy-ticket-quantity', GOOD_TICKET.quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket quantity')
             self.assert_url('/')
@@ -64,7 +64,7 @@ class R6Test(GeekBaseCase):
         self.login_test_user()
         self.open(base_url)
         self.input('#buy-ticket-name', 'wontexist')
-        self.input('#buy-ticket-quantity', (str)TEST_TICKET.quantity)
+        self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity))
         self.click('#buy-submit')
         self.assert_flash('No such ticket exists')
         self.assert_url('/')
@@ -77,7 +77,7 @@ class R6Test(GeekBaseCase):
         self.login_test_user()
         self.open(base_url)
         self.input('#buy-ticket-name', TEST_TICKET.name)
-        self.input('#buy-ticket-quantity', (str)(TEST_TICKET.quantity + 10))
+        self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity + 10))
         self.click('#buy-submit')
         self.assert_flash('Not enough tickets available')
         self.assert_url('/')
