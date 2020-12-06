@@ -69,7 +69,7 @@ class R6Test(GeekBaseCase):
         self.assert_flash('No such ticket exists')
         self.assert_url('/')
 
-    def test_ticket_quant(self, _*):
+    def test_ticket_quant(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough tickets in DB
