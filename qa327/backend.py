@@ -76,7 +76,7 @@ def buy_ticket(user, name, buy_quantity):
     if ticket is None:
         return 'No such ticket exists'
 
-    if ticket.quantity < buy_quantity:
+    if int(ticket.quantity) < buy_quantity:
         return 'Not enough tickets available'
 
     ticket_cost = ticket.price*buy_quantity*COST_TO_PRICE_RATIO
