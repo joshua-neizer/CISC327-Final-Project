@@ -56,7 +56,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value = TEST_TICKET)
-    def test_ticket_exists(self, _*):
+    def test_ticket_exists(self, *_):
         '''
         see r6.4.2 - negative
         ensure ticket exists in DB
