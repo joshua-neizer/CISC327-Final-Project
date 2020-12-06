@@ -86,12 +86,15 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=BAD_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def invalid_balance(self, *_):
+    def test_invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough money to buy tickets
         '''
-        self.login_test_user()
+        self.open(base_url+'/login')
+        self.input('#email', BAD_USER.email)
+        self.input('#password', BAD_USER.password)
+        self.click('#btn-submit')
         self.open(base_url)
         self.input('#buy-ticket-name', TEST_TICKET.name)
         self.input('#buy-ticket-quantity', '1')

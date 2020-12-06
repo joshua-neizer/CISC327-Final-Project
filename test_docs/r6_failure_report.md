@@ -36,7 +36,15 @@
     <td>Verify that ticket quantity must be >0 and <=100</td>
     <td>Cannot concatenate int to str</td>
     <td>Wrong syntax</td>
-    <td></td>
+    <td>Converted string to int, then back to string</td>
+</tr>
+
+<tr>
+    <td>test_invalid_balance()</td>
+    <td>Verify that user's balance is high enough to buy purchase + tax</td>
+    <td>Flash not found for 'Account balance is too low'</td>
+    <td>Was logging in with TEST_USER, not BAD_USER</td>
+    <td>Mocked logging in with correct user</td>
 </tr>
 
 </tbody></table>
