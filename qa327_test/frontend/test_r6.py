@@ -70,8 +70,7 @@ class R6Test(GeekBaseCase):
         self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.sell_ticket', return_value='ticket sold successfully')
-    @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
+    @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
     def test_ticket_quant(self, *_):
         '''
         see r6.4.4 - negative

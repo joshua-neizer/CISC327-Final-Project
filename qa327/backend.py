@@ -61,9 +61,17 @@ def get_ticket(seller, ticket_name):
     ticket = Ticket.query.filter_by(seller_id=seller, name=ticket_name).first()
     return ticket
 
+def get_ticket_byname(ticket_name):
+    """
+    Gets a ticket by ticket name
+    :param ticket_name: the name of the ticket
+    """
+    ticket = Ticket.query.filter_by(name=name).first()
+    return ticket
+
 def buy_ticket(user, name, buy_quantity):
     '''buy a ticket, returns a message'''
-    ticket = Ticket.query.filter_by(name=name).first()
+    ticket = get_ticket_byname(name)    
 
     if ticket is None:
         return 'No such ticket exists'
