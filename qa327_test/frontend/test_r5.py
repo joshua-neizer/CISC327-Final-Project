@@ -41,9 +41,9 @@ INVALID_TICKET_NAME_LENGTHS = [
     've', 'veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerylongname'
 ]
 
-INVALID_TICKET_QUANTITY = [-50, 101]
+INVALID_TICKET_QUANTITY = ['-50', '101']
 
-INVALID_TICKET_PRICE = [5, 101]
+INVALID_TICKET_PRICE = ['5', '101']
 
 INVALID_TICKET_DATE = ['January 1 2024', '20243105']
 
