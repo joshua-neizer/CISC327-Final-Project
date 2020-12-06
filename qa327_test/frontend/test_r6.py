@@ -3,16 +3,15 @@ Test requirements according to R6
 '''
 
 from unittest.mock import patch
-
-from qa327_test.conftest import base_url
 from werkzeug.security import generate_password_hash
+from qa327_test.conftest import base_url
 from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER, TEST_TICKET
 from qa327.models import User
-from qa327.ticket_format import parse_date
 
-INVALID_NAMES = ['special^char', 'ticket ', ' ticket', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname']
+INVALID_NAMES = ['special^char', 'ticket ', ' ticket', 
+'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname']
 
-INVALID_QUANTITY = [-1, 101]
+INVALID_QUANTITY = ['-1', '101']
 
 BAD_USER = User(
     email='test_frontend@test.com',
@@ -22,12 +21,14 @@ BAD_USER = User(
 )
 
 class R6Test(GeekBaseCase):
-
+    '''
+    Contains test cases specific to R6
+    '''
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_invalid_ticketname(self, *_):
         '''
         see r6.1.2, r6.1.4, r6.2.2- negative
-        ensure ticket name is alphanumeric only, 
+        ensure ticket name is alphanumeric only,
         space only allowed in the middle
         '''
         self.login_test_user()
@@ -37,7 +38,7 @@ class R6Test(GeekBaseCase):
             self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity))
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket name')
-            self.get_current_url() == base_url+'/'
+            assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_invalid_quantity(self, *_):
@@ -47,12 +48,12 @@ class R6Test(GeekBaseCase):
         '''
         self.login_test_user()
         self.open(base_url)
-        for name in INVALID_QUANTITY:
+        for quantity in INVALID_QUANTITY:
             self.input('#buy-ticket-name', TEST_TICKET.name)
-            self.input('#buy-ticket-quantity', '200')
+            self.input('#buy-ticket-quantity', quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket quantity')
-            self.get_current_url() == base_url+'/'
+            assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
@@ -67,7 +68,7 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity))
         self.click('#buy-submit')
         self.assert_flash('No such ticket exists')
-        self.get_current_url() == base_url+'/'
+        assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
@@ -82,7 +83,7 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity + 10))
         self.click('#buy-submit')
         self.assert_flash('Not enough tickets available')
-        self.get_current_url() == base_url+'/'
+        assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
@@ -98,7 +99,7 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', '1')
         self.click('#buy-submit')
         self.assert_flash('Account balance is too low')
-        self.get_current_url() == base_url+'/'
+        assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
@@ -113,4 +114,3 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', '1')
         self.click('#buy-submit')
         self.assert_flash('Ticket bought successfully')
-
