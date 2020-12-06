@@ -39,6 +39,7 @@ class R6Test(GeekBaseCase):
             self.assert_flash('Invalid ticket name')
             self.get_current_url() == base_url+'/'
 
+    @patch('qa327.backend.get_user', return_value=TEST_USER)
     def test_invalid_quantity(self, *_):
         '''
         see r6.3.2 - negative

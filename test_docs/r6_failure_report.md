@@ -24,6 +24,14 @@
 </tr>
 
 <tr>
+    <td>test_invalid_ticketname()</td>
+    <td>Verify ticket name is correctly formatted</td>
+    <td>R6Test has no function 'assert_url()'</td>
+    <td>Wrong syntax</td>
+    <td>changed to .get_current_url() and compared</td>
+</tr>
+
+<tr>
     <td>test_ticket_quant()</td>
     <td>Verify that ticket quantity must be >0 and <=100</td>
     <td>Element #buy-ticket-name not visible</td>
