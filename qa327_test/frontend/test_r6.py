@@ -37,10 +37,10 @@ class R6Test(GeekBaseCase):
             self.input('#buy-ticket-quantity', TEST_TICKET.quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket name')
-            self.assert_url('/')
+            self.get_current_url() == base_url+'/'
 
     
-    def test_invalid_quantity(self, *_):
+    def invalid_quantity(self, *_):
         '''
         see r6.3.2 - negative
         ensure ticket quantity is > 0 and <= 100
@@ -52,11 +52,11 @@ class R6Test(GeekBaseCase):
             self.input('#buy-ticket-quantity', TEST_TICKET.quantity)
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket quantity')
-            self.assert_url('/')
+            self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def test_ticket_exists(self, *_):
+    def ticket_exists(self, *_):
         '''
         see r6.4.2 - negative
         ensure ticket exists in DB
@@ -67,7 +67,7 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity))
         self.click('#buy-submit')
         self.assert_flash('No such ticket exists')
-        self.assert_url('/')
+        self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
@@ -82,11 +82,11 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', str(TEST_TICKET.quantity + 10))
         self.click('#buy-submit')
         self.assert_flash('Not enough tickets available')
-        self.assert_url('/')
+        self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=BAD_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def test_invalid_balance(self, *_):
+    def invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
         ensure enough money to buy tickets
@@ -97,11 +97,11 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', '1')
         self.click('#buy-submit')
         self.assert_flash('Account balance is too low')
-        self.assert_url('/')
+        self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket', return_value=TEST_TICKET)
-    def test_buy_ticket_success(self, *_):
+    def buy_ticket_success(self, *_):
         '''
         see r6.1 - r.6 - positive
         ensures a ticket meeting all the requirements can be bought
@@ -112,3 +112,4 @@ class R6Test(GeekBaseCase):
         self.input('#buy-ticket-quantity', '1')
         self.click('#buy-submit')
         self.assert_flash('Ticket bought successfully')
+
