@@ -91,12 +91,9 @@ class R6Test(GeekBaseCase):
         see r6.4.4 - negative
         ensure enough money to buy tickets
         '''
-        TEST_USER.balance = 1
-        self.open(base_url+'/login')
-        self.input('#email', TEST_USER.email)
-        self.input('#password', TEST_USER.password)
-        self.click('#btn-submit')
+        self.login_test_user()
         self.open(base_url)
+        TEST_USER.balance = 1
         self.input('#buy-ticket-name', TEST_TICKET.name)
         self.input('#buy-ticket-quantity', '1')
         self.click('#buy-submit')
