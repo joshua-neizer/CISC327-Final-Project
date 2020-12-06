@@ -66,7 +66,7 @@ def get_ticket_byname(ticket_name):
     Gets a ticket by ticket name
     :param ticket_name: the name of the ticket
     """
-    ticket = Ticket.query.filter_by(name=name).first()
+    ticket = Ticket.query.filter_by(name=ticket_name).first()
     return ticket
 
 def buy_ticket(user, name, buy_quantity):
