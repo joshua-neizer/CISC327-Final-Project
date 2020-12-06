@@ -49,7 +49,7 @@ class R6Test(GeekBaseCase):
         self.open(base_url)
         for name in INVALID_QUANTITY:
             self.input('#buy-ticket-name', TEST_TICKET.name)
-            self.input('#buy-ticket-quantity', TEST_TICKET.quantity)
+            self.input('#buy-ticket-quantity', '200')
             self.click('#buy-submit')
             self.assert_flash('Invalid ticket quantity')
             self.get_current_url() == base_url+'/'
