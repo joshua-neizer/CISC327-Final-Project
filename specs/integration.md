@@ -69,11 +69,11 @@ for creating a posting.
 ## Step 5: Assert that sold ticket quantity decreased
 * Assert that there is one result for selector `#tickets .ticket`
 * Assert that `#tickets .ticket .name` has value `testticket1`
-* Assert that `#tickets .ticket .quantity` has value `21`
-* Assert that `#tickets .ticket .price` has value `35`
+* Assert that `#tickets .ticket .quantity` has value `20`
+* Assert that `#tickets .ticket .price` has value `36`
 * Assert that `#tickets .ticket .owner` has value `testuser1@gmail.com`
 * Assert that `#tickets .ticket .expires` has value `20220101`
 
 ## Step 6: Assert that user balance decreased
 * Read balance from `#user-balance`
-* Assert that `new_balance==old_balance-21`
+* Assert that `new_balance==old_balance-36`
