@@ -22,7 +22,7 @@ TEST_USER_2 = WhiteBoxUser(
     password='Password99!'
 )
 
-WhiteBoxTicket = namedtuple('WhiteBoxTicket',[
+WhiteBoxTicket = namedtuple('WhiteBoxTicket', [
     'name', 'quantity', 'price', 'expires'
 ])
 
@@ -47,13 +47,12 @@ TEST_TICKET_AFTER_BUY = WhiteBoxTicket(
 
 class IntegrationTest(GeekBaseCase):
     def register_user(self, user):
-        self.open(base_url)
         self.click('#register-button')
         self.input('#email', user.email)
         self.input('#name', user.name)
         self.input('#password', user.password)
         self.input('#password2', user.password)
-        self.click('#btn-submit')
+        self.click('#register-submit')
 
     def login_user(self, user):
         self.input('#email', user.email)
@@ -64,7 +63,7 @@ class IntegrationTest(GeekBaseCase):
         self.input('#sell-ticket-name', ticket.name)
         self.input('#sell-ticket-quantity', ticket.quantity)
         self.input('#sell-ticket-price', ticket.price)
-        self.input('#ticket-expiration-date', ticket.expires)
+        self.input('#sell-ticket-expiration-date', ticket.expires)
         self.click('#sell-submit')
 
     def assert_ticket_listed(self, ticket):
@@ -94,6 +93,7 @@ class IntegrationTest(GeekBaseCase):
         self.click('#update-submit')
 
     def test_create_posting(self):
+        self.open(base_url)
         self.register_user(TEST_USER_1)
         self.login_user(TEST_USER_1)
         self.sell_ticket(TEST_TICKET)
