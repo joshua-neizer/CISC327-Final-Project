@@ -143,10 +143,19 @@ class IntegrationTest(GeekBaseCase):
             TICKET_BEFORE_BUY.name,
             1
         )
+        # assert that ticket quantity decreased
         self.assert_ticket_listed(TICKET_AFTER_BUY)
-        new_balance = self.read_balance()
+
+        total_cost = int(int(TICKET_AFTER_BUY.price)*1.4)
+        # assert that buyer balance decreased
         self.assertEqual(
-            initial_balance-new_balance,
-            int(int(TICKET_AFTER_BUY.price)*1.4)
+            self.read_balance(),
+            initial_balance-total_cost
         )
-        # TODO log back into first user and check balance went up
+        # check that seller balance increased
+        self.click('#logout')
+        self.login_user(TEST_USER_SELLER)
+        self.assertEqual(
+            self.read_balance(),
+            initial_balance+int(TICKET_AFTER_BUY.price)
+        )
