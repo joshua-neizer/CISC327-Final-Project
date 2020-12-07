@@ -185,7 +185,7 @@ def update_post(user):
         return home_page("Ticket does not exist")
 
     if upt_ticket_name and not is_valid_ticket_name(upt_ticket_name):
-        return home_page("Ticket name format is inccorrect")
+        return home_page("Ticket name format is incorrect")
 
     if ticket_quantity and not is_valid_quantity(ticket_quantity):
         return home_page("Ticket quantity format is inccorrect")
