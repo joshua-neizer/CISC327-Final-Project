@@ -67,8 +67,4 @@ def is_valid_date(date_string):
     is valid according to the spec
     '''
     date = parse_date(date_string)
-    return (
-        False
-        if not date else
-        date > datetime.now()
-    )
+    return bool(date and date > datetime.now())
