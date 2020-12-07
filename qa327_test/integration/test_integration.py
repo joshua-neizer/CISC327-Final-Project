@@ -1,9 +1,14 @@
+'''
+stores integration tests that verify both frontend
+and backend function in harmony
+'''
+
 from collections import namedtuple
 from qa327_test.frontend.geek_base import GeekBaseCase
 from qa327_test.conftest import base_url
 
 WhiteBoxUser = namedtuple('WhiteBoxUser',[
-    'email','name','password'
+    'email', 'name', 'password'
 ])
 
 TEST_USER_1 = WhiteBoxUser(
@@ -18,7 +23,7 @@ TEST_USER_2 = WhiteBoxUser(
 )
 
 WhiteBoxTicket = namedtuple('WhiteBoxTicket',[
-    'name','quantity','price','expires'
+    'name', 'quantity', 'price', 'expires'
 ])
 
 TEST_TICKET = WhiteBoxTicket(
@@ -44,27 +49,27 @@ class IntegrationTest(GeekBaseCase):
     def register_user(self, user):
         self.open(base_url)
         self.click('#register-button')
-        self.input('#email',user.email)
-        self.input('#name',user.name)
-        self.input('#password',user.password)
-        self.input('#password2',user.password)
+        self.input('#email', user.email)
+        self.input('#name', user.name)
+        self.input('#password', user.password)
+        self.input('#password2', user.password)
         self.click('#btn-submit')
 
     def login_user(self, user):
-        self.input('#email',user.email)
-        self.input('#password',user.password)
+        self.input('#email', user.email)
+        self.input('#password', user.password)
         self.click('#btn-submit')
 
-    def sell_ticket(self, user, ticket):
-        self.input('#sell-ticket-name',ticket.name)
-        self.input('#sell-ticket-quantity',ticket.quantity)
+    def sell_ticket(self, ticket):
+        self.input('#sell-ticket-name', ticket.name)
+        self.input('#sell-ticket-quantity', ticket.quantity)
         self.input('#sell-ticket-price', ticket.price)
         self.input('#ticket-expiration-date', ticket.expires)
         self.click('#sell-submit')
 
     def assert_ticket_listed(self, ticket):
         tickets = self.find_elements('#tickets .ticket')
-        self.assertEqual(len(tickets),1)
+        self.assertEqual(len(tickets), 1)
         ticket = tickets[0]
         def displayed_value(prop):
             element = ticket.find_element_by_class_name(prop)
@@ -84,24 +89,25 @@ class IntegrationTest(GeekBaseCase):
         )
 
     def update_ticket(self, name, price):
-        self.input('#sell-ticket-name',name)
-        self.input('#sell-ticket-quantity',price)
+        self.input('#sell-ticket-name', name)
+        self.input('#sell-ticket-quantity', price)
         self.click('#update-submit')
 
     def test_create_posting(self):
         self.register_user(TEST_USER_1)
         self.login_user(TEST_USER_1)
-        self.sell_ticket(TEST_USER_1, TEST_TICKET)
+        self.sell_ticket(TEST_TICKET)
         self.assert_ticket_listed(TEST_TICKET)
         self.update_ticket(TEST_TICKET.name, price=36)
-        self.assert_ticket_listed(TEST_TICKET_V2)
+        self.assert_ticket_listed(TEST_TICKET_AFTER_UPDATE)
+        self.click('#logout')
 
     def read_balance(self):
         return int(self.find_element('#user-balance').text)
 
     def buy_ticket(self, name, quantity):
-        self.input('#buy-ticket-name',name)
-        self.input('#buy-ticket-quantity',quantity)
+        self.input('#buy-ticket-name', name)
+        self.input('#buy-ticket-quantity', quantity)
         self.click('#buy-submit')
 
     def test_purchase_ticket(self):
