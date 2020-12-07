@@ -10,7 +10,6 @@ write SQL queries such as 'select', 'update' etc.
 
 
 db = SQLAlchemy()
-db.init_app(app)
 
 
 class User(db.Model):
@@ -32,7 +31,11 @@ class Ticket(db.Model):
 
     seller = db.relationship('User',foreign_keys='Ticket.seller_id')
 
-# it creates all the SQL tables if they do not exist
-with app.app_context():
-    db.create_all()
-    db.session.commit()
+def create_tables():
+    db.init_app(app)
+    # it creates all the SQL tables if they do not exist
+    with app.app_context():
+        db.create_all()
+        db.session.commit()
+
+create_tables()

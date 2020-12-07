@@ -3,6 +3,7 @@ stores integration tests that verify both frontend
 and backend function in harmony
 '''
 
+import re
 from collections import namedtuple
 from qa327_test.frontend.geek_base import GeekBaseCase
 from qa327_test.conftest import base_url
@@ -45,6 +46,9 @@ TEST_TICKET_AFTER_BUY = WhiteBoxTicket(
     expires='20220101'
 )
 
+def digits_only(text):
+    return re.sub(r'\D', '', text)
+
 class IntegrationTest(GeekBaseCase):
     def register_user(self, user):
         self.click('#register-button')
@@ -67,11 +71,11 @@ class IntegrationTest(GeekBaseCase):
         self.click('#sell-submit')
 
     def assert_ticket_listed(self, ticket):
-        tickets = self.find_elements('#tickets .ticket')
-        self.assertEqual(len(tickets), 1)
-        ticket = tickets[0]
+        ticket_elements = self.find_elements('#tickets .ticket')
+        self.assertEqual(len(ticket_elements), 1)
+        ticket_element = ticket_elements[0]
         def displayed_value(prop):
-            element = ticket.find_element_by_class_name(prop)
+            element = ticket_element.find_element_by_class_name(prop)
             return element.text
         
         self.assertEqual(
@@ -83,7 +87,7 @@ class IntegrationTest(GeekBaseCase):
             ticket.quantity
         )
         self.assertEqual(
-            displayed_value('expires'),
+            digits_only(displayed_value('expires')),
             ticket.expires
         )
 
