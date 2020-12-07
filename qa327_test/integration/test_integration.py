@@ -12,14 +12,19 @@ WhiteBoxUser = namedtuple('WhiteBoxUser',[
     'email', 'name', 'password'
 ])
 
-TEST_USER_1 = WhiteBoxUser(
+TEST_USER_ALONE = WhiteBoxUser(
     email='testuser1@gmail.com',
     name='testuser1',
     password='Password99!'
 )
-TEST_USER_2 = WhiteBoxUser(
-    email='testuser2@gmail.com',
-    name='testuser2',
+TEST_USER_SELLER = WhiteBoxUser(
+    email='seller@gmail.com',
+    name='seller',
+    password='Password99!'
+)
+TEST_USER_BUYER = WhiteBoxUser(
+    email='buyer@gmail.com',
+    name='buyer',
     password='Password99!'
 )
 
@@ -39,10 +44,18 @@ TEST_TICKET_AFTER_UPDATE = WhiteBoxTicket(
     price='36',
     expires='20220101'
 )
-TEST_TICKET_AFTER_BUY = WhiteBoxTicket(
-    name='testticket',
+
+TICKET_BEFORE_BUY = WhiteBoxTicket(
+    name='purchasetestticket',
+    quantity='21',
+    price='20',
+    expires='20220101'
+)
+
+TICKET_AFTER_BUY = WhiteBoxTicket(
+    name='purchasetestticket',
     quantity='20',
-    price='36',
+    price='20',
     expires='20220101'
 )
 
@@ -71,9 +84,9 @@ class IntegrationTest(GeekBaseCase):
         self.click('#sell-submit')
 
     def assert_ticket_listed(self, ticket):
-        ticket_elements = self.find_elements('#tickets .ticket')
-        self.assertEqual(len(ticket_elements), 1)
-        ticket_element = ticket_elements[0]
+        ticket_element = self.find_element(
+            f'#tickets .ticket[name="{ticket.name}"]'
+        )
         def displayed_value(prop):
             element = ticket_element.find_element_by_class_name(prop)
             return element.text
@@ -98,8 +111,8 @@ class IntegrationTest(GeekBaseCase):
 
     def test_create_posting(self):
         self.open(base_url)
-        self.register_user(TEST_USER_1)
-        self.login_user(TEST_USER_1)
+        self.register_user(TEST_USER_ALONE)
+        self.login_user(TEST_USER_ALONE)
         self.sell_ticket(TEST_TICKET)
         self.assert_ticket_listed(TEST_TICKET)
         self.update_ticket(TEST_TICKET.name, price=36)
@@ -114,18 +127,26 @@ class IntegrationTest(GeekBaseCase):
         self.input('#buy-ticket-quantity', quantity)
         self.click('#buy-submit')
 
+    def list_ticket(self):
+        self.open(base_url)
+        self.register_user(TEST_USER_SELLER)
+        self.login_user(TEST_USER_SELLER)
+        self.sell_ticket(TICKET_BEFORE_BUY)
+        self.click('#logout')
+
     def test_purchase_ticket(self):
-        self.test_create_posting()
-        self.register_user(TEST_USER_2)
-        self.login_user(TEST_USER_2)
+        self.list_ticket()
+        self.register_user(TEST_USER_BUYER)
+        self.login_user(TEST_USER_BUYER)
         initial_balance = self.read_balance()
         self.buy_ticket(
-            TEST_TICKET_AFTER_UPDATE.name, 
-            TEST_TICKET_AFTER_UPDATE.quantity
+            TICKET_BEFORE_BUY.name,
+            1
         )
-        self.assert_ticket_listed(TEST_TICKET_AFTER_BUY)
+        self.assert_ticket_listed(TICKET_AFTER_BUY)
         new_balance = self.read_balance()
         self.assertEqual(
             initial_balance-new_balance,
-            TEST_TICKET_AFTER_UPDATE.price
+            int(int(TICKET_AFTER_BUY.price)*1.4)
         )
+        # TODO log back into first user and check balance went up
