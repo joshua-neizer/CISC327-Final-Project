@@ -71,7 +71,7 @@ class R6Test(GeekBaseCase):
         assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
+    @patch('qa327.backend.get_ticket_by_name', return_value=TEST_TICKET)
     def test_ticket_quant(self, *_):
         '''
         see r6.4.4 - negative
@@ -86,7 +86,7 @@ class R6Test(GeekBaseCase):
         assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
+    @patch('qa327.backend.get_ticket_by_name', return_value=TEST_TICKET)
     def test_invalid_balance(self, *_):
         '''
         see r6.4.4 - negative
@@ -102,7 +102,7 @@ class R6Test(GeekBaseCase):
         assert self.get_current_url() == base_url+'/'
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
-    @patch('qa327.backend.get_ticket_byname', return_value=TEST_TICKET)
+    @patch('qa327.backend.get_ticket_by_name', return_value=TEST_TICKET)
     def test_buy_ticket_success(self, *_):
         '''
         see r6.1 - r.6 - positive

@@ -32,7 +32,7 @@
 </tr>
 
 <tr>
-    <td>test_ticket_quant()</td>
+    <td>test_invalid_quant()</td>
     <td>Verify that ticket quantity must be >0 and <=100</td>
     <td>Cannot concatenate int to str</td>
     <td>Wrong syntax</td>
@@ -45,6 +45,14 @@
     <td>Flash not found for 'Account balance is too low'</td>
     <td>Was logging in with TEST_USER, not BAD_USER</td>
     <td>Mocked logging in with correct user</td>
+</tr>
+    <td>test_ticket_quant()</td>
+    <td>Verify that enough tickets are available for purchase</td>
+    <td>Flash not found for 'Not enough tickets are available'</td>
+    <td>Was not mocking backend correctly because it wasn't used in the backend.buy_ticket() function</td>
+    <td>Created buy_ticket_byname() to be used</td>
+<tr>
+    
 </tr>
 
 </tbody></table>
