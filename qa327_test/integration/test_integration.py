@@ -27,9 +27,15 @@ TEST_TICKET = WhiteBoxTicket(
     price='35',
     expires='20220101'
 )
-TEST_TICKET_V2 = WhiteBoxTicket(
+TEST_TICKET_AFTER_UPDATE = WhiteBoxTicket(
     name='testticket',
     quantity='21',
+    price='36',
+    expires='20220101'
+)
+TEST_TICKET_AFTER_BUY = WhiteBoxTicket(
+    name='testticket',
+    quantity='20',
     price='36',
     expires='20220101'
 )
@@ -85,7 +91,31 @@ class IntegrationTest(GeekBaseCase):
     def test_create_posting(self):
         self.register_user(TEST_USER_1)
         self.login_user(TEST_USER_1)
-        self.sell_ticket(TEST_USER_1,TEST_TICKET)
+        self.sell_ticket(TEST_USER_1, TEST_TICKET)
         self.assert_ticket_listed(TEST_TICKET)
-        self.update_ticket(TEST_TICKET.name,price=36)
+        self.update_ticket(TEST_TICKET.name, price=36)
         self.assert_ticket_listed(TEST_TICKET_V2)
+
+    def read_balance(self):
+        return int(self.find_element('#user-balance').text)
+
+    def buy_ticket(self, name, quantity):
+        self.input('#buy-ticket-name',name)
+        self.input('#buy-ticket-quantity',quantity)
+        self.click('#buy-submit')
+
+    def test_purchase_ticket(self):
+        self.test_create_posting()
+        self.register_user(TEST_USER_2)
+        self.login_user(TEST_USER_2)
+        initial_balance = self.read_balance()
+        self.buy_ticket(
+            TEST_TICKET_AFTER_UPDATE.name, 
+            TEST_TICKET_AFTER_UPDATE.quantity
+        )
+        self.assert_ticket_listed(TEST_TICKET_AFTER_BUY)
+        new_balance = self.read_balance()
+        self.assertEqual(
+            initial_balance-new_balance,
+            TEST_TICKET_AFTER_UPDATE.price
+        )
