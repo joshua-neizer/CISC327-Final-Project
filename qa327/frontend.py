@@ -134,7 +134,6 @@ def buy_post(user):
         return home_page('Invalid ticket quantity')
 
     buy_status = bn.buy_ticket(user, name, int(quantity))
-    print(buy_status)
     return home_page(buy_status)
 
 @app.route('/sell', methods=['POST'])
