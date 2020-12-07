@@ -128,7 +128,7 @@ class R5Test(GeekBaseCase):
             self.click('#update-submit')
 
             # Verifies error message for invalid ticket name format
-            self.assert_flash('Ticket name format is inccorrect')
+            self.assert_flash('Ticket name format is incorrect')
 
         # Logs user out the current session
         self.open(base_url+'/logout')
@@ -186,7 +186,7 @@ class R5Test(GeekBaseCase):
             self.click('#update-submit')
 
             # Verifies error message for invalid ticket name format
-            self.assert_flash('Ticket name format is inccorrect')
+            self.assert_flash('Ticket name format is incorrect')
 
         # Logs user out the current session
         self.open(base_url+'/logout')
@@ -244,7 +244,7 @@ class R5Test(GeekBaseCase):
             self.click('#update-submit')
 
             # Verifies error message for invalid ticket quantity format
-            self.assert_flash('Ticket quantity format is inccorrect')
+            self.assert_flash('Ticket quantity format is incorrect')
 
         # Logs user out the current session
         self.open(base_url+'/logout')
@@ -300,7 +300,7 @@ class R5Test(GeekBaseCase):
             self.click('#update-submit')
 
             # Verifies error message for invalid ticket price format
-            self.assert_flash('Ticket price format is inccorrect')
+            self.assert_flash('Ticket price format is incorrect')
 
         # Logs user out the current session
         self.open(base_url+'/logout')
@@ -356,7 +356,7 @@ class R5Test(GeekBaseCase):
             self.click('#update-submit')
 
             # Verifies error message for invalid ticket expiration date format
-            self.assert_flash('Ticket expiration date format is inccorrect')
+            self.assert_flash('Ticket expiration date format is incorrect')
 
         # Logs user out the current session
         self.open(base_url+'/logout')
