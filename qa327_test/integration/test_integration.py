@@ -106,7 +106,7 @@ class IntegrationTest(GeekBaseCase):
 
     def update_ticket(self, name, price):
         self.input('#sell-ticket-name', name)
-        self.input('#sell-ticket-quantity', price)
+        self.input('#sell-ticket-quantity', str(price))
         self.click('#update-submit')
 
     def test_create_posting(self):
@@ -124,7 +124,7 @@ class IntegrationTest(GeekBaseCase):
 
     def buy_ticket(self, name, quantity):
         self.input('#buy-ticket-name', name)
-        self.input('#buy-ticket-quantity', quantity)
+        self.input('#buy-ticket-quantity', str(quantity))
         self.click('#buy-submit')
 
     def list_ticket(self):
