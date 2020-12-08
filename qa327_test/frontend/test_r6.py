@@ -5,7 +5,10 @@ Test requirements according to R6
 from unittest.mock import patch
 from werkzeug.security import generate_password_hash
 from qa327_test.conftest import base_url
-from qa327_test.frontend.geek_base import GeekBaseCase, TEST_USER, TEST_TICKET
+from qa327_test.frontend.geek_base import (
+    GeekBaseCase, 
+    TEST_USER, TEST_TICKET
+)
 from qa327.models import User
 
 INVALID_NAMES = ['special^char', 'ticket ', ' ticket', 
