@@ -11,10 +11,17 @@ TEST_USER = User(
     balance=500
 )
 
+TEST_USER_SELLER = User(
+    email='test_seller@test.com',
+    name='test_seller',
+    password=generate_password_hash('Password99!'),
+    balance=500
+)
+
 # Mock a sample ticket
 TEST_TICKET = Ticket(
     name='helloworld',
-    seller_id='1',
+    seller=TEST_USER_SELLER,
     price=20,
     quantity=20,
     expires="20220101"
