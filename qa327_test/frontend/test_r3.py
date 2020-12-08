@@ -11,8 +11,8 @@ from qa327.ticket_format import parse_date
 
 # Moch some sample tickets
 TEST_TICKETS = [
-    {'name': 't1', 'price': '100', 'owner': 'god', 'count': 2},
-    {'name': 't2', 'price': '90', 'owner': 'geek', 'count': 3},
+    {'name': 't1', 'price': '100', 'owner': 'god', 'quantity': 2},
+    {'name': 't2', 'price': '90', 'owner': 'geek', 'quantity': 3},
 ]
 
 HELLO_TICKET = Ticket(
