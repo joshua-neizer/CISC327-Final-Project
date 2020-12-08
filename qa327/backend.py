@@ -96,7 +96,7 @@ def sell_ticket(user, name, quantity, price, expiration):
         name=name,
         quantity=quantity,
         price=price,
-        expires=expiration,
+        expires=parse_date(expiration),
         seller=user
     )
     db.session.add(ticket)
