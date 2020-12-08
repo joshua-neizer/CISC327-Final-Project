@@ -103,6 +103,7 @@ class R6Test(GeekBaseCase):
 
     @patch('qa327.backend.get_user', return_value=TEST_USER)
     @patch('qa327.backend.get_ticket_by_name', return_value=TEST_TICKET)
+    @patch('qa327.backend.buy_ticket', return_value='Ticket bought successfully')
     def test_buy_ticket_success(self, *_):
         '''
         see r6.1 - r.6 - positive

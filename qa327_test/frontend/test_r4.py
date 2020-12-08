@@ -18,7 +18,7 @@ GOOD_TICKET = Ticket(
     expires="20220101"
 )
 
-GOOD_TICKET_DICT = [{'name': 'helloworld', 'price': '20', 'owner': 'jesus', 'count': '20'}]
+GOOD_TICKET_DICT = [{'name': 'helloworld', 'price': '20', 'owner': 'jesus', 'quantity': '20'}]
 
 INVALID_NAME_FORMATS = ['bad', ' alsobad', 'alsobad ', '$alsobad$',
                         'veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerylongname']
