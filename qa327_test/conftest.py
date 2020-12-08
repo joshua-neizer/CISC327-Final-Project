@@ -4,10 +4,11 @@ import os
 import signal
 import time
 import tempfile
-from qa327.__main__ import FLASK_PORT
 from qa327.__main__ import app
+from qa327.models import create_tables
 import threading
 from werkzeug.serving import make_server
+from flask_sqlalchemy import SQLAlchemy
 
 # separate port allows tests to be run while hosting
 # actual app
@@ -36,7 +37,11 @@ def server():
     with tempfile.TemporaryDirectory() as tmp_folder:
         # create a live server for testing
         # with a temporary file as database
-        db = os.path.join(tmp_folder, 'db.sqlite')
+        database_file = os.path.join(tmp_folder, 'db.sqlite')
+        database_url = 'sqlite:///'+database_file
+        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+        create_tables()
+
         server = ServerThread()
         server.start()
         time.sleep(5)

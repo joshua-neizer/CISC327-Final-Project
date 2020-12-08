@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 from werkzeug.security import generate_password_hash
 from qa327_test.conftest import base_url
-from qa327.models import User
+from qa327.models import User, Ticket
 
 # Mock a sample user
 TEST_USER = User(
@@ -9,6 +9,15 @@ TEST_USER = User(
     name='test_frontend',
     password=generate_password_hash('test_frontend'),
     balance=500
+)
+
+# Mock a sample ticket
+TEST_TICKET = Ticket(
+    name='helloworld',
+    seller_id='1',
+    price=20,
+    quantity=20,
+    expires="20220101"
 )
 
 class GeekBaseCase(BaseCase):
