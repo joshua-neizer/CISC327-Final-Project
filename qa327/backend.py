@@ -85,6 +85,7 @@ def buy_ticket(user, name, buy_quantity):
 
     ticket.quantity -= buy_quantity
     user.balance -= ticket_cost
+    ticket.seller.balance += ticket.price
     db.session.commit()
 
     return 'Ticket bought successfully'
