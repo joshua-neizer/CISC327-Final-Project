@@ -147,7 +147,7 @@ def sell_post(user):
     name = request.form.get('ticket-name')
     quantity = request.form.get('ticket-quantity')
     price = request.form.get('ticket-price')
-    expiration = parse_date(request.form.get('ticket-expiration-date'))
+    expiration = request.form.get('ticket-expiration-date')
 
     home_page = make_page_with_flash('/')
 
@@ -179,22 +179,22 @@ def update_post(user):
     upt_ticket_name = request.form.get('updated-ticket-name')
     ticket_quantity = request.form.get('ticket-quantity')
     ticket_price = request.form.get('ticket-price')
-    ticket_expiration_date = parse_date(request.form['ticket-expiration-date'])
+    ticket_expiration_date = request.form['ticket-expiration-date']
 
     if not bn.get_ticket(user.id, prev_ticket_name):
-        return home_page("Ticket doesn't exist")
+        return home_page("Ticket does not exist")
 
     if upt_ticket_name and not is_valid_ticket_name(upt_ticket_name):
-        return home_page("Ticket name format is inccorrect")
+        return home_page("Ticket name format is incorrect")
 
     if ticket_quantity and not is_valid_quantity(ticket_quantity):
-        return home_page("Ticket quantity format is inccorrect")
+        return home_page("Ticket quantity format is incorrect")
 
     if ticket_price and not is_valid_price(ticket_price):
-        return home_page("Ticket price format is inccorrect")
+        return home_page("Ticket price format is incorrect")
 
     if ticket_expiration_date and not is_valid_date(ticket_expiration_date):
-        return home_page("Ticket expiration date format is inccorrect")
+        return home_page("Ticket expiration date format is incorrect")
 
     if not bn.update_ticket(user.id, request.form):
         return home_page("Error updating your ticket, please try again")

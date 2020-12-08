@@ -61,11 +61,10 @@ def parse_date(date_string):
     except ValueError:
         return None
 
-def is_valid_date(date):
+def is_valid_date(date_string):
     '''
     returns a boolean indicating whether a ticket date
     is valid according to the spec
     '''
-    # tickets can only be sold for future events
-    # sorry mcfly :(
-    return date and date > datetime.now()
+    date = parse_date(date_string)
+    return bool(date and date > datetime.now())
