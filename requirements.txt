@@ -34,3 +34,4 @@ datetime==4.3
 flask-pytest
 seleniumbase
 python-dateutil
+pymysql

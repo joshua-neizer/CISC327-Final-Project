@@ -1,0 +1,2 @@
+-- create the DBs
+CREATE DATABASE IF NOT EXISTS qa327;
