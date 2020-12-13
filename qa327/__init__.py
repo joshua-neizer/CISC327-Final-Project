@@ -26,7 +26,7 @@ db_string = os.getenv('db_string')
 if db_name:
     database_url = "sqlite:////" + db_name
 elif db_string:
-    database_url = "sqlite:////" + db_string
+    database_url = db_string
 else:
     # default:
     # db.sqlite at the working directory

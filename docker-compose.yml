@@ -13,6 +13,7 @@ services:
     command:  ["./wait-for-it.sh", "seetgeek-db:3306", "--strict" , "--timeout=300", "--", "python", "-m", "qa327"]
     networks:
       - seetgeek-site
+    build: .
   
   seetgeek-db:
     image: mysql:5.7
